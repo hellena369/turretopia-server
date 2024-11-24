@@ -1,7 +1,7 @@
 const { base} = require('../constants.js');
 const g = require('../gunvals.js')
-const { addAura, makeAuto, makeDeco, makeTurret, makeOver, combineStats, weaponArray, makeRadialAuto } = require("../facilitators.js");
-const { statnames, smshskl, ethskl } = require("../constants.js");
+const { addAura, makeAuto, makeDeco, makeTurret, makeOver, combineStats, weaponArray } = require("../facilitators.js");
+const { statnames, smshskl } = require("../constants.js");
 // Addon for base turretopia stuff
 const fakeGun = [
     {
@@ -756,33 +756,6 @@ Class.cortex = {
         }
     ]
 }
-Class.beeseer = {
-    PARENT: "genericTank",
-    LABEL: "Beeseer",
-    DANGER: 6,
-    STAT_NAMES: statnames.drone,
-    BODY: {
-        FOV: 1.1 * base.FOV,
-    },
-    TURRETS: [
-        {
-            POSITION: [8, 0, 0, 0, 300, 1],
-            TYPE: "tempestDeco1",
-        },
-    ],
-    MAX_CHILDREN: 8,
-    GUNS: weaponArray({
-        POSITION: [6, 12, 1.2, 8, 0, 90, 0],
-        PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.drone, g.overseer]),
-            TYPE: "beeDrone",
-            AUTOFIRE: true,
-            SYNCS_SKILLS: true,
-            STAT_CALCULATOR: "drone",
-            WAIT_TO_CYCLE: true
-        }
-    }, 2)
-}
 Class.wraith = {
     PARENT: "genericTank",
     LABEL: "Wraith",
@@ -915,7 +888,7 @@ Class.gunnerCruiser = {
     },
     GUNS: [
         {
-            POSITION: [4, 7.5, 0.6, 7, 5.5, 0, 0],
+            POSITION: [8, 7.5, 0.6, 4, 5.5, 0, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.swarm, g.swarmeer]),
                 TYPE: "swarm",
@@ -923,7 +896,7 @@ Class.gunnerCruiser = {
             },
         },
         {
-            POSITION: [4, 7.5, 0.6, 7, -5.5, 0, 0.5],
+            POSITION: [8, 7.5, 0.6, 4, -5.5, 0, 0.5],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.swarm, g.swarmeer]),
                 TYPE: "swarm",
@@ -1034,8 +1007,7 @@ Class.sentrySeer = {
                 TYPE: ["sentrySwarmMinion", { COLOR: "mirror"}],
                 SYNCS_SKILLS: true,
                 STAT_CALCULATOR: "drone",
-                AUTOFIRE: true,
-                COLOR: "pink"
+                AUTOFIRE: true
             },
         }, {
             POSITION: [6, 12, 1.2, 8, 0, 0, 0],
@@ -1044,8 +1016,7 @@ Class.sentrySeer = {
                 TYPE: ["sentryTrapMinion", { COLOR: "mirror"}],
                 SYNCS_SKILLS: true,
                 STAT_CALCULATOR: "drone",
-                AUTOFIRE: true,
-                COLOR: "pink"
+                AUTOFIRE: true
             },
         }, {
             POSITION: [6, 12, 1.2, 8, 0, 240, 0],
@@ -1054,10 +1025,17 @@ Class.sentrySeer = {
                 TYPE: ["sentryGunMinion", { COLOR: "mirror"}],
                 SYNCS_SKILLS: true,
                 STAT_CALCULATOR: "drone",
-                AUTOFIRE: true,
-                COLOR: "pink"
+                AUTOFIRE: true
             },
         },
+        ...weaponArray(
+            {
+                POSITION: [6, 12, 0.1, 8, 0, 120, 0],
+                PROPERTIES: {
+                    COLOR: "pink"
+                }
+            }, 3
+        )
     ],
 }
 Class.sentinelLauncherMinion = {
@@ -1076,6 +1054,27 @@ Class.sentinelLauncherMinion = {
             POSITION: [18.55, 20.25, 0.25, 1, 0, 0, 0],
         },
     ],
+}
+Class.overviewer = {
+    PARENT: "genericTank",
+    LABEL: "Overviewer",
+    DANGER: 6,
+    STAT_NAMES: statnames.drone,
+    BODY: {
+        FOV: 1.1 * base.FOV,
+    },
+    MAX_CHILDREN: 8,
+    GUNS: weaponArray({
+        POSITION: [6, 12, 1.2, 8, 0, 120, 0],
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.drone, g.overseer, { reload: 1.1 }]),
+            TYPE: "drone",
+            AUTOFIRE: true,
+            SYNCS_SKILLS: true,
+            STAT_CALCULATOR: "drone",
+            WAIT_TO_CYCLE: true
+        }
+    }, 3)
 }
 Class.sentinelCrossbowMinion = {
     ...sentinelMinionProps,
@@ -1971,7 +1970,7 @@ Class.hawk = makeOver(Class.triAngle, "Hawk", { count: 1, independet: true })
 Class.smashGuard = {
     PARENT: "basic",
     LABEL: "Smasher Guard",
-    SKILL_CAP: Array(10).fill(smshskl),
+    
     TURRETS: [
         ...smashBody
     ],
@@ -1988,7 +1987,7 @@ Class.smashGuard = {
 Class.tankGuardian = {
     PARENT: "trapGuard",
     LABEL: "Tank Guardian",
-    SKILL_CAP: Array(10).fill(smshskl),
+    
     TURRETS: [
         ...smashBody
     ]
@@ -1996,7 +1995,7 @@ Class.tankGuardian = {
 Class.homelandDefender = {
     PARENT: "bushwhacker",
     LABEL: "Homeland Defender",
-    SKILL_CAP: Array(10).fill(smshskl),
+    
     TURRETS: [
         ...smashBody
     ]
@@ -3238,7 +3237,6 @@ Class.top = {
             TYPE: ["autoTankGun", { INDEPENDENT: true }]
         }
     ],
-    SKILL_CAP: Array(10).fill(smshskl),
     BODY: {
         DAMAGE: 1.5 * base.DAMAGE
     }
@@ -3256,7 +3254,6 @@ Class.presidio = {
             TYPE: ["autoTankGun", { INDEPENDENT: true }]
         }
     ],
-    SKILL_CAP: Array(10).fill(smshskl),
     BODY: {
         DAMAGE: 2 * base.DAMAGE
     }
@@ -3274,7 +3271,6 @@ Class.entrenchment = {
             TYPE: ["autoTankGun", { INDEPENDENT: true }]
         }
     ],
-    SKILL_CAP: Array(10).fill(smshskl),
     BODY: {
         DAMAGE: 2.5 * base.DAMAGE
     }
@@ -3292,7 +3288,6 @@ Class.outpost = {
             TYPE: ["autoDoubleTurret", { INDEPENDENT: true }]
         }
     ],
-    SKILL_CAP: Array(10).fill(smshskl),
     BODY: {
         DAMAGE: 1.5 * base.DAMAGE
     }
@@ -3310,7 +3305,6 @@ Class.stockade = {
             TYPE: ["tripletAutoTankTurret", { INDEPENDENT: true }]
         }
     ],
-    SKILL_CAP: Array(10).fill(smshskl),
     BODY: {
         DAMAGE: 1.5 * base.DAMAGE
     }
@@ -3329,7 +3323,6 @@ Class.buffer = {
             TYPE: ["autoTankGun", { INDEPENDENT: true }]
         }
     ],
-    SKILL_CAP: Array(10).fill(smshskl),
     BODY: {
         DAMAGE: 1.5 * base.DAMAGE,
         HEALTH: 1.75 * base.HEALTH * 2
@@ -3349,7 +3342,6 @@ Class.cage = {
             TYPE: ["autoTankGun", { INDEPENDENT: true }]
         }
     ],
-    SKILL_CAP: Array(10).fill(smshskl),
     BODY: {
         DAMAGE: 1.5 * base.DAMAGE,
         HEALTH: 2.5 * base.HEALTH * 2
@@ -3375,7 +3367,7 @@ Class.consolidation = {
             TYPE: ["autoDoubleTurret", { INDEPENDENT: true }]
         }
     ],
-    SKILL_CAP: Array(10).fill(smshskl),
+    
     BODY: {
         DAMAGE: 1.5 * base.DAMAGE,
         HEALTH: 1.75 * base.HEALTH * 2
@@ -3395,7 +3387,7 @@ Class.penitaniary = {
             TYPE: ["autoTankGun", { INDEPENDENT: true }]
         }
     ],
-    SKILL_CAP: Array(10).fill(smshskl),
+    
     BODY: {
         DAMAGE: 2 * base.DAMAGE,
         HEALTH: 1.75 * base.HEALTH * 2
@@ -3415,7 +3407,7 @@ Class.garrison = {
             TYPE: "auraTankGen"
         }
     ],
-    SKILL_CAP: Array(10).fill(smshskl),
+    
     BODY: {
         DAMAGE: 1.5 * base.DAMAGE
     }
@@ -3433,7 +3425,7 @@ Class.commandPost = {
             TYPE: "auraTankGenBig"
         }
     ],
-    SKILL_CAP: Array(10).fill(smshskl),
+    
     BODY: {
         DAMAGE: 1.5 * base.DAMAGE
     }
@@ -3451,7 +3443,7 @@ Class.hangar = {
             TYPE: "auraTankGenBigger"
         }
     ],
-    SKILL_CAP: Array(10).fill(smshskl),
+    
     BODY: {
         DAMAGE: 1.5 * base.DAMAGE
     }
@@ -3469,7 +3461,7 @@ Class.aerosols = {
             TYPE: "auraTankGen"
         }
     ],
-    SKILL_CAP: Array(10).fill(smshskl),
+    
     BODY: {
         DAMAGE: 2 * base.DAMAGE
     }
@@ -3487,7 +3479,7 @@ Class.drizzle = {
             TYPE: "auraTankGenBig"
         }
     ],
-    SKILL_CAP: Array(10).fill(smshskl),
+    
     BODY: {
         DAMAGE: 2 * base.DAMAGE
     }
@@ -3523,7 +3515,7 @@ Class.jetstream= {
             TYPE: "auraTankGen"
         }
     ],
-    SKILL_CAP: Array(10).fill(smshskl),
+    
     BODY: {
         DAMAGE: 1.5 * base.DAMAGE,
         HEALTH: 1.75 * base.HEALTH * 2
@@ -3543,7 +3535,7 @@ Class.arboretum= {
             TYPE: "auraTankGen"
         }
     ],
-    SKILL_CAP: Array(10).fill(smshskl),
+    
     BODY: {
         DAMAGE: 2 * base.DAMAGE,
         HEALTH: 1.75 * base.HEALTH * 2
@@ -3564,7 +3556,7 @@ Class.ozone= {
             TYPE: "auraTankGen"
         }
     ],
-    SKILL_CAP: Array(10).fill(smshskl),
+    
     BODY: {
         DAMAGE: 1.5 * base.DAMAGE,
         HEALTH: 2.5 * base.HEALTH * 2
@@ -3594,7 +3586,7 @@ Class.orchard= {
             TYPE: "auraTankGenBig"
         }
     ],
-    SKILL_CAP: Array(10).fill(smshskl),
+    
     BODY: {
         DAMAGE: 2 * base.DAMAGE,
         HEALTH: 1.75 * base.HEALTH * 2
@@ -3606,7 +3598,7 @@ const etherealDeco = {
     SHAPE: 3.5,
     COLOR: "teal",
     SIZE: 20,
-    SKILL_CAP: Array(10).fill(smshskl),
+    
 }
 const smolEtherealBody = {
     SPEED: base.SPEED * 0.7,
@@ -3841,12 +3833,12 @@ Class.cruiser.UPGRADES_TIER_3.push("wraith", "gunnerCruiser")
 Class.artillery.UPGRADES_TIER_3.push("munition")
 Class.director.UPGRADES_TIER_1.push("strangler")
 Class.strangler.UPGRADES_TIER_2 = ["storm", "overdrive"]
-Class.storm.UPGRADES_TIER_3 = ["cortex", "beeseer"]
+Class.storm.UPGRADES_TIER_3 = ["cortex"]
 Class.radical.UPGRADES_TIER_2 = ["smasher", "bumblebee", "healer", "desmos"]
 Class.radical.UPGRADES_TIER_4 = ["advanced"]
 Class.gunner.UPGRADES_TIER_3.push("gunnerCruiser")
 //Class.trapGuard.UPGRADES_TIER_3.push("whirlGuard")
-Class.advanced.UPGRADES_TIER_5 = ["switcheroo", "realtor", "screamer", "homelandDefender", "flail"]
+Class.advanced.UPGRADES_TIER_5 = ["switcheroo", "realtor", "screamer", "flail"]
 Class.polyseer.UPGRADES_TIER_3 = ["polymancer", "polyshadow"]
 Class.fullyAutomatic.UPGRADES_TIER_3 = ["assaulter", "microgun"]
 Class.flankGuard.UPGRADES_TIER_2.push("ringer", "realstar")
@@ -3875,7 +3867,6 @@ Class.trapper.UPGRADES_TIER_1 = ["builder", "triTrapper", "trapGuard"]
         Class.planetary.UPGRADES_TIER_3 = ["conqueror"]
         Class.boomer.UPGRADES_TIER_3 = ["parryer"]
         Class.overtrapper.UPGRADES_TIER_3 = ["highlord"]
-        Class.hijacker.UPGRADES_TIER_3 = ["bomber"]
         Class.bulwark.UPGRADES_TIER_3 = ["parapet"]
         Class.engineer.UPGRADES_TIER_3 = ["mechanic", "specializer", "programmer"]
         Class.barracuda.UPGRADES_TIER_3 = ["barricade"]

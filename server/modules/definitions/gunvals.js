@@ -58,7 +58,7 @@ module.exports = {
         baseProtector: { reload: 2, recoil: 0, health: 100, range: 0.5, density: 5, resist: 10 },
         battleship: { health: 1.5, damage: 2, maxSpeed: 0.85, resist: 1.1 },
         carrier: { reload: 1.25, speed: 1.3, maxSpeed: 1.2, range: 1.2 },
-        bee: { reload: 1.3, size: 1.4, damage: 2, pen: 0.8, speed: 1.5, maxSpeed: 1.5, density: 0.25 },
+        bee: { reload: 1.3, size: 1.8, damage: 2, pen: 0.8, speed: 1.5, maxSpeed: 1.5, density: 0.25 },
         sunchip: { reload: 4, size: 1.4, health: 1.1, damage: 1.1, pen: 0.6, density: 0.8 },
         maleficitor: { reload: 0.25, size: 1.05, health: 1.15, damage: 1.15, pen: 1.15, speed: 0.8, maxSpeed: 0.8, density: 1.15 },
         summoner: { reload: 0.3, size: 1.125, health: 0.5, damage: 0.345, pen: 0.4, density: 0.8 },
@@ -68,7 +68,7 @@ module.exports = {
         mothership: { reload: 1.25, pen: 1.1, speed: 0.775, maxSpeed: 0.8, range: 15, resist: 1.15 },
         satellite: { size: 0.8, reload: 3, damage: 1.875 },
         negro: { reload: 0.5 },
-        swarmeer: { reload: 0.8 },
+        swarmeer: { reload: 0.95 },
         babyDrone: { reload: 1.5, health: 0.6, damage: 0.7, speed: 0.9, maxSpeed: 0.9, size: 2 },
     
     // Heavy cannons
