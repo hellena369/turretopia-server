@@ -1,0 +1,19 @@
+{
+  "name": "Turretopia",
+  "version": "0.0.1",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index"
+  },
+  "dependencies": {
+    "google-closure-library": "^20230802.0.0",
+    "node-fetch": "^3.2.8",
+    "web-streams-polyfill": "^4.0.0",
+    "ws": "^8.18.0",
+    "zlib": "^1.0.5"
+  },
+  "engines": {
+    "node": ">=18.x"
+  },
+  "license": "GPL-3.0"
+}
