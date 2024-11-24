@@ -3820,7 +3820,7 @@ Class.mechanism = {
 //length, width, aspect, x, y, angle, delay
 //size, x, y, angle, arc, layer
 
-Class.smasher.UPGRADES_TIER_3.push("expansive", "smashGuard")
+//Class.smasher.UPGRADES_TIER_3.push("expansive", "smashGuard")
 //Class.smasher.UPGRADES_TIER_6 = ["starSystem"]
 Class.annihilator.UPGRADES_TIER_8 = ["doubleDestroyer"]
 Class.twin.UPGRADES_TIER_8 = ["doubleDestroyer", "bulldozer"]
