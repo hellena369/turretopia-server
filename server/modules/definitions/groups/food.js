@@ -70,9 +70,9 @@ Class.transEgg = makeRare("egg", 4); //ironic
 Class.square = {
     PARENT: "food",
     LABEL: "Square",
-    VALUE: 30,
+    VALUE: 120,
     SHAPE: 4,
-    SIZE: 18,
+    SIZE: 15,
     COLOR: "orange",
     BODY: {
         DAMAGE: basePolygonDamage,
@@ -95,10 +95,10 @@ Class.transSquare = makeRare("square", 4);
 Class.triangle = {
     PARENT: "food",
     LABEL: "Triangle",
-    VALUE: 120,
+    VALUE: 30,
     SHAPE: 3,
     SIZE: 8,
-    COLOR: "orange",
+    COLOR: "yellow",
     BODY: {
         DAMAGE: basePolygonDamage,
         DENSITY: 4,
@@ -118,7 +118,7 @@ Class.transTriangle = makeRare("triangle", 4);
 Class.pentagon = {
     PARENT: "food",
     LABEL: "Pentagon",
-    VALUE: 400,
+    VALUE: 500,
     SHAPE: 5,
     SIZE: 21,
     COLOR: "purple",
@@ -152,7 +152,7 @@ Class.betaPentagon = {
         HEALTH: 75 * basePolygonHealth,
         RESIST: Math.pow(1.25, 2),
         PENETRATION: 1.1,
-        SHIELD: 20 * basePolygonHealth,
+        SHIELD: 20 * 5,
         ACCELERATION: 0.003
     },
     DRAW_HEALTH: true,
@@ -178,7 +178,7 @@ Class.alphaPentagon = {
         HEALTH: 562.5 * basePolygonHealth,
         RESIST: Math.pow(1.25, 3),
         PENETRATION: 1.1,
-        SHIELD: 40 * basePolygonHealth,
+        SHIELD: 40 * 5,
         ACCELERATION: 0.0025
     },
     DRAW_HEALTH: true,
@@ -194,7 +194,7 @@ Class.transAlphaPentagon = makeRare("alphaPentagon", 4);
 Class.hexagon = {
     PARENT: "food",
     LABEL: "Hexagon",
-    VALUE: 500,
+    VALUE: 1000,
     SHAPE: 6,
     SIZE: 25,
     COLOR: "hexagon",
@@ -203,7 +203,7 @@ Class.hexagon = {
         DENSITY: 6,
         HEALTH: 20 * basePolygonHealth,
         RESIST: 1.3,
-        SHIELD: 50 * basePolygonHealth,
+        SHIELD: 50 * 5,
         PENETRATION: 1.1,
         ACCELERATION: 0.003
     },
@@ -214,6 +214,82 @@ Class.legendaryHexagon = makeRare("hexagon", 1);
 Class.shadowHexagon = makeRare("hexagon", 2);
 Class.rainbowHexagon = makeRare("hexagon", 3);
 Class.transHexagon = makeRare("hexagon", 4);
+
+Class.heptagon = {
+    PARENT: "food",
+    LABEL: "Heptagon",
+    VALUE: 3000,
+    SHAPE: 7,
+    SIZE: 35,
+    COLOR: "tangerine",
+    BODY: {
+        DAMAGE: 2 * basePolygonDamage,
+        DENSITY: 30,
+        HEALTH: 60 * basePolygonHealth,
+        RESIST: 1.6,
+        PENETRATION: 1.1,
+        SHIELD: 30 * 5,
+        ACCELERATION: 0.00265
+    },
+    DRAW_HEALTH: true,
+};
+
+Class.octagon = {
+    PARENT: "food",
+    LABEL: "Octagon",
+    VALUE: 8e3,
+    SHAPE: 8,
+    SIZE: 56,
+    COLOR: "lavender",
+    BODY: {
+        DAMAGE: 3 * basePolygonDamage,
+        DENSITY: 30,
+        HEALTH: 100 * basePolygonHealth,
+        RESIST: 2.1,
+        PENETRATION: 1.3,
+        SHIELD: 35 * 5,
+        ACCELERATION: 0.0018
+    },
+    DRAW_HEALTH: true,
+};
+
+Class.nonagon = {
+    PARENT: "food",
+    LABEL: "Nonagon",
+    VALUE: 15e3,
+    SHAPE: 9,
+    SIZE: 70,
+    COLOR: "white",
+    BODY: {
+        DAMAGE: 3 * basePolygonDamage,
+        DENSITY: 40,
+        HEALTH: 150 * basePolygonHealth,
+        RESIST: 2.5,
+        PENETRATION: 1.4,
+        SHIELD: 45 * 5,
+        ACCELERATION: 0.0012
+    },
+    DRAW_HEALTH: true,
+};
+
+Class.decagon = {
+    PARENT: "food",
+    LABEL: "Decagon",
+    VALUE: 26e3,
+    SHAPE: 10,
+    SIZE: 90,
+    COLOR: "black",
+    BODY: {
+        DAMAGE: 4 * basePolygonDamage,
+        DENSITY: 50,
+        HEALTH: 200 * basePolygonHealth,
+        RESIST: 3,
+        PENETRATION: 1.5,
+        SHIELD: 55 * 5,
+        ACCELERATION: 0.0008
+    },
+    DRAW_HEALTH: true,
+};
 
 // 3D POLYGONS
 Class.sphere = {

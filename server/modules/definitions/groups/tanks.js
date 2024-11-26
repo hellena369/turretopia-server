@@ -651,8 +651,10 @@ Class.spreadshot = {
           g.pounder,
           g.spreadshotMain,
           g.spreadshot,
+          {health: 2}
         ]),
         TYPE: "bullet",
+        LABEL: "Main"
       },
     },
   ],
@@ -845,7 +847,7 @@ Class.marksman = {
         WIDTH: 8.5,
       },
       PROPERTIES: {
-        SHOOT_SETTINGS: combineStats([g.basic, g.sniper, { pen: 2 }]),
+        SHOOT_SETTINGS: combineStats([g.basic, g.sniper, { pen: 2.5 }]),
         TYPE: "bullet",
       },
     },
@@ -1245,7 +1247,7 @@ Class.nimrod = {
         DELAY: 0.25,
       },
       PROPERTIES: {
-        SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, { pen: 2 }]),
+        SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, { pen: 2.5 }]),
         TYPE: "bullet",
       },
     },
@@ -1287,7 +1289,7 @@ Class.revolver = {
         WIDTH: 7,
       },
       PROPERTIES: {
-        SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle, { pen: 2 }]),
+        SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle, { pen: 2.5 }]),
         TYPE: "bullet",
       },
     },
@@ -1302,8 +1304,7 @@ Class.forkSplitterBullet = {
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([
           g.basic,
-          g.pounder,
-          { damage: 0.7, size: 2.4 },
+          { damage: 1.05, size: 2.4 },
         ]),
         TYPE: ["bullet", { PERSISTS_AFTER_DEATH: true }],
         SHOOT_ON_DEATH: true,
@@ -1314,8 +1315,7 @@ Class.forkSplitterBullet = {
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([
           g.basic,
-          g.pounder,
-          { damage: 0.7, size: 2.4 },
+          { damage: 1.05, size: 2.4 },
         ]),
         TYPE: ["bullet", { PERSISTS_AFTER_DEATH: true }],
         SHOOT_ON_DEATH: true,
@@ -1326,8 +1326,7 @@ Class.forkSplitterBullet = {
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([
           g.basic,
-          g.pounder,
-          { damage: 0.55, size: 2.4 },
+          { damage: 1.05, size: 2.4 },
         ]),
         TYPE: ["bullet", { PERSISTS_AFTER_DEATH: true }],
         SHOOT_ON_DEATH: true,
@@ -1384,7 +1383,7 @@ Class.fork = {
         SHOOT_SETTINGS: combineStats([
           g.basic,
           g.sniper,
-          { pen: 2, reload: 3.5 },
+          { pen: 2, reload: 3 },
         ]),
         TYPE: "forkSplitterBullet",
       },
@@ -1567,7 +1566,7 @@ Class.barricade = {
     {
       POSITION: [4, 8, 1.3, 22, 0, 0, 0],
       PROPERTIES: {
-        SHOOT_SETTINGS: combineStats([g.trap, g.minigun, { range: 0.5 }]),
+        SHOOT_SETTINGS: combineStats([g.trap, g.minigun, g.barricade, { range: 0.5 }]),
         TYPE: "trap",
         STAT_CALCULATOR: "trap",
       },
@@ -1575,7 +1574,7 @@ Class.barricade = {
     {
       POSITION: [4, 8, 1.3, 18, 0, 0, 1 / 3],
       PROPERTIES: {
-        SHOOT_SETTINGS: combineStats([g.trap, g.minigun, { range: 0.5 }]),
+        SHOOT_SETTINGS: combineStats([g.trap, g.minigun, g.barricade, { range: 0.5 }]),
         TYPE: "trap",
         STAT_CALCULATOR: "trap",
       },
@@ -1583,7 +1582,7 @@ Class.barricade = {
     {
       POSITION: [4, 8, 1.3, 14, 0, 0, 2 / 3],
       PROPERTIES: {
-        SHOOT_SETTINGS: combineStats([g.trap, g.minigun, { range: 0.5 }]),
+        SHOOT_SETTINGS: combineStats([g.trap, g.minigun, g.barricade, { range: 0.5 }]),
         TYPE: "trap",
         STAT_CALCULATOR: "trap",
       },
@@ -1830,9 +1829,9 @@ Class.triAngle = {
   PARENT: "genericTank",
   LABEL: "Tri-Angle",
   BODY: {
-    HEALTH: 0.8 * base.HEALTH,
-    SHIELD: 0.8 * base.SHIELD,
-    DENSITY: 0.6 * base.DENSITY,
+    HEALTH: 0.8,
+    SHIELD: 0.8,
+    DENSITY: 0.6,
   },
   DANGER: 6,
   GUNS: [
@@ -2040,8 +2039,8 @@ Class.booster = {
   PARENT: "genericTank",
   LABEL: "Booster",
   BODY: {
-    HEALTH: base.HEALTH * 0.4,
-    SHIELD: base.SHIELD * 0.4,
+    HEALTH: 0.4,
+    SHIELD: 0.4,
     DENSITY: base.DENSITY * 0.3,
   },
   DANGER: 7,
@@ -2292,13 +2291,13 @@ Class.underseer = {
   MAX_CHILDREN: 14,
   GUNS: weaponArray(
     {
-      POSITION: [5.25, 12, 1.2, 8, 0, 90, 0],
+      POSITION: [5.25, 9, 1.2, 8, 0, 90, 0],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([
           g.drone,
           g.sunchip,
           g.negro,
-          { reload: 0.8 },
+          { reload: 0.8, size: 1.5 },
         ]),
         TYPE: "sunchip",
         AUTOFIRE: true,
@@ -2394,6 +2393,7 @@ Class.overlord = {
   STAT_NAMES: statnames.drone,
   BODY: {
     FOV: 1.1 * base.FOV,
+    SPEED: 0.9
   },
   MAX_CHILDREN: 8,
   GUNS: weaponArray(
@@ -2632,12 +2632,12 @@ Class.necromancer = {
     FOV: base.FOV * 1.1,
   },
   SHAPE: 4,
-  MAX_CHILDREN: 14,
+  MAX_CHILDREN: 10,
   GUNS: weaponArray(
     {
-      POSITION: [5.25, 12, 1.2, 8, 0, 0, 0.25],
+      POSITION: [5.25, 9, 1.2, 8, 0, 0, 0.25],
       PROPERTIES: {
-        SHOOT_SETTINGS: combineStats([g.drone, g.sunchip, g.negro]),
+        SHOOT_SETTINGS: combineStats([g.drone, g.sunchip, g.negro, {size: 1.5, damage: 1.4}]),
         TYPE: "sunchip",
         AUTOFIRE: true,
         SYNCS_SKILLS: true,
@@ -3380,7 +3380,7 @@ Class.assembler = {
 };
 
 // Tri-Trapper upgrades
-(Class.hexaTrapper = {
+Class.hexaTrapper = {
   PARENT: "genericTank",
   DANGER: 7,
   LABEL: "Hexa Trapper",
@@ -3403,8 +3403,8 @@ Class.assembler = {
     6,
     0.5
   ),
-}),
-  (Class.septaTrapper = {
+}
+  Class.septaTrapper = {
     PARENT: "genericTank",
     LABEL: "Septa-Trapper",
     DANGER: 7,
@@ -3428,13 +3428,13 @@ Class.assembler = {
       7,
       4 / 7
     ),
-  });
+  };
 Class.architect = makeRadialAuto("architectGun", {
   isTurret: true,
   danger: 7,
   size: 12,
   label: "Architect",
-  BODY: { HAS_NO_RECOIL: true },
+  BODY: { HAS_NO_RECOIL: true, SPEED: 1.1 },
 });
 
 // Trap Guard upgrades
@@ -4589,7 +4589,6 @@ Class.assassin.UPGRADES_TIER_3 = [
   "ranger",
   "falcon",
   "stalker",
-  "single",
   "deadeye",
 ];
 Class.hunter.UPGRADES_TIER_3 = [

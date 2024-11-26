@@ -789,7 +789,7 @@ Class.beeTank = {
         X: -3,
       },
       PROPERTIES: {
-        SHOOT_SETTINGS: combineStats([g.swarm, g.bee, { speed: 0.6 }]),
+        SHOOT_SETTINGS: combineStats([g.swarm, g.bee, { speed: 0.6, damage: 0.7 }]),
         TYPE: ["bee", { INDEPENDENT: true }],
         STAT_CALCULATOR: ["swarm", "fixedReload"],
         SYNCS_SKILLS: true,
@@ -817,7 +817,7 @@ Class.bee2Tank = {
         SHOOT_SETTINGS: combineStats([
           g.swarm,
           g.bee,
-          { speed: 0.75, size: 0.75 },
+          { speed: 0.75, size: 0.75, damage: 0.5 },
           g.babyDrone,
         ]),
         TYPE: ["bee", { INDEPENDENT: true }],
@@ -839,7 +839,7 @@ Class.bee2Tank = {
         SHOOT_SETTINGS: combineStats([
           g.swarm,
           g.bee,
-          { speed: 0.75, size: 0.75 },
+          { speed: 0.75, size: 0.75, damage: 0.5 },
           g.babyDrone,
         ]),
         TYPE: "bee",
@@ -1651,7 +1651,6 @@ Class.enchanter = {
           g.drone,
           g.sunchip,
           g.negro,
-          { reload: 1.35, health: 0.75, damage: 0.6 },
         ]),
         TYPE: "trichip",
         AUTOFIRE: true,
@@ -1674,7 +1673,7 @@ Class.preacher = {
     FOV: base.FOV * 1.1,
   },
   SHAPE: 5,
-  MAX_CHILDREN: 14,
+  MAX_CHILDREN: 8,
   GUNS: weaponArray(
     {
       POSITION: [5.25, 9, 1.2, 8, 0, 30, 0.25],
@@ -1684,7 +1683,7 @@ Class.preacher = {
           g.sunchip,
           g.negro,
           g.pounder,
-          { reload: 1.5, size: 1.7, health: 0.86, damage: 0.6 },
+          { size: 2, speed: 0.9, maxSpeed: 0.9 },
         ]),
         TYPE: "pentachip",
         AUTOFIRE: true,
@@ -1694,7 +1693,7 @@ Class.preacher = {
         DELAY_SPAWN: false,
       },
     },
-    5
+    5, 1/5
   ),
 };
 Class.necroa = {
@@ -1707,7 +1706,7 @@ Class.necroa = {
     FOV: base.FOV * 1.1,
   },
   SHAPE: 6,
-  MAX_CHILDREN: 14,
+  MAX_CHILDREN: 6,
   GUNS: weaponArray(
     {
       POSITION: [5.25, 8, 1.2, 8, 0, 0, 0.25],
@@ -1717,7 +1716,8 @@ Class.necroa = {
           g.sunchip,
           g.negro,
           g.pounder,
-          { reload: 2, size: 2, damage: 0.81, health: 0.81 },
+          g.destroyer,
+          { size: 2.5, speed: 1.4, maxSpeed: 1.4 },
         ]),
         TYPE: "falsechip",
         AUTOFIRE: true,
@@ -1727,7 +1727,7 @@ Class.necroa = {
         DELAY_SPAWN: false,
       },
     },
-    6
+    6, 1/6
   ),
 };
 Class.sunchippoly = {
@@ -2327,7 +2327,7 @@ Class.rogue = {
   PARENT: "genericTank",
   DANGER: 7,
   LABEL: "Rogue",
-  ALPHA: 0.3,
+  ALPHA: 0.5,
   GUNS: [
     {
       POSITION: [19, 11, -1.8, 0, 0, 0, 0],
@@ -2424,11 +2424,10 @@ Class.polyshadow = {
     },
   ],
 };
-Class.hawk = makeOver(Class.triAngle, "Hawk", { count: 1, independet: true });
+Class.hawk = makeOver(Class.triAngle, "Hawk", { count: 1, independent: true });
 Class.smashGuard = {
   PARENT: "basic",
   LABEL: "Smasher Guard",
-
   TURRETS: [...smashBody],
   GUNS: [
     {
@@ -2577,7 +2576,7 @@ Class.neutronMissile = {
 };
 Class.tank = {
   PARENT: "genericTank",
-  LABEL: "Tank",
+  LABEL: "Tank"
 };
 Class.single = {
   PARENT: "genericTank",
@@ -2655,7 +2654,7 @@ Class.barracuda = {
     {
       POSITION: [4, 8, 1.3, 18, 0, 0, 1 / 3],
       PROPERTIES: {
-        SHOOT_SETTINGS: combineStats([g.trap, g.minigun, { range: 0.5 }]),
+        SHOOT_SETTINGS: combineStats([g.trap, g.minigun, g.barricade, { range: 0.5 }]),
         TYPE: "trap",
         STAT_CALCULATOR: "trap",
       },
@@ -2663,7 +2662,7 @@ Class.barracuda = {
     {
       POSITION: [4, 8, 1.3, 14, 0, 0, 2 / 3],
       PROPERTIES: {
-        SHOOT_SETTINGS: combineStats([g.trap, g.minigun, { range: 0.5 }]),
+        SHOOT_SETTINGS: combineStats([g.trap, g.minigun, g.barricade, { range: 0.5 }]),
         TYPE: "trap",
         STAT_CALCULATOR: "trap",
       },
@@ -3069,132 +3068,70 @@ Class.programmer = {
     },
   ],
 };
-Class.directTurret = makeTurret(
-  {
-    GUNS: [
-      {
-        POSITION: [8, 11, 1.3, 7, 0, 0, 0],
-        PROPERTIES: {
-          SHOOT_SETTINGS: combineStats([g.drone, g.babyDrone]),
-          TYPE: "drone",
-          AUTOFIRE: true,
-          SYNCS_SKILLS: true,
-          STAT_CALCULATOR: "drone",
-          MAX_CHILDREN: 4,
-          WAIT_TO_CYCLE: true,
-        },
+Class.directTurret = {
+  PARENT: "genericTank",
+  LABEL: "",
+  SHAPE: 4,
+  COLOR: "grey",
+  BODY: {FOV: 2},
+  GUNS: [
+    {
+      POSITION: [0, 11, 1.3, 7, 0, 0, 0],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.drone, g.babyDrone]),
+        TYPE: "drone",
+        AUTOFIRE: true,
+        SYNCS_SKILLS: true,
+        STAT_CALCULATOR: "drone",
+        MAX_CHILDREN: 4,
+        WAIT_TO_CYCLE: true
       },
-    ],
-  },
-  { color: "mirror", independent: false, fov: 1.5 }
-);
-Class.seerTurret = makeTurret(
-  {
-    GUNS: weaponArray(
-      [
-        {
-          POSITION: {
-            LENGTH: 8,
-            WIDTH: 11,
-            ASPECT: 1.3,
-            X: 7,
-          },
-        },
-        {
-          POSITION: [8, 11, 1.3, 7, 0, 0, 0],
-          PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.drone, g.babyDrone]),
-            TYPE: "drone",
-            AUTOFIRE: true,
-            SYNCS_SKILLS: true,
-            STAT_CALCULATOR: "drone",
-            MAX_CHILDREN: 3,
-            WAIT_TO_CYCLE: true,
-          },
-        },
-      ],
-      2
-    ),
-  },
-  {
-    color: "mirror",
-    independent: false,
-    facingType: ["spin", { speed: 0.04 }],
-    fov: 1.5,
-  }
-);
-Class.seedTurret = makeTurret(
-  {
-    GUNS: weaponArray(
-      [
-        {
-          POSITION: {
-            LENGTH: 8,
-            WIDTH: 11,
-            ASPECT: 1.3,
-            X: 7,
-          },
-        },
-        {
-          POSITION: [8, 11, 1.3, 7, 0, 0, 0],
-          PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.drone, g.babyDrone]),
-            TYPE: "drone",
-            AUTOFIRE: true,
-            SYNCS_SKILLS: true,
-            STAT_CALCULATOR: "drone",
-            MAX_CHILDREN: 2,
-            WAIT_TO_CYCLE: true,
-          },
-        },
-      ],
-      3
-    ),
-  },
-  {
-    color: "mirror",
-    independent: false,
-    facingType: ["spin", { speed: 0.04 }],
-    fov: 1.5,
-  }
-);
-Class.lotsTurret = makeTurret(
-  {
-    GUNS: weaponArray(
-      [
-        {
-          POSITION: {
-            LENGTH: 8,
-            WIDTH: 11,
-            ASPECT: 1.3,
-            X: 7,
-            ANGLE: 30,
-          },
-        },
-        {
-          POSITION: [8, 11, 1.3, 7, 0, 30, 0],
-          PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.drone, g.babyDrone]),
-            TYPE: "drone",
-            AUTOFIRE: true,
-            SYNCS_SKILLS: true,
-            STAT_CALCULATOR: "drone",
-            MAX_CHILDREN: 2,
-            WAIT_TO_CYCLE: true,
-          },
-        },
-      ],
-      4
-    ),
-  },
-  {
-    color: "mirror",
-    independent: false,
-    facingType: ["spin", { speed: 0.04 }],
-    fov: 1.5,
-  }
-);
-Class.directTank = {
+    },
+  ],
+}
+Class.seerTurret = {
+  PARENT: "genericTank",
+  LABEL: "",
+  SHAPE: 4,
+  COLOR: "grey",
+  BODY: {FOV: 2},
+  GUNS: [
+    {
+      POSITION: [0, 11, 1.3, 7, 0, 0, 0],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.drone, g.babyDrone]),
+        TYPE: "drone",
+        AUTOFIRE: true,
+        SYNCS_SKILLS: true,
+        STAT_CALCULATOR: "drone",
+        MAX_CHILDREN: 3,
+        WAIT_TO_CYCLE: true
+      },
+    },
+  ],
+}
+Class.seedTurret = {
+  PARENT: "genericTank",
+  LABEL: "",
+  SHAPE: 4,
+  COLOR: "grey",
+  BODY: {FOV: 2},
+  GUNS: [
+    {
+      POSITION: [0, 11, 1.3, 7, 0, 0, 0],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.drone, g.babyDrone]),
+        TYPE: "drone",
+        AUTOFIRE: true,
+        SYNCS_SKILLS: true,
+        STAT_CALCULATOR: "drone",
+        MAX_CHILDREN: 2,
+        WAIT_TO_CYCLE: true
+      },
+    },
+  ],
+}
+Class.primary = {
   PARENT: "tank",
   LABEL: "Primary",
   TURRETS: [
@@ -3209,30 +3146,34 @@ Class.droneShip = {
   LABEL: "Babyship",
   TURRETS: [
     {
-      POSITION: [9, 0, 0, 0, 360, 1],
+      POSITION: [8, 0, -6.5, 90, 0, 1],
       TYPE: "seerTurret",
     },
+    {
+      POSITION: [8, 0, 6.5, 90, 0, 1],
+      TYPE: "seerTurret",
+    }
   ],
 };
 Class.hydraShip = {
   PARENT: "tank",
   LABEL: "Hydraship",
-  TURRETS: [
-    {
-      POSITION: [9, 0, 0, 0, 360, 1],
-      TYPE: "seedTurret",
-    },
-  ],
+  TURRETS: weaponArray(
+      {
+        POSITION: [8, 0, 6.5, 120, 0, 1],
+        TYPE: "seedTurret",
+      }, 3
+  )
 };
 Class.fleet = {
   PARENT: "tank",
   LABEL: "Fleet",
-  TURRETS: [
-    {
-      POSITION: [9, 0, 0, 0, 360, 1],
-      TYPE: "lotsTurret",
-    },
-  ],
+  TURRETS: weaponArray(
+      {
+        POSITION: [8, 0, 8, 45, 0, 1],
+        TYPE: "seedTurret",
+      }, 4
+  )
 };
 Class.autoTankTurret = makeTurret(
   {
@@ -3702,7 +3643,8 @@ Class.nettle = {
     },
   ],
   BODY: {
-    DAMAGE: 3 * base.DAMAGE,
+    DAMAGE: 2.5 * base.DAMAGE,
+    SPEED: 1.1
   },
 };
 Class.auraTankGen = addAura();
@@ -3716,7 +3658,8 @@ Class.auraTank = {
     },
   ],
 };
-Class.auraTankGenBig = addAura(1.1, 1.2);
+Class.decorativeAura1 = addAura(0.01, 1.15, 0.45);
+Class.auraTankGenBig = addAura(1, 1.2, 0.4);
 Class.forgery = {
   PARENT: "tank",
   LABEL: "Forgery",
@@ -3725,9 +3668,15 @@ Class.forgery = {
       POSITION: [14, 0, 0, 0, 0, 1],
       TYPE: "auraTankGenBig",
     },
+    {
+      POSITION: [14, 0, 0, 0, 0, 1],
+      TYPE: "decorativeAura1",
+    }
   ],
 };
-Class.auraTankGenBigger = addAura(1.2, 1.35, 0.4, "darkGrey");
+Class.decorativeAura2 = addAura(0.01, 1.3, 0.45);
+Class.decorativeAura3 = addAura(0.01, 1.2, 0.5);
+Class.auraTankGenBigger = addAura(1, 1.35, 0.4);
 Class.lifebane = {
   PARENT: "tank",
   LABEL: "Lifebane",
@@ -3736,9 +3685,19 @@ Class.lifebane = {
       POSITION: [14, 0, 0, 0, 0, 1],
       TYPE: "auraTankGenBigger",
     },
+    {
+      POSITION: [14, 0, 0, 0, 0, 1],
+      TYPE: "decorativeAura2",
+    },
+    {
+      POSITION: [14, 0, 0, 0, 0, 1],
+      TYPE: "decorativeAura3",
+    },
   ],
 };
-Class.auraTankGenBiggest = addAura(1.3, 1.5, 0.4, "lightGray");
+Class.decorativeAura5 = addAura(0.01, 1.3, 0.6);
+Class.decorativeAura4 = addAura(0.01, 1.4, 0.5);
+Class.auraTankGenBiggest = addAura(1.1, 1.5);
 Class.halberd = {
   PARENT: "tank",
   LABEL: "Halberd",
@@ -3747,52 +3706,32 @@ Class.halberd = {
       POSITION: [14, 0, 0, 0, 0, 1],
       TYPE: "auraTankGenBiggest",
     },
+    {
+      POSITION: [14, 0, 0, 0, 0, 1],
+      TYPE: "decorativeAura5",
+    },
+    {
+      POSITION: [14, 0, 0, 0, 0, 1],
+      TYPE: "decorativeAura4",
+    },
   ],
 };
 Class.auraTankGenSmall = addAura(0.6, 1.8);
 Class.heliosphere = {
   PARENT: "tank",
   LABEL: "Heliosphere",
-  TURRETS: [
-    {
-      POSITION: [6, 4.5, 0, 0, 360, 1],
-      TYPE: "auraTankGenSmall",
-    },
-    {
-      POSITION: [6, 4.5, 0, 120, 360, 1],
-      TYPE: "auraTankGenSmall",
-    },
-    {
-      POSITION: [6, 4.5, 0, -120, 360, 1],
-      TYPE: "auraTankGenSmall",
-    },
-  ],
+  TURRETS: weaponArray({
+    POSITION: [6, 4.5, 0, 0, 360, 1],
+    TYPE: "auraTankGenSmall",
+  }, 3)
 };
 Class.realm = {
   PARENT: "tank",
   LABEL: "Realm",
-  TURRETS: [
-    {
-      POSITION: [6, 6.25, 0, 0, 360, 1],
-      TYPE: "auraTankGenSmall",
-    },
-    {
-      POSITION: [6, 6.25, 0, 72, 360, 1],
-      TYPE: "auraTankGenSmall",
-    },
-    {
-      POSITION: [6, 6.25, 0, -72, 360, 1],
-      TYPE: "auraTankGenSmall",
-    },
-    {
-      POSITION: [6, 6.25, 0, 144, 360, 1],
-      TYPE: "auraTankGenSmall",
-    },
-    {
-      POSITION: [6, 6.25, 0, -144, 360, 1],
-      TYPE: "auraTankGenSmall",
-    },
-  ],
+  TURRETS: weaponArray({
+    POSITION: [6, 6.25, 0, 0, 360, 1],
+    TYPE: "auraTankGenSmall",
+  }, 5)
 };
 Class.healAuraTankGen = addAura(-1);
 Class.thermosphere = {
@@ -4575,9 +4514,9 @@ Class.tank.UPGRADES_TIER_0 = [
   "smasherTank",
   "autoTank",
   "machine",
-  "directTank",
+  "primary",
 ];
-Class.directTank.UPGRADES_TIER_1 = ["droneShip"];
+Class.primary.UPGRADES_TIER_1 = ["droneShip"];
 Class.droneShip.UPGRADES_TIER_2 = ["hydraShip"];
 Class.hydraShip.UPGRADES_TIER_3 = ["fleet"];
 Class.autoTank.UPGRADES_TIER_1 = [
@@ -4611,7 +4550,7 @@ Class.garrison.UPGRADES_TIER_2 = ["commandPost", "aerosols", "jetstream"];
 Class.commandPost.UPGRADES_TIER_3 = ["hangar", "drizzle", "orchard"];
 Class.aerosols.UPGRADES_TIER_3 = ["drizzle", "greenhouse", "arboretum"];
 Class.jetstream.UPGRADES_TIER_3 = ["ozone", "orchard", "arboretum"];
-Class.basic.UPGRADES_TIER_8 = [["etherealHull", "ethereal"]];
+//Class.basic.UPGRADES_TIER_8 = [["etherealHull", "ethereal"]];
 Class.tank.UPGRADES_TIER_8 = ["etherealBody"];
 Class.ethereal.UPGRADES_TIER_8 = [
   "philistine",

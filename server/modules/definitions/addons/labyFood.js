@@ -1,6 +1,6 @@
 module.exports = ({ Config }) => {
 	// To enable this addon, simply comment out the line below.
-	//return console.log('[Labyrinth Food] Addon disabled by default');
+	return console.log('[Labyrinth Food] Addon disabled by default');
 
 	const disableCrashers = false;
 

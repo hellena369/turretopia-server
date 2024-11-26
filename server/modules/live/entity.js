@@ -11,6 +11,7 @@ const { combineStats } = require('../definitions/facilitators');
 let EventEmitter = require('events'),
     events,
     init = g => events = g.events;
+const {ioTypes} = require("./controllers");
 
 class Gun extends EventEmitter {
     constructor(body, info) {

@@ -86,6 +86,7 @@ Class.missile = {
                 TYPE: [ "bullet", { PERSISTS_AFTER_DEATH: true } ],
                 STAT_CALCULATOR: "thruster",
                 WAIT_TO_CYCLE: true,
+                COLOR: "mirror"
             }
         },
         {
@@ -96,6 +97,7 @@ Class.missile = {
                 TYPE: [ "bullet", { PERSISTS_AFTER_DEATH: true } ],
                 STAT_CALCULATOR: "thruster",
                 WAIT_TO_CYCLE: true,
+                COLOR: "mirror"
             }
         }
     ]
@@ -110,6 +112,7 @@ Class.hypermissile = {
                 SHOOT_SETTINGS: combineStats([g.basic, {reload: 3}]),
                 TYPE: [ "bullet", { PERSISTS_AFTER_DEATH: true } ],
                 STAT_CALCULATOR: "thruster",
+                COLOR: "mirror"
             },
         },
         {
@@ -119,6 +122,7 @@ Class.hypermissile = {
                 SHOOT_SETTINGS: combineStats([g.basic, {reload: 3}]),
                 TYPE: [ "bullet", { PERSISTS_AFTER_DEATH: true } ],
                 STAT_CALCULATOR: "thruster",
+                COLOR: "mirror"
             },
         },
         {
@@ -127,15 +131,16 @@ Class.hypermissile = {
                 AUTOFIRE: true,
                 SHOOT_SETTINGS: combineStats([g.basic, {reload: 3}]),
                 TYPE: [ "bullet", { PERSISTS_AFTER_DEATH: true } ],
+                COLOR: "mirror"
             },
         },
         {
             POSITION: [14, 6, 1, 0, 2, 270, 0.5],
             PROPERTIES: {
                 AUTOFIRE: true,
-                AUTOFIRE: true,
                 SHOOT_SETTINGS: combineStats([g.basic, {reload: 3}]),
                 TYPE: [ "bullet", { PERSISTS_AFTER_DEATH: true } ],
+                COLOR: "mirror"
             },
         },
     ],
@@ -150,6 +155,7 @@ Class.minimissile = {
                 SHOOT_SETTINGS: combineStats([g.basic, { recoil: 0.5 }, g.lowPower]),
                 TYPE: ["bullet", { PERSISTS_AFTER_DEATH: true }],
                 STAT_CALCULATOR: "thruster",
+                COLOR: "mirror"
             },
         },
     ],
@@ -161,10 +167,11 @@ Class.spinmissile = {
         POSITION: [14, 8, 1, 0, 0, 0, 0],
         PROPERTIES: {
             AUTOFIRE: !0,
-            SHOOT_SETTINGS: combineStats([g.basic, g.lowPower, {size: 1.1}]),
+            SHOOT_SETTINGS: combineStats([g.basic, g.lowPower, {size: 1.1, reload: 0.81}]),
             TYPE: ["bullet", { PERSISTS_AFTER_DEATH: true }],
             STAT_CALCULATOR: "thruster",
             WAIT_TO_CYCLE: true,
+            COLOR: "mirror"
         },
     }, 2),
 }
@@ -177,6 +184,7 @@ Class.hyperspinmissile = {
             SHOOT_SETTINGS: combineStats([g.basic, g.lowPower, {size: 1.1}]),
             TYPE: ["bullet", { PERSISTS_AFTER_DEATH: true }],
             STAT_CALCULATOR: "thruster",
+            COLOR: "mirror"
         },
     }, 4),
 }
@@ -196,10 +204,11 @@ Class.hive = {
     GUNS: weaponArray({
         POSITION: [7, 9.5, 0.6, 7, 0, 108, 0],
         PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.swarm, g.hive, g.bee]),
+            SHOOT_SETTINGS: combineStats([g.swarm, g.hive, g.bee, { reload: 0.9, damage: 1.15, speed: 1.1, maxSpeed: 1.1 }]),
             TYPE: ["bee", { PERSISTS_AFTER_DEATH: true }],
             STAT_CALCULATOR: "swarm",
-            AUTOFIRE: true
+            AUTOFIRE: true,
+            COLOR: "mirror"
         },
     }, 5, 0.2)
 }
@@ -220,7 +229,8 @@ Class.protoHive = {
             SHOOT_SETTINGS: combineStats([g.swarm, g.hive, g.bee]),
             TYPE: ["bee", { PERSISTS_AFTER_DEATH: true }],
             STAT_CALCULATOR: "swarm",
-            AUTOFIRE: true
+            AUTOFIRE: true,
+            COLOR: "mirror"
         },
     }, 3, 1/3)
 }
