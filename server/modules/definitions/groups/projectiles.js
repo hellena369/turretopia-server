@@ -613,6 +613,7 @@ Class.unsetPillbox = {
     LABEL: "Pillbox",
     INDEPENDENT: true,
     DIE_AT_RANGE: true,
+    BUFF_VS_FOOD: true,
     TURRETS: [
         {
             POSITION: [11, 0, 0, 0, 360, 1],

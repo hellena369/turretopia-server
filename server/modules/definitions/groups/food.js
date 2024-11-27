@@ -199,7 +199,7 @@ Class.hexagon = {
     SIZE: 25,
     COLOR: "hexagon",
     BODY: {
-        DAMAGE: 3 * basePolygonDamage,
+        DAMAGE: basePolygonDamage,
         DENSITY: 6,
         HEALTH: 20 * basePolygonHealth,
         RESIST: 1.3,
@@ -280,7 +280,7 @@ Class.decagon = {
     SIZE: 90,
     COLOR: "black",
     BODY: {
-        DAMAGE: 4 * basePolygonDamage,
+        DAMAGE: 3 * basePolygonDamage,
         DENSITY: 50,
         HEALTH: 200 * basePolygonHealth,
         RESIST: 3,

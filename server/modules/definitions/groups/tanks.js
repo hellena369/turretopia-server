@@ -2637,7 +2637,7 @@ Class.necromancer = {
     {
       POSITION: [5.25, 9, 1.2, 8, 0, 0, 0.25],
       PROPERTIES: {
-        SHOOT_SETTINGS: combineStats([g.drone, g.sunchip, g.negro, {size: 1.5, damage: 1.4}]),
+        SHOOT_SETTINGS: combineStats([g.drone, g.sunchip, g.negro, {size: 1.5, reload: 1.25, damage: 0.81}]),
         TYPE: "sunchip",
         AUTOFIRE: true,
         SYNCS_SKILLS: true,
@@ -2706,7 +2706,7 @@ Class.infestor = {
             g.drone,
             g.sunchip,
             g.negro,
-            { reload: 0.5 },
+            { reload: 0.5, damage: 0.25 },
           ]),
           TYPE: "eggchip",
           AUTOFIRE: true,
@@ -2719,7 +2719,7 @@ Class.infestor = {
       {
         POSITION: [7.25, 6, 1.2, 6, 5, 90, 0],
         PROPERTIES: {
-          SHOOT_SETTINGS: combineStats([g.drone, g.sunchip, { reload: 0.5 }]),
+          SHOOT_SETTINGS: combineStats([g.drone, g.sunchip, { reload: 0.5, damage: 0.25 }]),
           TYPE: "eggchip",
           AUTOFIRE: true,
           SYNCS_SKILLS: true,
@@ -3385,7 +3385,7 @@ Class.hexaTrapper = {
   DANGER: 7,
   LABEL: "Hexa Trapper",
   STAT_NAMES: statnames.trap,
-  BODY: { RECOIL_MULTIPLIER: 0 },
+  HAS_NO_RECOIL: true,
   GUNS: weaponArray(
     [
       {
@@ -3410,7 +3410,6 @@ Class.hexaTrapper = {
     DANGER: 7,
     STAT_NAMES: statnames.trap,
     HAS_NO_RECOIL: true,
-    BODY: { RECOIL_MULTIPLIER: 0 },
     GUNS: weaponArray(
       [
         {
