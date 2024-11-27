@@ -1341,6 +1341,14 @@ class Entity extends EventEmitter {
                     this.branchLabel = ensureIsClass(set.PARENT).BRANCH_LABEL;
                 }
             }
+            if (set.INVISIBLE != null) this.invisible = set.INVISIBLE;
+            if (set.ALPHA != null) {
+                this.alpha = ("number" === typeof set.ALPHA) ? set.ALPHA : set.ALPHA[1];
+                this.alphaRange = [
+                    set.ALPHA[0] || 0,
+                    set.ALPHA[1] || 1
+                ];
+            }
             if (set.LABEL != null && set.LABEL.length > 0) this.label = this.label + "-" + set.LABEL;
             if (set.MAX_CHILDREN != null) this.maxChildren += set.MAX_CHILDREN;
             else this.maxChildren = null; // For bullet and drone combos so all parts remain functional

@@ -3,10 +3,10 @@ module.exports = {
 
   // Game server domain.
   // If the host is 'localhost:NUMBER', the NUMBER must be the port setting.
-  host: "df8zpy-4000.csb.app/",
+  host: "turretopia.alphexo.dev",
 
   // Which port to run the web server on.
-  port: 4000,
+  port: 3000,
 
   // How often to update the list of the entities that players can see.
   // Has effects of when entities are activated.
@@ -35,8 +35,8 @@ module.exports = {
   ROOM_SETUP: ["map_apspp_default"],
 
   // The dimensions of a single tile on the map.
-  TILE_WIDTH: 400,
-  TILE_HEIGHT: 400,
+  TILE_WIDTH: 300,
+  TILE_HEIGHT: 300,
 
   // Miscellaneous
 
@@ -111,7 +111,7 @@ module.exports = {
   TIER_MULTIPLIER: 15,
 
   // Maximum normally achievable level.
-  LEVEL_CAP: 45,
+  LEVEL_CAP: 120,
 
   // Maximum level via the level-up key and auto-level-up.
   LEVEL_CHEAT_CAP: 45,
@@ -140,7 +140,7 @@ module.exports = {
   // How every entity regenerates their health.
   REGENERATE_TICK: 200,
 
-  // How many members a team can have in comparison to an unweighed team.
+  // How many members a team can have in comparison to an unweighted team.
   // Example: Lets say we have team A and B. If the weigh of A is 2 and B is 1, then the game will try to give A twice as many members as B.
   TEAM_WEIGHTS: {},
 
@@ -148,117 +148,58 @@ module.exports = {
 
   // Allow foods to be spawned or not.
   // NOTE: Disabling it decreases lagness, also very useful if you don't need foods to be spawned.
-  ENABLE_FOOD: false,
+  ENABLE_FOOD: true,
 
-  FOOD_CAP: 2, // Max normal food per normal tile.
+  FOOD_CAP: 3, // Max normal food per normal tile.
   FOOD_SPAWN_CHANCE: 0.2, // Likeliness of normal food spawn attempts succeeding.
-  FOOD_SPAWN_COOLDOWN: 900, // Cooldown (in game ticks) of food spawn attempts being made.
+  FOOD_SPAWN_COOLDOWN: 30, // Cooldown (in game ticks) of food spawn attempts being made.
 
-  FOOD_CAP_NEST: 2, // Max nest food per nest tile.
+  FOOD_CAP_NEST: 3, // Max nest food per nest tile.
   FOOD_SPAWN_CHANCE_NEST: 0.4, // Likeliness of nest food spawn attempts succeeding.
-  FOOD_SPAWN_COOLDOWN_NEST: 1350, // Cooldown (in game ticks) of nest food spawn attempts being made.
+  FOOD_SPAWN_COOLDOWN_NEST: 45, // Cooldown (in game ticks) of nest food spawn attempts being made.
 
   ENEMY_CAP_NEST: 1, // Max nest enemies per nest tile.
-  ENEMY_SPAWN_CHANCE_NEST: 0.5, // Likeliness of nest enemies spawn attempts succeeding.
-  ENEMY_SPAWN_COOLDOWN_NEST: 1800, // Cooldown (in game ticks) of nest enemies spawn attempts being made.
+  ENEMY_SPAWN_CHANCE_NEST: 0.2, // Likeliness of nest enemies spawn attempts succeeding.
+  ENEMY_SPAWN_COOLDOWN_NEST: 60, // Cooldown (in game ticks) of nest enemies spawn attempts being made.
 
   // Cooldown (in seconds) of boss spawns being announced.
-  BOSS_SPAWN_COOLDOWN: 180,
+  BOSS_SPAWN_COOLDOWN: 300,
   // The delay (in seconds) between the boss spawns being announced and the bosses actually spawning.
   // NOTE: The spawn message (ex. "A strange trembling...") takes half as long to appear than the boss.
-  BOSS_SPAWN_DURATION: 10,
-
-  // The possible food types that can spawn.
+  BOSS_SPAWN_DURATION: 5,
   FOOD_TYPES: [
-    [
-      2000,
-      [
-        [1024, "egg"],
-        [256, "triangle"],
-        [64, "square"],
-        [16, "pentagon"],
-        [4, "betaPentagon"],
-        [1, "alphaPentagon"],
-      ],
-    ],
-    [
-      1,
-      [
-        [3125, "gem"],
-        [625, "shinyTriangle"],
-        [125, "shinySquare"],
-        [25, "shinyPentagon"],
-        [5, "shinyBetaPentagon"],
-        [1, "shinyAlphaPentagon"],
-      ],
-    ],
-    [
-      0.1,
-      [
-        [6836, "jewel"],
-        [1296, "legendaryTriangle"],
-        [216, "legendarySquare"],
-        [36, "legendaryPentagon"],
-        [6, "legendaryBetaPentagon"],
-        [1, "legendaryAlphaPentagon"],
-      ],
-    ],
-    [
-      0.005,
-      [
-        /*[16807, 'egg'], */ [2401, "shadowTriangle"],
-        [343, "shadowSquare"],
-        [49, "shadowPentagon"],
-        [7, "shadowBetaPentagon"],
-        [1, "shadowAlphaPentagon"],
-      ],
-    ],
-    [
-      0.001,
-      [
-        /*[65536, 'egg'], */ [8192, "rainbowTriangle"],
-        [1024, "rainbowSquare"],
-        [64, "rainbowPentagon"],
-        [8, "rainbowBetaPentagon"],
-        [1, "rainbowAlphaPentagon"],
-      ],
-    ],
-    [
-      0.0005,
-      [
-        [59549, "egg"],
-        [6561, "transTriangle"],
-        [729, "transSquare"],
-        [81, "transPentagon"],
-        [9, "transBetaPentagon"],
-        [1, "transAlphaPentagon"],
-      ],
-    ],
+    [2000, [
+      [256, 'egg'], [64, 'triangle'], [16, 'square'], [4, 'pentagon'], [1, 'hexagon']
+    ]],
+    [100, [
+        [4, 'heptagon'], [1, 'octagon']
+    ]],
+    [10, [
+        [4, 'nonagon'], [1, 'decagon']
+    ]],
+    [1, [
+      [625, 'gem'], [125, 'shinyTriangle'], [25, 'shinySquare'], [5, 'shinyPentagon'], [1, 'shinyHexagon']
+    ]],
+    [0.1, [
+      [1296, 'jewel'], [216, 'legendaryTriangle'], [36, 'legendarySquare'], [6, 'legendaryPentagon'], [1, 'legendaryHexagon']
+    ]]
   ],
 
   // The possible nest food types that can spawn.
   FOOD_TYPES_NEST: [
-    [
-      1,
-      [
-        [16, "pentagon"],
-        [4, "betaPentagon"],
-        [1, "alphaPentagon"],
-      ],
-    ],
+    [1, [
+      [16, 'pentagon'], [8, 'hexagon'], [ 4, 'heptagon'], [ 2, 'octagon']
+    ]],
+    [0.1, [
+        [4, 'nonagon'], [1, 'decagon']
+    ]]
   ],
 
   // The possible nest enemy types that can spawn.
   ENEMY_TYPES_NEST: [
-    [19, [[1, "crasher"]]],
-    [
-      1,
-      [
-        [1, "sentryGun"],
-        [1, "sentrySwarm"],
-        [1, "sentryTrap"],
-      ],
-    ],
+    [1, [
+      [1, 'crasher']
+    ]]
   ],
 
   // The possible boss types that can spawn.
