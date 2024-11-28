@@ -72,7 +72,7 @@ module.exports = {
   // Physics
 
   // General multiplier for acceleration and max speeds.
-  runSpeed: 1.5,
+  runSpeed: 2,
 
   // Where the bullet spawns, where 1 is fully outside the barrel and -1 is fully inside the barrel, and 0 is halfway between.
   bulletSpawnOffset: 0.6,
@@ -81,7 +81,7 @@ module.exports = {
   DAMAGE_CONSTANT: 0.5,
 
   // General knockback multiplier everytime knockback is applied.
-  KNOCKBACK_CONSTANT: 1.5,
+  KNOCKBACK_CONSTANT: 1,
 
   // TODO: Figure out how the math behind this works.
   GLASS_HEALTH_FACTOR: 2,

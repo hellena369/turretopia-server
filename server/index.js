@@ -415,7 +415,7 @@ const maintainloop = () => {
       loc = getSpawnableArea(team);
     } while (limit-- && dirtyCheck(loc, 50));
     let o = new Entity(loc);
-    o.define("basic");
+    o.define(Config.SPAWN_CLASS);
     o.define({ CONTROLLERS: ["nearestDifferentMaster"] });
     o.refreshBodyAttributes();
     o.skill.score = Config.BOT_START_XP;
@@ -434,9 +434,10 @@ const maintainloop = () => {
     setTimeout(() => {
       // allow them to move
       // Save index so it isn't overwritten by the bot Class's index
-      let index = o.index;
+      //let index = o.index;
       o.define("bot");
-      o.index = index;
+      o.define(Config.SPAWN_CLASS)
+      //o.index = index;
       o.refreshBodyAttributes();
       o.invuln = false;
     }, 3000 + Math.floor(Math.random() * 7000));

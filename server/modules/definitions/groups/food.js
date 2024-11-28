@@ -246,7 +246,7 @@ Class.octagon = {
         DENSITY: 30,
         HEALTH: 100 * basePolygonHealth,
         RESIST: 2.1,
-        PENETRATION: 1.3,
+        PENETRATION: 1.1,
         SHIELD: 35 * 5,
         ACCELERATION: 0.0018
     },
@@ -265,7 +265,7 @@ Class.nonagon = {
         DENSITY: 40,
         HEALTH: 150 * basePolygonHealth,
         RESIST: 2.5,
-        PENETRATION: 1.4,
+        PENETRATION: 1.1,
         SHIELD: 45 * 5,
         ACCELERATION: 0.0012
     },
@@ -284,7 +284,7 @@ Class.decagon = {
         DENSITY: 50,
         HEALTH: 200 * basePolygonHealth,
         RESIST: 3,
-        PENETRATION: 1.5,
+        PENETRATION: 1.1,
         SHIELD: 55 * 5,
         ACCELERATION: 0.0008
     },

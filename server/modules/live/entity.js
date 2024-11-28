@@ -1723,9 +1723,9 @@ class Entity extends EventEmitter {
                 this.define(this.defs);
             }
             this.emit("upgrade", { body: this });
-            if (this.color.base == '-1' || this.color.base == 'mirror') {
-                if (Config.GROUPS || (Config.MODE == 'ffa' && !Config.TAG)) {
-                    this.color.base = this.isBot ? "darkGrey" : getTeamColor(TEAM_RED);
+            if (this.color.base === '-1' || this.color.base === 'mirror') {
+                if (Config.GROUPS || (Config.MODE === 'ffa' && !Config.TAG)) {
+                    this.color.base = this.isBot ? "red" : getTeamColor(TEAM_RED);
                 } else {
                     this.color.base = getTeamColor(this.team);
                 }

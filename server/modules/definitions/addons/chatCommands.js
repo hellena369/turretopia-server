@@ -450,7 +450,27 @@ case 'soldier':
         break;
     }
   }
-});
+})
+
+	commands.add({
+		name: ["ascend"],
+		args: [0],
+		doc: [
+			'Ascend to Ethereal.',
+			'Only at level 120.',
+			'Usage: /ascend'
+		],
+		perms: perm.user,
+		execute: ({ command, body }) => {
+			if (body.skill.level >= 120) {
+				command.send('You have ascended!');
+				body.define(["ethereal", "etherealBody"]);
+				body.TEAM = TEAM_DREADNOUGHTS
+			} else {
+				command.send('You are underleveled!')
+			}
+		}
+	})
   
 	commands.add({
 		name: ['help', 'h', '?'],

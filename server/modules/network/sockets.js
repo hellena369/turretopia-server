@@ -436,13 +436,16 @@ function incoming(message, socket) {
                 return 1;
             }
             // cheatingbois
-            if (player.body != null && socket.permissions && socket.permissions) {
-                player.body.define({ RESET_UPGRADES: true, BATCH_UPGRADES: false });
-                player.body.define(socket.permissions.class);
-                if (player.body.color.base == '-1' || player.body.color.base == 'mirror') {
-                    player.body.color.base = getTeamColor((Config.GROUPS || (Config.MODE == 'ffa' && !Config.TAG)) ? TEAM_RED : player.body.team);
+                if (player.body != null && socket.permissions && socket.permissions.class) {
+                    player.body.define({ RESET_UPGRADES: true, BATCH_UPGRADES: false });
+                    player.body.define(socket.permissions.class);
+                    if (player.body.color.base === '-1' || player.body.color.base === 'mirror') {
+                        player.body.color.base = getTeamColor((Config.GROUPS || (Config.MODE === 'ffa' && !Config.TAG)) ? TEAM_RED : player.body.team);
+                    }
+                } else {
+                    socket.kick("Ill-sized testbed request.");
+                    return 1;
                 }
-            }
             break;
             case "teleporting":
                 if (player.body != null && socket.permissions.class) {

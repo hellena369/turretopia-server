@@ -1,11 +1,11 @@
 module.exports = {
     // Bases
-        basic: { reload: 11, recoil: 1, shudder: 0.1, damage: 0.72, speed: 4.5, spray: 15 },
-        drone: { reload: 36, recoil: 0.25, shudder: 0.1, size: 0.6, damage: 0.83, speed: 2, spray: 0.1 },
+        basic: { reload: 11, recoil: 1, shudder: 0.1, damage: 0.7, speed: 4.5, spray: 15 },
+        drone: { reload: 36, recoil: 0.25, shudder: 0.1, size: 0.6, damage: 0.8, speed: 2, spray: 0.1 },
         trap: { reload: 23, shudder: 0.25, size: 0.6, damage: 0.5, health: 0.5, speed: 5, spray: 15, resist: 3 },
-        swarm: { reload: 18, recoil: 0.25, shudder: 0.05, size: 0.4, damage: 0.72, speed: 4, spray: 5 },
+        swarm: { reload: 18, recoil: 0.25, shudder: 0.05, size: 0.4, damage: 0.7, speed: 4, spray: 5 },
         factory: { reload: 48, shudder: 0.1, size: 0.7, damage: 0.7, health: 0.7, speed: 3, spray: 0.1 },
-        productionist: { reload: 56, recoil: 0.25, shudder: 0.05, size: 0.7, damage: 0.72, speed: 4, range: 1.5, spray: 5 },
+        productionist: { reload: 56, recoil: 0.25, shudder: 0.05, size: 0.7, damage: 0.7, speed: 4, range: 1.5, spray: 5 },
     
     // Spammers
         desmos: { shudder: 0, spray: 0, speed: 0.001 },
@@ -19,7 +19,7 @@ module.exports = {
         triplet: { reload: 1.2, recoil: 2/3, shudder: 0.9, health: 0.85, damage: 0.85, pen: 0.9, density: 1.1, spray: 0.9, resist: 0.95 },
         turret: { reload: 2, health: 0.8, damage: 0.6, pen: 0.7, density: 0.1 },
         autoTurret: { reload: 0.9, recoil: 0.75, shudder: 0.5, size: 0.8, health: 0.9, damage: 0.6, pen: 1.2, speed: 1.1, range: 0.8, density: 1.3, resist: 1.25 },
-    
+
     // Snipers
         sniper: { reload: 1.35, shudder: 0.25, damage: 0.8, pen: 1.1, speed: 1.5, maxSpeed: 1.5, density: 1.5, spray: 0.2, resist: 1.15 },
         crossbow: { reload: 2, health: 0.9, damage: 0.9, pen: 0.8 },
@@ -33,7 +33,7 @@ module.exports = {
     // Machine guns
         machineGun: { reload: 0.5, recoil: 0.8, shudder: 1.7, health: 0.7, damage: 0.7, maxSpeed: 0.8, spray: 2.5 },
         minigun: { reload: 1, recoil: 0.6, size: 0.8, health: 0.55, damage: 0.45, pen: 1.25, speed: 1.33, density: 1.25, spray: 0.5, resist: 1.1 },
-        streamliner: { reload: 1.1, recoil: 0.6, damage: 0.65, speed: 1.24 },
+        streamliner: { recoil: 0.6, damage: 0.65, speed: 1.24 },
         nailgun: { reload: 0.85, recoil: 2.5, size: 0.8, damage: 0.7, density: 2 },
         pelleter: { reload: 1.25, recoil: 0.25, shudder: 1.5, size: 1.1, damage: 0.35, pen: 1.35, speed: 0.9, maxSpeed: 0.8, density: 1.5, spray: 1.5, resist: 1.2 },
         gunner: { recoil: 0.25, shudder: 1.5, size: 1.2, health: 1.35, damage: 0.25, pen: 1.25, speed: 0.8, maxSpeed: 0.65, density: 1.5, spray: 1.5, resist: 1.2 },
@@ -76,7 +76,7 @@ module.exports = {
         destroyer: { reload: 2.2, recoil: 2, shudder: 0.5, health: 2, damage: 2, pen: 1.2, speed: 0.65, maxSpeed: 0.5, density: 2, resist: 3 },
         annihilator: { reload: 0.8, recoil: 1.25 },
         hive: { reload: 1.5, recoil: 0.8, size: 0.8, health: 0.7, damage: 0.6, maxSpeed: 0.73 },
-        artillery: { reload: 1.2, recoil: 0.7, size: 0.9, speed: 1.15, maxSpeed: 1.1, density: 1.5 },
+        artillery: { reload: 1.2, recoil: 0.7, size: 0.9, damage: 0.85, speed: 1.15, maxSpeed: 1.1, density: 1.5 },
         mortar: { reload: 1.2, health: 1.1, speed: 0.8, maxSpeed: 0.8 },
         shotgun: { reload: 8, recoil: 0.4, size: 1.5, damage: 0.4, pen: 0.8, speed: 1.8, maxSpeed: 0.6, density: 1.2, spray: 1.2 },
         destroyerDominator: { reload: 6.5, recoil: 0, size: 0.975, health: 5, damage: 5, pen: 5, speed: 0.575, maxSpeed: 0.475, spray: 0.5 },
@@ -94,7 +94,7 @@ module.exports = {
     
     // Traps and blocks
         setTrap: { reload: 1.1, recoil: 2, shudder: 0.1, size: 1.5, health: 1.75, pen: 1.2, speed: 1.5, maxSpeed: 2.5, range: 1.25, resist: 1.25 },
-        construct: { reload: 3, size: 0.9, maxSpeed: 1.1, pen: 0.5, damage: 1.8, health: 1.2 },
+        construct: { reload: 3, size: 0.9, maxSpeed: 1.1, damage: 1.6, health: 1.6, density: 2, resist: 3 },
         boomerang: { reload: 0.8, health: 0.5, damage: 0.5, speed: 0.75, maxSpeed: 0.75, range: 4/3 },
         nestKeeper: { reload: 3, size: 0.75, health: 1.05, damage: 1.05, pen: 1.1, speed: 0.5, maxSpeed: 0.5, range: 0.5, density: 1.1 },
         hexaTrapper: { reload: 1.3, shudder: 1.25, speed: 0.8, range: 0.5 },

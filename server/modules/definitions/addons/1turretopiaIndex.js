@@ -1859,7 +1859,8 @@ Class.leader = {
     BODY: {
         FOV: 1.1 * base.FOV,
     },
-    ALPHA: 0.2,
+    ALPHA: 0.3,
+    INVISIBLE: null,
     MAX_CHILDREN: 8,
     GUNS: [
         {
@@ -2461,6 +2462,220 @@ Class.planetary = {
         },
     ],
 }
+Class.wark = {
+    PARENT: "genericTank",
+    LABEL: "Wark",
+    STAT_NAMES: statnames.trap,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 13,
+                WIDTH: 7,
+                Y: 5.5,
+                ANGLE: 8
+            },
+        },
+        {
+            POSITION: {
+                LENGTH: 3,
+                WIDTH: 7,
+                ASPECT: 1.7,
+                X: 13,
+                Y: 5.5,
+                ANGLE: 8
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.trap]),
+                TYPE: "trap",
+                STAT_CALCULATOR: "trap",
+            },
+        },
+        {
+            POSITION: {
+                LENGTH: 13,
+                WIDTH: 7,
+                Y: -5.5,
+                DELAY: 1/2,
+                ANGLE: -8
+            },
+        },
+        {
+            POSITION: {
+                LENGTH: 3,
+                WIDTH: 7,
+                ASPECT: 1.7,
+                X: 13,
+                Y: -5.5,
+                DELAY: 1/2,
+                ANGLE: -8
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.trap]),
+                TYPE: "trap",
+                STAT_CALCULATOR: "trap",
+            },
+        },
+    ],
+};
+Class.dobloon = {
+    PARENT: "genericTank",
+    LABEL: "Dobloon",
+    DANGER: 7,
+    HAS_NO_RECOIL: true,
+    GUNS: [
+        {
+            POSITION: [21, 14, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [21, 14, 1, 0, 0, 180, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [15, 3.5, 1, 0, 0, 90, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [15, 3.5, 1, 0, 0, -90, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [15, 3.5, 1, 0, 0, 45, 1/2],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [15, 3.5, 1, 0, 0, -45, 1/2],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [15, 3.5, 1, 0, 0, 135, 1/2],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [15, 3.5, 1, 0, 0, -135, 1/2],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
+                TYPE: "bullet",
+            },
+        },
+    ],
+};
+Class.equalizer = {
+    PARENT: "genericTank",
+    LABEL: "Equalizer",
+    STAT_NAMES: statnames.trap,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 15,
+                WIDTH: 7,
+                Y: 5.5,
+            },
+        },
+        {
+            POSITION: {
+                LENGTH: 3,
+                WIDTH: 7,
+                ASPECT: 1.7,
+                X: 15,
+                Y: 5.5,
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.trap]),
+                TYPE: "trap",
+                STAT_CALCULATOR: "trap",
+            },
+        },
+        {
+            POSITION: {
+                LENGTH: 15,
+                WIDTH: 7,
+                Y: -5.5,
+                DELAY: 1/2
+            },
+        },
+        {
+            POSITION: {
+                LENGTH: 3,
+                WIDTH: 7,
+                ASPECT: 1.7,
+                X: 15,
+                Y: -5.5,
+                DELAY: 1/2,
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.trap]),
+                TYPE: "trap",
+                STAT_CALCULATOR: "trap",
+            },
+        },
+        {
+            POSITION: {
+                LENGTH: 15,
+                WIDTH: 7,
+                Y: 4,
+            },
+        },
+        {
+            POSITION: {
+                LENGTH: 3,
+                WIDTH: 7,
+                ASPECT: 1.7,
+                X: 15,
+                Y: 4,
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.trap]),
+                TYPE: "trap",
+                STAT_CALCULATOR: "trap",
+            },
+        },
+        {
+            POSITION: {
+                LENGTH: 15,
+                WIDTH: 7,
+                Y: -4,
+                DELAY: 1/2
+            },
+        },
+        {
+            POSITION: {
+                LENGTH: 3,
+                WIDTH: 7,
+                ASPECT: 1.7,
+                X: 15,
+                Y: -4,
+                DELAY: 1/2,
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.trap]),
+                TYPE: "trap",
+                STAT_CALCULATOR: "trap",
+            },
+        },
+    ],
+};
 Class.barracuda = {
     PARENT: "genericTank",
     DANGER: 6,
@@ -2508,18 +2723,18 @@ Class.parryer = {
             POSITION: [6, 10, -1.5, 7, 0, 0, 0],
         },
         {
+            POSITION: [6, 6, 1, 18, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic]),
+                TYPE: "bullet"
+            },
+        },
+        {
             POSITION: [2, 10, 1.3, 18, 0, 0, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, g.boomerang]),
                 TYPE: "boomerang",
                 STAT_CALCULATOR: "block"
-            },
-        },
-        {
-            POSITION: [6, 6, 1, 18, 0, 0, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic]),
-                TYPE: "bullet"
             },
         },
     ],
@@ -2977,7 +3192,7 @@ Class.autoTankGunGiga = makeTurret({
 Class.autoTankGunTera = makeTurret({
     GUNS: [
         {
-            POSITION: [26, 16, 1, 0, 0, 0, 0],
+            POSITION: [26, 18, 1, 0, 0, 0, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.pounder, g.destroyer, g.sniper]),
                 TYPE: "bullet",
@@ -3188,7 +3403,7 @@ Class.machine = {
     LABEL: "Machine",
     SHAPE: 6,
     BODY: {
-        HEALTH: 1.75 * base.HEALTH * 1.5,
+        HEALTH: 2.5 * base.HEALTH * 1.5,
     }
 }
 Class.bigDeco = makeDeco(4.5, "mirror")
@@ -3197,7 +3412,7 @@ Class.brickTank = {
     LABEL: "City",
     SHAPE: 7,
     BODY: {
-        HEALTH: 2.5 * base.HEALTH * 1.5,
+        HEALTH: 3.5 * base.HEALTH * 1.5,
     },
     PROPS: [
         {
@@ -3212,7 +3427,7 @@ Class.headquarters = {
     LABEL: "Headquarters",
     SHAPE: 7,
     BODY: {
-        HEALTH: 3.75 * base.HEALTH * 1.5,
+        HEALTH: 4.5 * base.HEALTH * 1.5,
     },
     PROPS: [
         {
@@ -3226,7 +3441,7 @@ Class.bunker = {
     LABEL: "Bunker",
     SHAPE: 7,
     BODY: {
-        HEALTH: 5 * base.HEALTH * 1.5,
+        HEALTH: 6 * base.HEALTH * 1.5,
     },
     PROPS: [
         {
@@ -3256,7 +3471,7 @@ Class.smasherTank = {
         }
     ],
     BODY: {
-        DAMAGE: 1.5 * base.DAMAGE
+        DAMAGE: 1.4 * base.DAMAGE
     }
 }
 Class.crusherBody = {
@@ -3276,7 +3491,7 @@ Class.crusher = {
         }
     ],
     BODY: {
-        DAMAGE: 2 * base.DAMAGE
+        DAMAGE: 1.75 * base.DAMAGE
     }
 }
 Class.brambleBody = {
@@ -3296,7 +3511,7 @@ Class.bramble = {
         }
     ],
     BODY: {
-        DAMAGE: 2.5 * base.DAMAGE
+        DAMAGE: 2 * base.DAMAGE
     }
 }
 Class.nettleBody = {
@@ -3316,7 +3531,7 @@ Class.nettle = {
         },
     ],
     BODY: {
-        DAMAGE: 2.5 * base.DAMAGE,
+        DAMAGE: 2 * base.DAMAGE,
         SPEED: 1.1 * base.SPEED
     },
 };
@@ -4101,6 +4316,7 @@ Class.fullyAutomatic.UPGRADES_TIER_3 = ["assaulter", "microgun"];
 Class.flankGuard.UPGRADES_TIER_2.push("ringer", "realstar");
 Class.ringer.UPGRADES_TIER_3 = ["winger", "singer"];
 Class.realstar.UPGRADES_TIER_3 = ["deathstar", "neutronstar", "apex"];
+Class.sniper.UPGRADES_TIER_2.push("hider")
 Class.hider.UPGRADES_TIER_3 = ["rogue", "cloak", "leader", "stalker"];
 Class.manager.UPGRADES_TIER_3 = ["leader"];
 Class.destroyer.UPGRADES_TIER_3.push("rogue");
@@ -4129,7 +4345,7 @@ Class.trapper.UPGRADES_TIER_1 = ["builder", "triTrapper", "trapGuard", "overtrap
         Class.engineer.UPGRADES_TIER_3 = ["mechanic", "specializer", "programmer"];
         Class.barracuda.UPGRADES_TIER_3 = ["barricade", "cache"];
         Class.pen.UPGRADES_TIER_3 = ["employer", "kraal", "cache", "overpen", "parryer"];
-Class.tank.UPGRADES_TIER_0 = ["auraTank", "smasherTank", "autoTank", "machine", "primary",];
+Class.tank.UPGRADES_TIER_0 = ["auraTank", "smasherTank", "autoTank", "machine", "primary"];
 Class.primary.UPGRADES_TIER_1 = ["droneShip"];
 Class.droneShip.UPGRADES_TIER_2 = ["hydraShip"];
 Class.hydraShip.UPGRADES_TIER_3 = ["fleet"];
@@ -4159,7 +4375,6 @@ Class.garrison.UPGRADES_TIER_2 = ["commandPost", "aerosols", "jetstream"];
 Class.commandPost.UPGRADES_TIER_3 = ["hangar", "drizzle", "orchard"];
 Class.aerosols.UPGRADES_TIER_3 = ["drizzle", "greenhouse", "arboretum"];
 Class.jetstream.UPGRADES_TIER_3 = ["ozone", "orchard", "arboretum"];
-//Class.basic.UPGRADES_TIER_8 = [["etherealHull", "ethereal"]];
-Class.tank.UPGRADES_TIER_8 = ["etherealBody"];
 Class.ethereal.UPGRADES_TIER_8 = ["philistine", "sundowner", "spear", "despoiler", "centaur",];
 Class.etherealBody.UPGRADES_TIER_8 = ["mechanism"];
+Class.destroyer.UPGRADES_TIER_3.push("dobloon")

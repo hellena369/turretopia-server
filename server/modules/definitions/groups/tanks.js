@@ -716,21 +716,21 @@ Class.triplet = {
     {
       POSITION: [18, 10, 1, 0, 5, 0, 0.5],
       PROPERTIES: {
-        SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet]),
+        SHOOT_SETTINGS: combineStats([g.basic, g.triplet]),
         TYPE: "bullet",
       },
     },
     {
       POSITION: [18, 10, 1, 0, -5, 0, 0.5],
       PROPERTIES: {
-        SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet]),
+        SHOOT_SETTINGS: combineStats([g.basic, g.triplet]),
         TYPE: "bullet",
       },
     },
     {
       POSITION: [21, 10, 1, 0, 0, 0, 0],
       PROPERTIES: {
-        SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet]),
+        SHOOT_SETTINGS: combineStats([g.basic, g.triplet]),
         TYPE: "bullet",
       },
     },
@@ -1434,7 +1434,7 @@ Class.gunner = {
           g.basic,
           g.twin,
           g.gunner,
-          { speed: 1.2 },
+          { speed: 1.2, damage: 1.2 },
         ]),
         TYPE: "bullet",
       },
@@ -1446,7 +1446,7 @@ Class.gunner = {
           g.basic,
           g.twin,
           g.gunner,
-          { speed: 1.2 },
+          { speed: 1.2, damage: 1.2 },
         ]),
         TYPE: "bullet",
       },
@@ -1458,7 +1458,7 @@ Class.gunner = {
           g.basic,
           g.twin,
           g.gunner,
-          { speed: 1.2 },
+          { speed: 1.2, damage: 1.2 },
         ]),
         TYPE: "bullet",
       },
@@ -1470,7 +1470,7 @@ Class.gunner = {
           g.basic,
           g.twin,
           g.gunner,
-          { speed: 1.2 },
+          { speed: 1.2, damage: 1.2 },
         ]),
         TYPE: "bullet",
       },
@@ -3063,10 +3063,10 @@ Class.beekeeper = {
     {
       POSITION: [14, 3, 1, 0, -6, -7, 0.25],
       PROPERTIES: {
-        SHOOT_SETTINGS: combineStats([g.swarm, g.bee]),
+        SHOOT_SETTINGS: combineStats([g.swarm, g.bee, { size: 2 }]),
         TYPE: ["bee", { INDEPENDENT: true }],
         SYNCS_SKILLS: true,
-        STAT_CALCULATOR: "drone",
+        STAT_CALCULATOR: "swarm",
         WAIT_TO_CYCLE: true,
         LABEL: "Secondary",
       },
@@ -3074,10 +3074,10 @@ Class.beekeeper = {
     {
       POSITION: [14, 3, 1, 0, 6, 7, 0.75],
       PROPERTIES: {
-        SHOOT_SETTINGS: combineStats([g.swarm, g.bee]),
+        SHOOT_SETTINGS: combineStats([g.swarm, g.bee, { size: 2 }]),
         TYPE: ["bee", { INDEPENDENT: true }],
         SYNCS_SKILLS: true,
-        STAT_CALCULATOR: "drone",
+        STAT_CALCULATOR: "swarm",
         WAIT_TO_CYCLE: true,
         LABEL: "Secondary",
       },
