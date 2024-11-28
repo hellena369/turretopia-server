@@ -3,10 +3,10 @@ module.exports = {
 
   // Game server domain.
   // If the host is 'localhost:NUMBER', the NUMBER must be the port setting.
-  host: "turretopia.alphexo.dev",
+  host: "df8zpy-4000.csb.app/",
 
   // Which port to run the web server on.
-  port: 3000,
+  port: 4000,
 
   // How often to update the list of the entities that players can see.
   // Has effects of when entities are activated.
@@ -150,7 +150,7 @@ module.exports = {
   // NOTE: Disabling it decreases lagness, also very useful if you don't need foods to be spawned.
   ENABLE_FOOD: true,
 
-  FOOD_CAP: 3, // Max normal food per normal tile.
+  FOOD_CAP: 2, // Max normal food per normal tile.
   FOOD_SPAWN_CHANCE: 0.2, // Likeliness of normal food spawn attempts succeeding.
   FOOD_SPAWN_COOLDOWN: 30, // Cooldown (in game ticks) of food spawn attempts being made.
 
@@ -168,39 +168,74 @@ module.exports = {
   // NOTE: The spawn message (ex. "A strange trembling...") takes half as long to appear than the boss.
   BOSS_SPAWN_DURATION: 5,
   FOOD_TYPES: [
-    [2000, [
-      [256, 'egg'], [64, 'triangle'], [16, 'square'], [4, 'pentagon'], [1, 'hexagon']
-    ]],
-    [100, [
-        [4, 'heptagon'], [1, 'octagon']
-    ]],
-    [10, [
-        [4, 'nonagon'], [1, 'decagon']
-    ]],
-    [1, [
-      [625, 'gem'], [125, 'shinyTriangle'], [25, 'shinySquare'], [5, 'shinyPentagon'], [1, 'shinyHexagon']
-    ]],
-    [0.1, [
-      [1296, 'jewel'], [216, 'legendaryTriangle'], [36, 'legendarySquare'], [6, 'legendaryPentagon'], [1, 'legendaryHexagon']
-    ]]
+    [
+      2000,
+      [
+        [256, "egg"],
+        [64, "triangle"],
+        [16, "square"],
+        [4, "pentagon"],
+        [1, "hexagon"],
+      ],
+    ],
+    [
+      100,
+      [
+        [4, "heptagon"],
+        [1, "octagon"],
+      ],
+    ],
+    [
+      10,
+      [
+        [4, "nonagon"],
+        [1, "decagon"],
+      ],
+    ],
+    [
+      1,
+      [
+        [625, "gem"],
+        [125, "shinyTriangle"],
+        [25, "shinySquare"],
+        [5, "shinyPentagon"],
+        [1, "shinyHexagon"],
+      ],
+    ],
+    [
+      0.1,
+      [
+        [1296, "jewel"],
+        [216, "legendaryTriangle"],
+        [36, "legendarySquare"],
+        [6, "legendaryPentagon"],
+        [1, "legendaryHexagon"],
+      ],
+    ],
   ],
 
   // The possible nest food types that can spawn.
   FOOD_TYPES_NEST: [
-    [1, [
-      [16, 'pentagon'], [8, 'hexagon'], [ 4, 'heptagon'], [ 2, 'octagon']
-    ]],
-    [0.1, [
-        [4, 'nonagon'], [1, 'decagon']
-    ]]
+    [
+      1,
+      [
+        [16, "pentagon"],
+        [8, "hexagon"],
+        [4, "heptagon"],
+        [2, "octagon"],
+      ],
+    ],
+    [
+      0.1,
+      [
+        [4, "nonagon"],
+        [1, "decagon"],
+      ],
+    ],
   ],
 
   // The possible nest enemy types that can spawn.
-  ENEMY_TYPES_NEST: [
-    [1, [
-      [1, 'crasher']
-    ]]
-  ],
+  ENEMY_TYPES_NEST: [[1, [[1, "crasher"]]]],
 
   // The possible boss types that can spawn.
   BOSS_TYPES: [
