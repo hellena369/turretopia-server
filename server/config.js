@@ -22,7 +22,7 @@ module.exports = {
   LOGS: false, // just dont
 
   // The domain of the client
-  CLIENT_ADDRESS: "turretopia.glitch.me",
+  CLIENT_ADDRESS: "turretopia.surge.sh",
 
   // The \modules\setup\gamemodeconfigs\ files to load.
   // To change specific things about specific gamemodes (such as team count for tdm), edit their config file in \modules\setup\gamemodeconfigs\.
@@ -35,8 +35,8 @@ module.exports = {
   ROOM_SETUP: ["map_apspp_default"],
 
   // The dimensions of a single tile on the map.
-  TILE_WIDTH: 300,
-  TILE_HEIGHT: 300,
+  TILE_WIDTH: 400,
+  TILE_HEIGHT: 400,
 
   // Miscellaneous
 
