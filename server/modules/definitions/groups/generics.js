@@ -1,5 +1,6 @@
 const { skillSet, makeAuto } = require('../facilitators.js');
 const { base, statnames, dfltskl, smshskl } = require('../constants.js');
+const {basePlayerHealth} = require("../constants");
 
 Class.genericEntity = {
     NAME: "",
@@ -112,7 +113,7 @@ Class.genericTank = {
     BODY: {
         ACCELERATION: base.ACCEL,
         SPEED: base.SPEED,
-        HEALTH: base.HEALTH,
+        HEALTH: basePlayerHealth,
         DAMAGE: base.DAMAGE,
         PENETRATION: base.PENETRATION,
         SHIELD: base.SHIELD,
@@ -282,7 +283,7 @@ Class.trap = {
         HEALTH: 0.5,
         DAMAGE: 3,
         RANGE: 450,
-        DENSITY: 2.5,
+        DENSITY: 4,
         RESIST: 2.5,
         SPEED: 0,
     },

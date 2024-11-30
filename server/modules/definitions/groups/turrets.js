@@ -1373,3 +1373,5 @@ Class.atomizerTurret = makeTurret({
         ],
     }, {canRepel: true, limitFov: true, independent: true, fov: 10, extraStats: []}
 )
+//MISC
+Class.homingProp = makeDeco(0, "#30d5c8")

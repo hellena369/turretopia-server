@@ -157,7 +157,6 @@ Class.director = {
         ASPECT: 1.3,
         X: 7,
       },
-      POSITION: [6, 11, 1.3, 7, 0, 0, 0],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.drone]),
         TYPE: "drone",
@@ -651,7 +650,7 @@ Class.spreadshot = {
           g.pounder,
           g.spreadshotMain,
           g.spreadshot,
-          {health: 2}
+          { reload: 0.95 }
         ]),
         TYPE: "bullet",
         LABEL: "Main"
@@ -2447,6 +2446,7 @@ Class.commander = {
   DANGER: 7,
   BODY: {
     FOV: base.FOV * 1.15,
+    SPEED: 0.9
   },
   GUNS: [
     ...weaponArray(
@@ -3562,7 +3562,7 @@ Class.conqueror = {
       POSITION: [2, 12, 1.1, 18, 0, 0, 0],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.trap, g.setTrap]),
-        TYPE: "setTrap",
+        TYPE: "unsetTrap",
         STAT_CALCULATOR: "block",
       },
     },
@@ -4649,30 +4649,6 @@ Class.triAngle.UPGRADES_TIER_3 = [
   "vulture",
 ];
 Class.auto3.UPGRADES_TIER_3 = ["auto5", "mega3", "auto4", "banshee"];
-
-Class.director.UPGRADES_TIER_1 = [
-  "overseer",
-  "cruiser",
-  "underseer",
-  "spawner",
-];
-Class.director.UPGRADES_TIER_3 = ["manager", "bigCheese"];
-Class.overseer.UPGRADES_TIER_3 = [
-  "overlord",
-  "overtrapper",
-  "overgunner",
-  "banshee",
-  "overdrive",
-  "commander",
-];
-Class.cruiser.UPGRADES_TIER_3 = [
-  "carrier",
-  "battleship",
-  "fortress",
-  "commander",
-];
-Class.underseer.UPGRADES_TIER_3 = ["necromancer", "maleficitor", "infestor"];
-Class.spawner.UPGRADES_TIER_3 = ["factory"];
 
 Class.pounder.UPGRADES_TIER_2 = [
   "destroyer",

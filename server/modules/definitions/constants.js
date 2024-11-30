@@ -2,6 +2,8 @@ module.exports = {
 	basePolygonDamage: 1,
 	basePolygonHealth: 2,
 
+	basePlayerHealth: 30,
+
 	// SKILL DEFINITIONS
 	dfltskl: 9,
 	smshskl: 12,
@@ -12,10 +14,10 @@ module.exports = {
 		generic: {
 			BODY_DAMAGE: 'Body Damage',
 			MAX_HEALTH: 'Max Health',
-			BULLET_SPEED: 'Bullet Speed',
-			BULLET_HEALTH: 'Bullet Health',
-			BULLET_PEN: 'Bullet Penetration',
-			BULLET_DAMAGE: 'Bullet Damage',
+			BULLET_SPEED: 'Weapon Speed',
+			BULLET_HEALTH: 'Weapon Health',
+			BULLET_PEN: 'Weapon Penetration',
+			BULLET_DAMAGE: 'Weapon Damage',
 			RELOAD: 'Reload',
 			MOVE_SPEED: 'Movement Speed',
 			SHIELD_REGEN: 'Shield Regeneration',

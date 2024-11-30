@@ -550,7 +550,7 @@ Class.setTrap = {
     CONTROLLERS: ["goToMasterTarget"],
     BODY: {
         SPEED: 1,
-        DENSITY: 5,
+        DENSITY: 3.5,
     },
 }
 Class.unsetTrap = {
@@ -560,7 +560,7 @@ Class.unsetTrap = {
     MOTION_TYPE: "motor",
     BODY: {
         SPEED: 1,
-        DENSITY: 5,
+        DENSITY: 3.5,
     },
 }
 Class.boomerang = {
@@ -666,4 +666,45 @@ Class.homingBullet = {
         PUSHABILITY: 0.3,
     },
     CAN_GO_OUTSIDE_ROOM: true
+}
+//SPECIAL
+Class.trail = {
+    PARENT: "bullet",
+    COLOR: "#30D5C8",
+    MOTION_TYPE: "trail",
+    //TYPE: "trail",
+    BODY: {
+        SPEED: 0
+    }
+}
+Class.heatMissile = {
+    PARENT: "swarm",
+    COLOR: "#30D5C8",
+    SHAPE: 0,
+    INDEPENDENT: true,
+    LABEL: "Heat Missile",
+    AI: {
+        FARMER: true
+    },
+    BODY: {
+        RANGE: 300,
+        FOV: 8
+    },
+    GUNS: [
+        {
+            POSITION: [0, 12, 1, 0, 5, 180, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, { damage: 10e-10, health: 10e100, maxSpeed: 0, speed: 0, recoil:  0, size: 2 }]),
+                TYPE: "trail",
+                ALPHA: 0,
+                AUTOFIRE: true,
+            }
+        },
+    ],
+    TURRETS: [
+        {
+            POSITION: [16, 0, 0, 0, 360, 15],
+            TYPE: "homingProp"
+        }
+    ]
 }

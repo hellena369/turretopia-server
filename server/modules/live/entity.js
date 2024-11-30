@@ -1084,10 +1084,10 @@ class Entity extends EventEmitter {
         if (set.STAT_NAMES != null) this.settings.skillNames = {
             body_damage: set.STAT_NAMES?.BODY_DAMAGE ?? 'Body Damage',
             max_health: set.STAT_NAMES?.MAX_HEALTH ?? 'Max Health',
-            bullet_speed: set.STAT_NAMES?.BULLET_SPEED ?? 'Bullet Speed',
-            bullet_health: set.STAT_NAMES?.BULLET_HEALTH ?? 'Bullet Health',
-            bullet_pen: set.STAT_NAMES?.BULLET_PEN ?? 'Bullet Penetration',
-            bullet_damage: set.STAT_NAMES?.BULLET_DAMAGE ?? 'Bullet Damage',
+            bullet_speed: set.STAT_NAMES?.BULLET_SPEED ?? 'Weapon Speed',
+            bullet_health: set.STAT_NAMES?.BULLET_HEALTH ?? 'Weapon Health',
+            bullet_pen: set.STAT_NAMES?.BULLET_PEN ?? 'Weapon Penetration',
+            bullet_damage: set.STAT_NAMES?.BULLET_DAMAGE ?? 'Weapon Damage',
             reload: set.STAT_NAMES?.RELOAD ?? 'Reload',
             move_speed: set.STAT_NAMES?.MOVE_SPEED ?? 'Movement Speed',
             shield_regen: set.STAT_NAMES?.SHIELD_REGEN ?? 'Shield Regeneration',
@@ -1605,7 +1605,7 @@ class Entity extends EventEmitter {
         this.move();
     }
     get level() {
-        return Math.min(this.levelCap ?? 45, this.skill.level);
+        return Math.min(this.levelCap ?? Config.LEVEL_CAP, this.skill.level);
     }
     get size() {
         return this.bond == null ? (this.coreSize || this.SIZE) * this.sizeMultiplier * (1 + this.level / 45) : this.bond.size * this.bound.size;
@@ -1998,6 +1998,12 @@ class Entity extends EventEmitter {
                 let waveY = (this.motionTypeArgs.amplitude ?? 15) * Math.cos((this.RANGE - this.range) / (this.motionTypeArgs.period ?? 4)) * this.waveReversed * (this.motionTypeArgs.invert ? -1 : 1);
                 this.x += Math.cos(this.waveAngle) * waveX - Math.sin(this.waveAngle) * waveY;
                 this.y += Math.sin(this.waveAngle) * waveX + Math.cos(this.waveAngle) * waveY;
+                break;
+            case "trail":
+                this.SIZE--;
+                console.log("trail") //for testing
+                if (this.SIZE <= 1) this.kill();
+                this.maxSpeed = this.topSpeed;
                 break;
         }
         this.accel.x += engine.x * this.control.power;

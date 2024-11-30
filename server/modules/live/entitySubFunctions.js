@@ -36,10 +36,10 @@ class Skill {
         this.setCaps([ Config.MAX_SKILL, Config.MAX_SKILL, Config.MAX_SKILL, Config.MAX_SKILL, Config.MAX_SKILL, Config.MAX_SKILL, Config.MAX_SKILL, Config.MAX_SKILL, Config.MAX_SKILL, Config.MAX_SKILL ]);
         this.name = [
             "Reload",
-            "Bullet Penetration",
-            "Bullet Health",
-            "Bullet Damage",
-            "Bullet Speed",
+            "Weapon Penetration",
+            "Weapon Health",
+            "Weapon Damage",
+            "Weapon Speed",
             "Shield Capacity",
             "Body Damage",
             "Max Health",
@@ -135,7 +135,7 @@ class Skill {
         return true;
     }
     get scoreForLevel() {
-        return Math.ceil(Math.pow(this.level, 3) * 0.3083);
+        return Math.ceil(Math.pow(this.level, 3) * 0.3183);
     }
     get levelScore() {
         return this.levelUpScore - this.deduction;

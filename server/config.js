@@ -3,10 +3,10 @@ module.exports = {
 
   // Game server domain.
   // If the host is 'localhost:NUMBER', the NUMBER must be the port setting.
-  host: "df8zpy-4000.csb.app/",
+  host: "turretopia.alphexo.dev/",
 
   // Which port to run the web server on.
-  port: 4000,
+  port: 3000,
 
   // How often to update the list of the entities that players can see.
   // Has effects of when entities are activated.
@@ -26,7 +26,7 @@ module.exports = {
 
   // The \modules\setup\gamemodeconfigs\ files to load.
   // To change specific things about specific gamemodes (such as team count for tdm), edit their config file in \modules\setup\gamemodeconfigs\.
-  GAME_MODES: ["ffa"],
+  GAME_MODES: ["growth", "ffa"],
 
   // The room files to load in the setup/rooms folder.
   // NOTE: If a /gamemodeconfig/ file "replaces" the value of ROOM_SETUP, it just adds its own ROOM_SETUP's content to this array.
@@ -81,7 +81,7 @@ module.exports = {
   DAMAGE_CONSTANT: 0.5,
 
   // General knockback multiplier everytime knockback is applied.
-  KNOCKBACK_CONSTANT: 1,
+  KNOCKBACK_CONSTANT: 1.25,
 
   // TODO: Figure out how the math behind this works.
   GLASS_HEALTH_FACTOR: 2,
@@ -158,9 +158,9 @@ module.exports = {
   FOOD_SPAWN_CHANCE_NEST: 0.4, // Likeliness of nest food spawn attempts succeeding.
   FOOD_SPAWN_COOLDOWN_NEST: 45, // Cooldown (in game ticks) of nest food spawn attempts being made.
 
-  ENEMY_CAP_NEST: 1, // Max nest enemies per nest tile.
-  ENEMY_SPAWN_CHANCE_NEST: 0.2, // Likeliness of nest enemies spawn attempts succeeding.
-  ENEMY_SPAWN_COOLDOWN_NEST: 60, // Cooldown (in game ticks) of nest enemies spawn attempts being made.
+  ENEMY_CAP_NEST: 0.2, // Max nest enemies per nest tile.
+  ENEMY_SPAWN_CHANCE_NEST: 0.1, // Likeliness of nest enemies spawn attempts succeeding.
+  ENEMY_SPAWN_COOLDOWN_NEST: 300, // Cooldown (in game ticks) of nest enemies spawn attempts being made.
 
   // Cooldown (in seconds) of boss spawns being announced.
   BOSS_SPAWN_COOLDOWN: 300,
@@ -235,7 +235,7 @@ module.exports = {
   ],
 
   // The possible nest enemy types that can spawn.
-  ENEMY_TYPES_NEST: [[1, [[1, "crasher"]]]],
+  ENEMY_TYPES_NEST: [[0.1, [[1, "sentrySwarm"], [1, "sentryTrap"], [1, "sentryGun"]]]],
 
   // The possible boss types that can spawn.
   BOSS_TYPES: [

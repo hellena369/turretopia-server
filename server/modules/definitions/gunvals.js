@@ -1,7 +1,7 @@
 module.exports = {
     // Bases
         basic: { reload: 11, recoil: 1, shudder: 0.1, damage: 0.7, speed: 4.5, spray: 15 },
-        drone: { reload: 36, recoil: 0.25, shudder: 0.1, size: 0.6, damage: 0.8, speed: 2, spray: 0.1 },
+        drone: { reload: 36, recoil: 0.25, shudder: 0.1, size: 0.6, damage: 0.7, speed: 2, spray: 0.1 },
         trap: { reload: 23, shudder: 0.25, size: 0.6, damage: 0.5, health: 0.5, speed: 5, spray: 15, resist: 3 },
         swarm: { reload: 18, recoil: 0.25, shudder: 0.05, size: 0.4, damage: 0.7, speed: 4, spray: 5 },
         factory: { reload: 48, shudder: 0.1, size: 0.7, damage: 0.7, health: 0.7, speed: 3, spray: 0.1 },
@@ -34,7 +34,7 @@ module.exports = {
         machineGun: { reload: 0.5, recoil: 0.8, shudder: 1.7, health: 0.7, damage: 0.7, maxSpeed: 0.8, spray: 2.5 },
         minigun: { reload: 1, recoil: 0.6, size: 0.8, health: 0.55, damage: 0.45, pen: 1.25, speed: 1.33, density: 1.25, spray: 0.5, resist: 1.1 },
         streamliner: { recoil: 0.6, damage: 0.65, speed: 1.24 },
-        nailgun: { reload: 0.85, recoil: 2.5, size: 0.8, damage: 0.7, density: 2 },
+        nailgun: { reload: 0.85, recoil: 2.5, size: 0.8, density: 2 },
         pelleter: { reload: 1.25, recoil: 0.25, shudder: 1.5, size: 1.1, damage: 0.35, pen: 1.35, speed: 0.9, maxSpeed: 0.8, density: 1.5, spray: 1.5, resist: 1.2 },
         gunner: { recoil: 0.25, shudder: 1.5, size: 1.2, health: 1.35, damage: 0.25, pen: 1.25, speed: 0.8, maxSpeed: 0.65, density: 1.5, spray: 1.5, resist: 1.2 },
         machineGunner: { reload: 0.66, recoil: 0.8, shudder: 2, damage: 0.75, speed: 1.2, maxSpeed: 0.8, spray: 2.5 },
@@ -43,6 +43,7 @@ module.exports = {
         atomizer: { reload: 0.3, recoil: 0.8, size: 0.5, damage: 0.75, speed: 1.2, maxSpeed: 0.8, spray: 2.25 },
         spam: { reload: 1.1, size: 1.05, damage: 1.1, speed: 0.9, maxSpeed: 0.7, resist: 1.05 },
         gunnerDominator: { reload: 1.1, recoil: 0, shudder: 1.1, size: 0.5, health: 0.5, damage: 0.5, speed: 1.1, density: 0.9, spray: 1.2, resist: 0.8 },
+        vulcan: { reload: 0.5, speed: 1.2, damage: 0.9, density: 1.1, resist: 1.1 },
     
     // Flanks
         flankGuard: { recoil: 1.2, health: 1.02, damage: 0.81, pen: 0.9, maxSpeed: 0.85, density: 1.2 },
@@ -64,12 +65,12 @@ module.exports = {
         summoner: { reload: 0.3, size: 1.125, health: 0.5, damage: 0.345, pen: 0.4, density: 0.8 },
         minionGun: { recoil: 0, shudder: 2, health: 0.4, damage: 0.4, pen: 1.2, range: 0.75, spray: 2 },
         babyfactory: { reload: 1.5, maxSpeed: 1.25 },
-        bigCheese: { reload: 1.5, size: 1.8, health: 4, damage: 1.15, pen: 1.15, speed: 1.25 },
+        bigCheese: { reload: 1.5, size: 1.8, health: 2.1, damage: 2.1, pen: 1.25, speed: 1.15 },
         mothership: { reload: 1.25, pen: 1.1, speed: 0.775, maxSpeed: 0.8, range: 15, resist: 1.15 },
         satellite: { size: 0.8, reload: 3, damage: 1.875 },
         negro: { reload: 0.5, damage: 0.35 },
-        swarmeer: { reload: 0.95 },
-        babyDrone: { reload: 1.5, health: 0.9, damage: 0.9, size: 2.3 },
+        swarmeer: { reload: 0.98, size: 0.9 },
+        babyDrone: { reload: 1.5, health: 0.8, damage: 0.8, size: 1.8 },
     
     // Heavy cannons
         pounder: { reload: 2, recoil: 2, damage: 2, speed: 0.85, maxSpeed: 0.8, density: 1.5, resist: 1.15 },
@@ -113,5 +114,7 @@ module.exports = {
         lowPower: { shudder: 2, health: 0.5, damage: 0.5, pen: 0.7, spray: 0.5, resist: 0.7 },
         halfrange: { range: 0.5 },
         aura: { reload: 0.001, recoil: 0.001, shudder: 0.001, size: 6, speed: 0.001, maxSpeed: 0.001, spray: 0.001 },
-        noSpread: { shudder: 0, spray: 0 }
+        noSpread: { shudder: 0, spray: 0 },
+        lessReload: { reload: 2 },
+        fog: { damage: 0.8, health: 0.8, pen: 0.9 }
     }

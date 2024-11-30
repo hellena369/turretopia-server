@@ -2,6 +2,8 @@ const { base} = require('../constants.js');
 const g = require('../gunvals.js')
 const { addAura, makeAuto, makeDeco, makeTurret, makeOver, combineStats, weaponArray } = require("../facilitators.js");
 const { statnames, smshskl } = require("../constants.js");
+const {makeGuard} = require("../facilitators");
+const {basePlayerHealth} = require("../constants");
 // Addon for base turretopia stuff
 const fakeGun = [
     {
@@ -673,7 +675,7 @@ Class.bee2Tank = {
                     X: -3
                 },
                 PROPERTIES: {
-                    SHOOT_SETTINGS: combineStats([g.swarm, g.bee, { speed: 0.75, size: 0.75, damage: 0.5 }, g.babyDrone]),
+                    SHOOT_SETTINGS: combineStats([g.swarm, g.bee, { speed: 0.75, size: 0.75, damage: 0.25 }, g.babyDrone]),
                     TYPE: ["bee", { INDEPENDENT: true }],
                     STAT_CALCULATOR: ["swarm", "fixedReload"],
                     SYNCS_SKILLS: true,
@@ -690,7 +692,7 @@ Class.bee2Tank = {
                     DELAY: 1/2
                 },
                 PROPERTIES: {
-                    SHOOT_SETTINGS: combineStats([g.swarm, g.bee, { speed: 0.75, size: 0.75, damage: 0.5 }, g.babyDrone]),
+                    SHOOT_SETTINGS: combineStats([g.swarm, g.bee, { speed: 0.75, size: 0.75, damage: 0.25 }, g.babyDrone]),
                     TYPE: "bee",
                     STAT_CALCULATOR: ["swarm", "fixedReload"],
                     SYNCS_SKILLS: true,
@@ -1160,7 +1162,7 @@ Class.megaMinion = {
         {
             POSITION: [17, 13, 1, 0, 0, 0, 0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.minionGun, g.pounder]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.minionGun, g.pounder, {damage: 1.5}]),
                 WAIT_TO_CYCLE: true,
                 TYPE: "bullet",
             },
@@ -1216,7 +1218,7 @@ Class.foundry = {
         {
             POSITION: [2, 16, 1, 15.5, 0, 0, 0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.factory, { reload: 3, size: 1.15, health: 2, speed: 0.7, maxSpeed: 0.7 }]),
+                SHOOT_SETTINGS: combineStats([g.factory, { reload: 3, size: 1.15, health: 2, speed: 0.6, maxSpeed: 0.6 }]),
                 TYPE: "megaMinion",
                 MAX_CHILDREN: 3,
                 STAT_CALCULATOR: "drone",
@@ -1584,7 +1586,7 @@ Class.smallminion = {
         {
             POSITION: [17, 9, 1, 0, 0, 0, 0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.minionGun, { damage: 0.4, pen: 0.8 }]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.minionGun, { damage: 0.5 }]),
                 WAIT_TO_CYCLE: true,
                 TYPE: "bullet",
             },
@@ -1607,7 +1609,7 @@ Class.industry = {
             POSITION: [1, 12, 1, 15, 0, 0, 0],
             PROPERTIES: {
                 MAX_CHILDREN: 4,
-                SHOOT_SETTINGS: combineStats([g.factory, g.babyfactory, { health: 0.2, damage: 0.2, pen: 0.5 }]),
+                SHOOT_SETTINGS: combineStats([g.factory, g.babyfactory, { health: 0.15, damage: 0.2, pen: 0.5 }]),
                 TYPE: "smallminion",
                 STAT_CALCULATOR: "drone",
                 AUTOFIRE: true,
@@ -1857,16 +1859,15 @@ Class.leader = {
     DANGER: 7,
     STAT_NAMES: statnames.drone,
     BODY: {
-        FOV: 1.1 * base.FOV,
+        FOV: 1.15 * base.FOV,
     },
-    ALPHA: 0.3,
-    INVISIBLE: null,
+    ALPHA: 0.4,
     MAX_CHILDREN: 8,
     GUNS: [
         {
             POSITION: [6, 12, 1.2, 8, 0, 0, 0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.drone, g.overseer, { reload: 0.5 }]),
+                SHOOT_SETTINGS: combineStats([g.drone, g.overseer, { reload: 0.6 }]),
                 TYPE: "drone",
                 AUTOFIRE: true,
                 SYNCS_SKILLS: true,
@@ -2161,7 +2162,7 @@ Class.pen = {
                 DELAY: 0
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.doubleTwin, g.twin]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin]),
                 TYPE: "bullet",
             }
         },
@@ -2179,7 +2180,7 @@ Class.pen = {
                 X: 13,
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.trap, g.doubleTwin, g.twin]),
+                SHOOT_SETTINGS: combineStats([g.trap, g.twin]),
                 TYPE: "trap",
                 STAT_CALCULATOR: "trap",
             },
@@ -2296,7 +2297,7 @@ Class.kraal = {
                 ANGLE: 0,
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.doubleTwin]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin]),
                 TYPE: "bullet",
             }
         },
@@ -2306,7 +2307,7 @@ Class.kraal = {
         {
             POSITION: [2, 12, 1.1, 18, 0, 0, 0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, g.twin, g.doubleTwin]),
+                SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, g.twin]),
                 TYPE: "setTrap",
                 STAT_CALCULATOR: "block",
             },
@@ -2329,7 +2330,7 @@ Class.cache = {
                 ANGLE: 0,
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.doubleTwin]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin]),
                 TYPE: "bullet",
             }
         },
@@ -2351,7 +2352,7 @@ Class.cache = {
                 ANGLE: 8
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.trap, g.twin, g.triplet, g.doubleTwin]),
+                SHOOT_SETTINGS: combineStats([g.trap, g.twin]),
                 TYPE: "trap",
                 STAT_CALCULATOR: "trap",
             },
@@ -2367,7 +2368,7 @@ Class.cache = {
                 DELAY: 1/2
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.doubleTwin]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin]),
                 TYPE: "bullet",
             }
         },
@@ -2390,7 +2391,7 @@ Class.cache = {
                 ANGLE: -8
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.trap, g.twin, g.triplet, g.doubleTwin]),
+                SHOOT_SETTINGS: combineStats([g.trap, g.twin]),
                 TYPE: "trap",
                 STAT_CALCULATOR: "trap",
             },
@@ -2584,94 +2585,66 @@ Class.dobloon = {
 Class.equalizer = {
     PARENT: "genericTank",
     LABEL: "Equalizer",
-    STAT_NAMES: statnames.trap,
+    DANGER: 7,
     GUNS: [
         {
-            POSITION: {
-                LENGTH: 15,
-                WIDTH: 7,
-                Y: 5.5,
-            },
-        },
-        {
-            POSITION: {
-                LENGTH: 3,
-                WIDTH: 7,
-                ASPECT: 1.7,
-                X: 15,
-                Y: 5.5,
-            },
+            POSITION: [3.5, 3.5, 1.7, 12, -7.25, 0, 0.75],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.trap]),
+                SHOOT_SETTINGS: combineStats([
+                    g.trap,
+                    g.twin,
+                    g.gunner,
+                    { speed: 1.2, damage: 1.4, health: 1.25 },
+                ]),
                 TYPE: "trap",
-                STAT_CALCULATOR: "trap",
             },
         },
         {
-            POSITION: {
-                LENGTH: 15,
-                WIDTH: 7,
-                Y: -5.5,
-                DELAY: 1/2
-            },
-        },
-        {
-            POSITION: {
-                LENGTH: 3,
-                WIDTH: 7,
-                ASPECT: 1.7,
-                X: 15,
-                Y: -5.5,
-                DELAY: 1/2,
-            },
+            POSITION: [3.5, 3.5, 1.7, 12, 7.25, 0, 0.5],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.trap]),
+                SHOOT_SETTINGS: combineStats([
+                    g.trap,
+                    g.twin,
+                    g.gunner,
+                    { speed: 1.2, damage: 1.4, health: 1.25 },
+                ]),
                 TYPE: "trap",
-                STAT_CALCULATOR: "trap",
             },
         },
         {
-            POSITION: {
-                LENGTH: 15,
-                WIDTH: 7,
-                Y: 4,
-            },
+            POSITION: [12, 3.5, 1, 0, 7.25, 0, 0.5]
         },
         {
-            POSITION: {
-                LENGTH: 3,
-                WIDTH: 7,
-                ASPECT: 1.7,
-                X: 15,
-                Y: 4,
-            },
+            POSITION: [12, 3.5, 1, 0, -7.25, 0, 0.75]
+        },
+        {
+            POSITION: [16, 3.5, 1, 0, 3.75, 0, 0]
+        },
+        {
+            POSITION: [16, 3.5, 1, 0, -3.75, 0, 0.25]
+        },
+        {
+            POSITION: [2.5, 3.5, 1.7, 16, 3.75, 0, 0.25],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.trap]),
+                SHOOT_SETTINGS: combineStats([
+                    g.trap,
+                    g.twin,
+                    g.gunner,
+                    { speed: 1.2, damage: 1.4, health: 1.25 },
+                ]),
                 TYPE: "trap",
-                STAT_CALCULATOR: "trap",
             },
         },
         {
-            POSITION: {
-                LENGTH: 15,
-                WIDTH: 7,
-                Y: -4,
-                DELAY: 1/2
-            },
-        },
-        {
-            POSITION: {
-                LENGTH: 3,
-                WIDTH: 7,
-                ASPECT: 1.7,
-                X: 15,
-                Y: -4,
-                DELAY: 1/2,
-            },
+            POSITION: [2.5, 3.5, 1.7, 16, -3.75, 0, 0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.trap]),
+                SHOOT_SETTINGS: combineStats([
+                    g.trap,
+                    g.twin,
+                    g.gunner,
+                    { speed: 1.2, damage: 1.4, health: 1.25 },
+                ]),
                 TYPE: "trap",
-                STAT_CALCULATOR: "trap",
             },
         },
     ],
@@ -2767,62 +2740,6 @@ Class.highlord = makeOver({
         }
     ]
 }, "Highlord")
-Class.bomber = {
-    PARENT: "genericTank",
-    LABEL: "Bomber",
-    BODY: {
-        DENSITY: base.DENSITY * 0.6,
-    },
-    DANGER: 7,
-    GUNS: [
-        {
-            POSITION: [20, 8, 1, 0, 0, 0, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.triAngleFront]),
-                TYPE: "bullet",
-                LABEL: "Front",
-            },
-        },
-        {
-            POSITION: [18, 8, 1, 0, 0, 130, 0.1],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle]),
-                TYPE: "bullet",
-                LABEL: "Wing",
-            },
-        },
-        {
-            POSITION: [18, 8, 1, 0, 0, 230, 0.1],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle]),
-                TYPE: "bullet",
-                LABEL: "Wing",
-            },
-        },
-        {
-            POSITION: [4, 8, 1.7, 13, 0, 180, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.trap]),
-                TYPE: "trap",
-                STAT_CALCULATOR: "trap",
-            },
-        },
-        {
-            POSITION: [13, 8, 1, 0, 0, 180, 0],
-        },
-        {
-            POSITION: [4, 8, 1.7, 15, 0, 180, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.trap]),
-                TYPE: "trap",
-                STAT_CALCULATOR: "trap",
-            },
-        },
-        {
-            POSITION: [15, 8, 1, 0, 0, 180, 0],
-        },
-    ],
-}
 Class.parapet = {
     PARENT: "genericTank",
     LABEL: "Parapet",
@@ -2867,6 +2784,1279 @@ Class.parapet = {
         },
     ],
 }
+Class.fog = {
+    PARENT: "genericTank",
+    DANGER: 7,
+    LABEL: "Fog",
+    STAT_NAMES: statnames.generic,
+    BODY: {
+        FOV: 1.05 * base.FOV
+    },
+    GUNS: [
+        {
+            POSITION: [18, 8, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.lessReload, {damage: 2}]),
+                TYPE: "heatMissile",
+                COLOR: "#30d5c8"
+            }
+        }
+    ]
+}
+Class.daze = {
+    PARENT: "genericTank",
+    DANGER: 7,
+    LABEL: "Daze",
+    STAT_NAMES: statnames.generic,
+    BODY: {
+        FOV: 1.05 * base.FOV
+    },
+    GUNS: [
+        {
+            POSITION: [18, 8, 1, 0, 5, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                TYPE: "bullet"
+            }
+        },
+        {
+            POSITION: [18, 8, 1, 0, -5, 0, 0.5],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                TYPE: "bullet"
+            }
+        },
+        {
+            POSITION: [13, 10, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.lessReload, g.fog, {damage: 2}]),
+                TYPE: "heatMissile",
+                COLOR: "#30d5c8"
+            }
+        }
+    ]
+}
+Class.hypnosis = {
+    PARENT: "genericTank",
+    DANGER: 8,
+    LABEL: "Hypnosis",
+    STAT_NAMES: statnames.generic,
+    BODY: {
+        FOV: 1.05 * base.FOV
+    },
+    GUNS: [
+        {
+            POSITION: [8, 8, 1, 0, 5.5, 0, 1/3],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog, {reload: 2}]),
+                TYPE: "heatMissile",
+            }
+        },
+        {
+            POSITION: [8, 8, 1, 0, -5.5, 0, 2/3],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog, {reload: 2}]),
+                TYPE: "heatMissile",
+            }
+        },
+        {
+            POSITION: [18, 19, 1, 0, 0, 0, 0.7],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.fog, {damage: 3.5, speed: 0.7, health: 1.3, reload: 8}]),
+                TYPE: "bullet",
+            }
+        },
+        {
+            POSITION: [13, 10, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.lessReload, g.fog, {damage: 2.5, speed: 1.5, health: 1.5, reload: 1.5}]),
+                TYPE: "bullet",
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [20, 0.3, -48, 2.5, 2.7, 20, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [15, 0.3, -35, 0.3, 4.5, 23, 0],
+        },
+        {
+            POSITION: [20, 0.3, -48, 2.5, -2.7, -20, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [15, 0.3, -35, 0.3, -4.5, -23, 0],
+        },
+    ]
+}
+Class.trance = {
+    PARENT: "genericTank",
+    LABEL: "Trance",
+    STAT_NAMES: statnames.generic,
+    GUNS: [
+        {
+            POSITION: [15, 16, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog, {damage: 2.5, speed: 1.5, health: 1.5, reload: 1.5, size: 0.3}]),
+                TYPE: "heatMissile",
+            }
+        },
+        {
+            POSITION: [5, 10, 2.4, -8, -7.25, 90, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [5, 10, 2.4, -8, 7.25, -90, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [5, 10, 2.1, -8, -3, 90, 0],
+        },
+        {
+            POSITION: [5, 10, 2.1, -8, 3, -90, 0],
+        },
+        {
+            POSITION: [8, 5, 1, 0, -5.5, 0, 0.5],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                TYPE: "bullet",
+                ALPHA: 0,
+            }
+        },
+        {
+            POSITION: [8, 5, 1, 0, 5.5, 0, 0.5],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                TYPE: "bullet",
+                ALPHA: 0,
+            }
+        },
+    ]
+}
+Class.reverie = {
+    PARENT: "genericTank",
+    LABEL: "Reverie",
+    STAT_NAMES: statnames.desmos,
+    GUNS: [
+        {
+            POSITION: [3.5, 9, 2.4, -12.5, -4.8, 90, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [3.5, 9, 2.4, -12.5, 4.8, -90, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [5, 10, 2.1, -12.5, -0.55, 90, 0],
+        },
+        {
+            POSITION: [5, 10, 2.1, -12.5, 0.55, -90, 0],
+        },
+        {
+            POSITION: [15, 16, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog, {damage: 2.5, speed: 1.5, health: 1.5, reload: 1.5, size: 0.3}]),
+                TYPE: "heatMissile",
+            }
+        },
+        {
+            POSITION: [5, 10, 2.4, -8, -7.25, 90, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [5, 10, 2.4, -8, 7.25, -90, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [5, 10, 2.1, -8, -3, 90, 0],
+        },
+        {
+            POSITION: [5, 10, 2.1, -8, 3, -90, 0],
+        },
+        {
+            POSITION: [8, 5, 1, 0, -5.5, 0, 1/3],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                TYPE: "bullet",
+                ALPHA: 0,
+            }
+        },
+        {
+            POSITION: [8, 5, 1, 0, 5.5, 0, 1/3],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                TYPE: "bullet",
+                ALPHA: 0,
+            }
+        },
+        {
+            POSITION: [8, 5, 1, 0, -10.75, 0, 2/3],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                TYPE: "bullet",
+                ALPHA: 0,
+            }
+        },
+        {
+            POSITION: [8, 5, 1, 0, 10.75, 0, 2/3],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                TYPE: "bullet",
+                ALPHA: 0,
+            }
+        },
+    ]
+}
+Class.daydream = {
+    PARENT: "genericTank",
+    LABEL: "Daydream",
+    STAT_NAMES: statnames.generic,
+    GUNS: [
+        {
+            POSITION: [15, 16, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog, {damage: 2.5, speed: 1.5, health: 1.5, reload: 1.5, size: 0.3}]),
+                TYPE: "heatMissile",
+            }
+        },
+        {
+            POSITION: [5, 10, 2.4, -8, -7.25, 90, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [5, 10, 2.4, -8, 7.25, -90, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [5, 10, 2.1, -8, -3, 90, 0],
+        },
+        {
+            POSITION: [5, 10, 2.1, -8, 3, -90, 0],
+        },
+        {
+            POSITION: [8, 5, 1, 0, -5.5, 0, 0.5],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                TYPE: "bullet",
+                ALPHA: 0,
+            }
+        },
+        {
+            POSITION: [8, 5, 1, 0, 5.5, 0, 0.5],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                TYPE: "bullet",
+                ALPHA: 0,
+            }
+        },
+        {
+            POSITION: [13, 4.75, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog, {damage: 2}]),
+                TYPE: "bullet",
+                COLOR: "#30d5c8",
+            }
+        },
+    ]
+}
+Class.asphyxia = {
+    PARENT: "genericTank",
+    LABEL: "Asphyxia",
+    STAT_NAMES: statnames.desmos,
+    GUNS: [
+        {
+            POSITION: [3.5, 9, 2.4, -12.5, -4.8, 90, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [3.5, 9, 2.4, -12.5, 4.8, -90, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [5, 10, 2.1, -12.5, -0.55, 90, 0],
+        },
+        {
+            POSITION: [5, 10, 2.1, -12.5, 0.55, -90, 0],
+        },
+        {
+            POSITION: [15, 16, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog, {damage: 2.5, speed: 1.5, health: 1.5, reload: 1.5, size: 0.3}]),
+                TYPE: "heatMissile",
+            }
+        },
+        {
+            POSITION: [21, 0.3, -50, 0, 3.25, -19, 0],
+            PROPERTIES: {
+                COLOR: "#219167"
+            }
+        },
+        {
+            POSITION: [21, 0.3, -50, 0, -3.25, 19, 0],
+            PROPERTIES: {
+                COLOR: "#219167"
+            }
+        },
+        {
+            POSITION: [5, 10, 2.4, -8, -7.25, 90, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [5, 10, 2.4, -8, 7.25, -90, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [5, 10, 2.1, -8, -3, 90, 0],
+        },
+        {
+            POSITION: [5, 10, 2.1, -8, 3, -90, 0],
+        },
+        {
+            POSITION: [8, 5, 1, 0, -5.5, 0, 1/3],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                TYPE: ["bullet", {CONTROLLERS: ['snake']}],
+                ALPHA: 0,
+            }
+        },
+        {
+            POSITION: [8, 5, 1, 0, 5.5, 0, 1/3],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                TYPE: ["bullet", {CONTROLLERS: [['snake', {invert: true}]]}],
+                ALPHA: 0,
+            }
+        },
+        {
+            POSITION: [8, 5, 1, 0, -10.75, 0, 2/3],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                TYPE: "bullet",
+                ALPHA: 0,
+            }
+        },
+        {
+            POSITION: [8, 5, 1, 0, 10.75, 0, 2/3],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                TYPE: "bullet",
+                ALPHA: 0,
+            }
+        },
+    ]
+}
+Class.flashback = {
+    PARENT: "genericTank",
+    LABEL: "Flashback",
+    STAT_NAMES: statnames.desmos,
+    GUNS: [
+        {
+            POSITION: [3.5, 9, 2.4, -12.5, -4.8, 90, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [3.5, 9, 2.4, -12.5, 4.8, -90, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [5, 10, 2.1, -12.5, -0.55, 90, 0],
+        },
+        {
+            POSITION: [5, 10, 2.1, -12.5, 0.55, -90, 0],
+        },
+        {
+            POSITION: [15, 16, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog, {damage: 2.5, speed: 1.5, health: 1.5, reload: 1.5, size: 0.3}]),
+                TYPE: "heatMissile",
+            }
+        },
+        {
+            POSITION: [5, 10, 2.4, -8, -7.25, 90, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [5, 10, 2.4, -8, 7.25, -90, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [5, 10, 2.1, -8, -3, 90, 0],
+        },
+        {
+            POSITION: [5, 10, 2.1, -8, 3, -90, 0],
+        },
+        {
+            POSITION: [8, 5, 1, 0, -5.5, 0, 1/3],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                TYPE: "bullet",
+                ALPHA: 0,
+            }
+        },
+        {
+            POSITION: [8, 5, 1, 0, 5.5, 0, 1/3],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                TYPE: "bullet",
+                ALPHA: 0,
+            }
+        },
+        {
+            POSITION: [8, 5, 1, 0, -10.75, 0, 2/3],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                TYPE: "bullet",
+                ALPHA: 0,
+            }
+        },
+        {
+            POSITION: [8, 5, 1, 0, 10.75, 0, 2/3],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                TYPE: "bullet",
+                ALPHA: 0,
+            }
+        },
+        {
+            POSITION: [13, 4.75, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog, {damage: 2}]),
+                TYPE: "bullet",
+                COLOR: "#30d5c8",
+            }
+        },
+    ]
+}
+Class.mirage = {
+    PARENT: "genericTank",
+    LABEL: "Mirage",
+    STAT_NAMES: statnames.generic,
+    GUNS: [
+        {
+            POSITION: [17, 4.75, 1, 0, 0, 0, 0.5],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog, {damage: 2}]),
+                TYPE: "bullet",
+                COLOR: "#30d5c8",
+            }
+        },
+        {
+            POSITION: [15, 16, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog, {damage: 2.5, speed: 1.5, health: 1.5, reload: 1.5, size: 0.3}]),
+                TYPE: "heatMissile",
+            }
+        },
+        {
+            POSITION: [5, 10, 2.4, -8, -7.25, 90, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [5, 10, 2.4, -8, 7.25, -90, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [5, 10, 2.1, -8, -3, 90, 0],
+        },
+        {
+            POSITION: [5, 10, 2.1, -8, 3, -90, 0],
+        },
+        {
+            POSITION: [8, 5, 1, 0, -5.5, 0, 0.5],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                TYPE: "bullet",
+                ALPHA: 0,
+            }
+        },
+        {
+            POSITION: [8, 5, 1, 0, 5.5, 0, 0.5],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                TYPE: "bullet",
+                ALPHA: 0,
+            }
+        },
+        {
+            POSITION: [13, 4.75, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog, {damage: 2}]),
+                TYPE: "bullet",
+                COLOR: "#30d5c8",
+            }
+        },
+    ]
+}
+Class.awe = {
+    PARENT: "genericTank",
+    LABEL: "Awe",
+    STAT_NAMES: statnames.desmos,
+    GUNS: [
+        {
+            POSITION: [3.5, 9, 2.4, -12.5, -4.8, 90, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [3.5, 9, 2.4, -12.5, 4.8, -90, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [5, 10, 2.1, -12.5, -0.55, 90, 0],
+        },
+        {
+            POSITION: [5, 10, 2.1, -12.5, 0.55, -90, 0],
+        },
+        {
+            POSITION: [15, 16, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog, {damage: 2.5, speed: 1.5, health: 1.5, reload: 1.5, size: 0.3}]),
+                TYPE: "heatMissile",
+            }
+        },
+        {
+            POSITION: [5, 10, 2.4, -8, -7.25, 90, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [5, 10, 2.4, -8, 7.25, -90, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [5, 10, 2.1, -8, -3, 90, 0],
+        },
+        {
+            POSITION: [5, 10, 2.1, -8, 3, -90, 0],
+        },
+        {
+            POSITION: [8, 5, 1, 0, -5.5, 0, 1/3],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                TYPE: "bullet",
+                ALPHA: 0,
+            }
+        },
+        {
+            POSITION: [8, 5, 1, 0, 5.5, 0, 1/3],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                TYPE: "bullet",
+                ALPHA: 0,
+            }
+        },
+        {
+            POSITION: [8, 5, 1, 0, -10.75, 0, 2/3],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                TYPE: "bullet",
+                ALPHA: 0,
+            }
+        },
+        {
+            POSITION: [8, 5, 1, 0, 10.75, 0, 2/3],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                TYPE: "bullet",
+                ALPHA: 0,
+            }
+        },
+        {
+            POSITION: [15, 4, 1.8, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.machineGun, g.fog, {damage: 2, pen:1.5, health: 1.6, speed: 0.7, size: 1.6, reload: 0.85}]),
+                TYPE: "bullet",
+                COLOR: "#30d5c8",
+            }
+        },
+    ]
+}
+Class.illusion = {
+    PARENT: "genericTank",
+    LABEL: "Illusion",
+    STAT_NAMES: statnames.generic,
+    GUNS: [
+        {
+            POSITION: [17, 4.75, -1.4, 0, 0, 0, 0.5],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.swarm, g.fog, {damage: 2, health: 1.5, reload: 1.8}]),
+                TYPE: "swarm",
+                COLOR: "#30d5c8",
+            }
+        },
+        {
+            POSITION: [15, 16, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog, {damage: 2.5, speed: 1.5, health: 1.5, reload: 1.5, size: 0.3}]),
+                TYPE: "heatMissile",
+            }
+        },
+        {
+            POSITION: [5, 10, 2.4, -8, -7.25, 90, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [5, 10, 2.4, -8, 7.25, -90, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [5, 10, 2.1, -8, -3, 90, 0],
+        },
+        {
+            POSITION: [5, 10, 2.1, -8, 3, -90, 0],
+        },
+        {
+            POSITION: [8, 5, 1, 0, -5.5, 0, 0.5],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                TYPE: "bullet",
+                ALPHA: 0,
+            }
+        },
+        {
+            POSITION: [8, 5, 1, 0, 5.5, 0, 0.5],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                TYPE: "bullet",
+                ALPHA: 0,
+            }
+        },
+        {
+            POSITION: [13, 4.25, -1.8, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.swarm, g.fog, {damage: 2, health: 1.5, reload: 1.8}]),
+                TYPE: "swarm",
+                COLOR: "#30d5c8",
+            }
+        },
+    ]
+}
+Class.hallucination = {
+    PARENT: "genericTank",
+    LABEL: "Hallucination",
+    STAT_NAMES: statnames.generic,
+    GUNS: [
+        {
+            POSITION: [18, 4.75, 1, 0, 0, 0, 0.5],
+            PROPERTIES: {
+                COLOR: "#26615c",
+            }
+        },
+        {
+            POSITION: [2, 4.75, 1.45, 18, 0, 0, 0.5],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.trap, g.fog, {damage: 2}]),
+                MAX_CHILDREN: 8,
+                DESTROY_OLDEST_CHILD: true,
+                TYPE: "trap",
+                COLOR: "#26615c",
+            }
+        },
+        {
+            POSITION: [15, 16, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog, {damage: 2.5, speed: 1.5, health: 1.5, reload: 1.5, size: 0.3}]),
+                TYPE: "heatMissile",
+            }
+        },
+        {
+            POSITION: [5, 10, 2.4, -8, -7.25, 90, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [5, 10, 2.4, -8, 7.25, -90, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [5, 10, 2.1, -8, -3, 90, 0],
+        },
+        {
+            POSITION: [5, 10, 2.1, -8, 3, -90, 0],
+        },
+        {
+            POSITION: [8, 5, 1, 0, -5.5, 0, 0.5],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                TYPE: "bullet",
+                ALPHA: 0,
+            }
+        },
+        {
+            POSITION: [8, 5, 1, 0, 5.5, 0, 0.5],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                TYPE: "bullet",
+                ALPHA: 0,
+            }
+        },
+        {
+            POSITION: [13, 4.75, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                COLOR: "#26615c",
+            }
+        },
+        {
+            POSITION: [2, 4.75, 1.45, 13, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.trap, g.fog, {damage: 2}]),
+                MAX_CHILDREN: 8,
+                DESTROY_OLDEST_CHILD: true,
+                TYPE: "trap",
+                COLOR: "#26615c",
+            }
+        },
+    ]
+}
+Class.nostalgia = {
+    PARENT: "genericTank",
+    LABEL: "Nostalgia",
+    STAT_NAMES: statnames.desmos,
+    GUNS: [
+        {
+            POSITION: [3.5, 9, 2.4, -12.5, -4.8, 90, 0],
+        },
+        {
+            POSITION: [3.5, 9, 2.4, -12.5, 4.8, -90, 0],
+        },
+        {
+            POSITION: [5, 10, 2.1, -12.5, -0.55, 90, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [5, 10, 2.1, -12.5, 0.55, -90, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [15, 16, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog, {damage: 2.5, speed: 1.5, health: 1.5, reload: 1.5, size: 0.3}]),
+                TYPE: "heatMissile",
+            }
+        },
+        {
+            POSITION: [5, 10, 2.4, -8, -7.25, 90, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [5, 10, 2.4, -8, 7.25, -90, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [5, 10, 2.1, -8, -3, 90, 0],
+        },
+        {
+            POSITION: [5, 10, 2.1, -8, 3, -90, 0],
+        },
+        {
+            POSITION: [8, 5, 1, 0, -5.5, 0, 1/3],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                TYPE: "bullet",
+                ALPHA: 0,
+            }
+        },
+        {
+            POSITION: [8, 5, 1, 0, 5.5, 0, 1/3],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                TYPE: "bullet",
+                ALPHA: 0,
+            }
+        },
+        {
+            POSITION: [8, 5, 1, 0, -10.75, 0, 2/3],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog, {damage: 2, reload: 2, health: 1.3}]),
+                TYPE: "heatMissile",
+                ALPHA: 0,
+            }
+        },
+        {
+            POSITION: [8, 5, 1, 0, 10.75, 0, 2/3],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog, {damage: 2, reload: 2, health: 1.3}]),
+                TYPE: "heatMissile",
+                ALPHA: 0,
+            }
+        },
+        {
+            POSITION: [13, 4.75, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog, {damage: 2}]),
+                TYPE: "bullet",
+                COLOR: "#30d5c8",
+            }
+        },
+    ]
+}
+Class.reminiscence = {
+    PARENT: "genericTank",
+    LABEL: "Reminiscence",
+    STAT_NAMES: statnames.desmos,
+    GUNS: [
+        {
+            POSITION: [17, 4.75, 1, 0, 0, 0, 0.5],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog, {damage: 2}]),
+                TYPE: "bullet",
+                COLOR: "#30d5c8",
+            }
+        },
+        {
+            POSITION: [3.5, 9, 2.4, -12.5, -4.8, 90, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [3.5, 9, 2.4, -12.5, 4.8, -90, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [5, 10, 2.1, -12.5, -0.55, 90, 0],
+        },
+        {
+            POSITION: [5, 10, 2.1, -12.5, 0.55, -90, 0],
+        },
+        {
+            POSITION: [15, 16, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog, {damage: 2.5, speed: 1.5, health: 1.5, reload: 1.5, size: 0.3}]),
+                TYPE: "heatMissile",
+            }
+        },
+        {
+            POSITION: [5, 10, 2.4, -8, -7.25, 90, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [5, 10, 2.4, -8, 7.25, -90, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [5, 10, 2.1, -8, -3, 90, 0],
+        },
+        {
+            POSITION: [5, 10, 2.1, -8, 3, -90, 0],
+        },
+        {
+            POSITION: [8, 5, 1, 0, -5.5, 0, 1/3],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                TYPE: "bullet",
+                ALPHA: 0,
+            }
+        },
+        {
+            POSITION: [8, 5, 1, 0, 5.5, 0, 1/3],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                TYPE: "bullet",
+                ALPHA: 0,
+            }
+        },
+        {
+            POSITION: [8, 5, 1, 0, -10.75, 0, 2/3],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                TYPE: "bullet",
+                ALPHA: 0,
+            }
+        },
+        {
+            POSITION: [8, 5, 1, 0, 10.75, 0, 2/3],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                TYPE: "bullet",
+                ALPHA: 0,
+            }
+        },
+        {
+            POSITION: [13, 4.75, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog, {damage: 2}]),
+                TYPE: "bullet",
+                COLOR: "#30d5c8",
+            }
+        },
+    ]
+}
+Class.stupefaction = {
+    PARENT: "genericTank",
+    LABEL: "Stupefaction",
+    STAT_NAMES: statnames.generic,
+    GUNS: [
+        {
+            POSITION: [15, 16, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog, {damage: 2.5, speed: 1.5, health: 1.5, reload: 1.5, size: 0.3}]),
+                TYPE: "heatMissile",
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [5, 10, 2.4, -8, -7.25, 90, 0],
+        },
+        {
+            POSITION: [5, 10, 2.4, -8, 7.25, -90, 0],
+        },
+        {
+            POSITION: [5, 10, 2.1, -8, -3, 90, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [5, 10, 2.1, -8, 3, -90, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [8, 5, 1, 0, -5.5, 0, 0.5],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,{damage: 2, reload: 2, health: 1.3}]),
+                TYPE: "heatMissile",
+                ALPHA: 0,
+            }
+        },
+        {
+            POSITION: [8, 5, 1, 0, 5.5, 0, 0.5],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog, {damage: 2, reload: 2, health: 1.3}]),
+                TYPE: "heatMissile",
+                ALPHA: 0,
+            }
+        },
+    ]
+}
+Class.stupor = {
+    PARENT: "genericTank",
+    LABEL: "Stupor",
+    STAT_NAMES: statnames.mixed,
+    GUNS: [
+        {
+            POSITION: [20, 0.3, -50, 0, 0, 0, 0],
+            PROPERTIES: {
+                COLOR: "#5a5a5a"
+            }
+        },
+        {
+            POSITION: [15, 16, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog, {damage: 2.5, speed: 1.5, health: 1.5, reload: 1.5, size: 0.3}]),
+                TYPE: "heatMissile",
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [5, 10, 2.4, -8, -7.25, 90, 0],
+        },
+        {
+            POSITION: [5, 10, 2.4, -8, 7.25, -90, 0],
+        },
+        {
+            POSITION: [5, 10, 2.1, -8, -3, 90, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [5, 10, 2.1, -8, 3, -90, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [8, 5, 1, 0, -5.5, 0, 0.5],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,{damage: 2, reload: 2, health: 1.3}]),
+                TYPE: "heatMissile",
+                ALPHA: 0,
+            }
+        },
+        {
+            POSITION: [8, 5, 1, 0, 5.5, 0, 0.5],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog, {damage: 2, reload: 2, health: 1.3}]),
+                TYPE: "heatMissile",
+                ALPHA: 0,
+            }
+        },
+        {
+            POSITION: [8, 10, 1, 0, 0, 0, 0.5],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.drone, g.fog,]),
+                MAX_CHILDREN: 3,
+                TYPE: "drone",
+                ALPHA: 0,
+            }
+        },
+    ]
+}
+Class.narcosis = {
+    PARENT: "genericTank",
+    LABEL: "Narcosis",
+    STAT_NAMES: statnames.mixed,
+    GUNS: [
+        {
+            POSITION: [20, 0.3, -50, 0, 0, 0, 0],
+            PROPERTIES: {
+                COLOR: "#00008b"
+            }
+        },
+        {
+            POSITION: [15, 16, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog, {damage: 2.5, speed: 1.5, health: 1.5, reload: 1.5, size: 0.3}]),
+                TYPE: "heatMissile",
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [5, 10, 2.4, -8, -7.25, 90, 0],
+        },
+        {
+            POSITION: [5, 10, 2.4, -8, 7.25, -90, 0],
+        },
+        {
+            POSITION: [5, 10, 2.1, -8, -3, 90, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [5, 10, 2.1, -8, 3, -90, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [8, 5, 1, 0, -5.5, 0, 0.5],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog, {damage: 2, reload: 2, health: 1.3}]),
+                TYPE: "heatMissile",
+                ALPHA: 0,
+            }
+        },
+        {
+            POSITION: [8, 5, 1, 0, 5.5, 0, 0.5],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog, {damage: 2, reload: 2, health: 1.3}]),
+                TYPE: "heatMissile",
+                ALPHA: 0,
+            }
+        },
+        {
+            POSITION: [8, 10, 1, 0, 0, 0, 0.5],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.factory, g.babyfactory, g.fog,]),
+                MAX_CHILDREN: 3,
+                TYPE: "minion",
+                ALPHA: 0,
+            }
+        },
+    ]
+}
+Class.rapture = {
+    PARENT: "genericTank",
+    LABEL: "Rapture",
+    STAT_NAMES: statnames.mixed,
+    GUNS: [
+        {
+            POSITION: [20, 0.3, -50, 0, 0, 0, 0],
+            PROPERTIES: {
+                COLOR: "#5a5a5a"
+            }
+        },
+        {
+            POSITION: [15, 16, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog, {damage: 2.5, speed: 1.5, health: 1.5, reload: 1.5, size: 0.3}]),
+                TYPE: "heatMissile",
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [5, 10, 2.4, -8, -7.25, 90, 0],
+        },
+        {
+            POSITION: [5, 10, 2.4, -8, 7.25, -90, 0],
+        },
+        {
+            POSITION: [5, 10, 2.1, -8, -3, 90, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [5, 10, 2.1, -8, 3, -90, 0],
+            PROPERTIES: {
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [8, 5, 1, 0, -5.5, 0, 0.5],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog, {damage: 2, reload: 2, health: 1.3}]),
+                TYPE: "heatMissile",
+                ALPHA: 0,
+            }
+        },
+        {
+            POSITION: [8, 5, 1, 0, 5.5, 0, 0.5],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog, {damage: 2, reload: 2, health: 1.3}]),
+                TYPE: "heatMissile",
+                ALPHA: 0,
+            }
+        },
+        {
+            POSITION: [8, 10, 1, 0, 0, 0, 0.5],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.drone, g.fog,]),
+                MAX_CHILDREN: 3,
+                TYPE: "turretedDrone",
+                ALPHA: 0,
+            }
+        },
+    ],
+    TURRETS: [
+        {
+            POSITION: [9, 0, 0, 0, 360, 1],
+            TYPE: "overdriveDeco"
+        }
+    ]
+}
+Class.disorientation = {
+    PARENT: "genericTank",
+    LABEL: "Disorientation",
+    STAT_NAMES: statnames.generic,
+    GUNS: [
+        {
+            POSITION: [15, 16, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog, {damage: 7, speed: 0.8, health: 4.3, reload: 5.5}]),
+                TYPE: "heatMissile",
+                COLOR: "#30d5c8"
+            }
+        },
+        {
+            POSITION: [5, 10, 2.4, -8, -7.25, 90, 0],
+        },
+        {
+            POSITION: [5, 10, 2.4, -8, 7.25, -90, 0],
+        },
+        {
+            POSITION: [5, 10, 2.1, -8, -3, 90, 0],
+            PROPERTIES: {
+                COLOR: "#003546"
+            }
+        },
+        {
+            POSITION: [5, 10, 2.1, -8, 3, -90, 0],
+            PROPERTIES: {
+                COLOR: "#003546"
+            }
+        },
+    ]
+}
+Class.executor = {
+    PARENT: "genericTank",
+    LABEL: "Executor",
+    STAT_NAMES: statnames.drone,
+    BODY: {
+        FOV: base.FOV * 1.15,
+    },
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 14.5,
+                WIDTH: 11,
+                ASPECT: 1.3,
+                X: 7,
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.drone]),
+                TYPE: "drone",
+                AUTOFIRE: true,
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: "drone",
+                MAX_CHILDREN: 8,
+                WAIT_TO_CYCLE: true,
+            },
+        },
+    ],
+};
 Class.octoTrapper = {
     PARENT: "genericTank",
     LABEL: "Octo Trapper",
@@ -2916,32 +4106,6 @@ Class.coop = {
                 TYPE: "setTrap",
                 STAT_CALCULATOR: "block"
             }
-        }
-    ]
-}
-Class.strangler = {
-    PARENT: "genericTank",
-    LABEL: "Strangler",
-    DANGER: 6,
-    STAT_NAMES: statnames.drone,
-    BODY: {
-        FOV: 1.05 * base.FOV,
-    },
-    GUNS: [
-        {
-            POSITION: [6, 12, 1.2, 8, 0, 0, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.drone]),
-                TYPE: "turretedDrone",
-                AUTOFIRE: true,
-                SYNCS_SKILLS: true,
-                STAT_CALCULATOR: "drone",
-                WAIT_TO_CYCLE: true,
-                MAX_CHILDREN: 6
-            }
-        },
-        {
-            POSITION: [4, 8, 1, 8, 0, 0, 0]
         }
     ]
 }
@@ -3024,7 +4188,7 @@ Class.specializer = {
         },
     ],
 }
-Class.programAura = addAura(0.6, 1.4)
+Class.programAura = addAura(0.6, 1.6)
 Class.programPillbox = {
     PARENT: "pillbox",
     LABEL: "Programmed Pillbox",
@@ -3069,6 +4233,229 @@ Class.programmer = {
         },
     ],
 }
+Class.mugger = {
+    PARENT: "genericTank",
+    LABEL: "Mugger",
+    BODY: {
+        FOV: 1.2 * base.FOV,
+    },
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 24,
+                WIDTH: 8.5,
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.sniper]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [18, 12, 1, 0, 0, 180, 0],
+        },
+        {
+            POSITION: [2, 12, 1.1, 18, 0, 180, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.trap, g.setTrap]),
+                TYPE: "unsetTrap",
+                STAT_CALCULATOR: "block",
+            },
+        },
+    ],
+}
+Class.hotbed = {
+    PARENT: "genericTank",
+    LABEL: "Hotbed",
+    DANGER: 6,
+    BODY: {
+        FOV: base.FOV * 1.2,
+    },
+    GUNS: [
+        {
+            POSITION: [ 16, 10, 0.7, 0, 0, 25, 0, ],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.swarm, g.swarmeer]),
+                TYPE: "swarm",
+                STAT_CALCULATOR: "swarm",
+            },
+        },
+        {
+            POSITION: [ 16, 10, 0.7, 0, 0, -25, 0, ],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.swarm, g.swarmeer]),
+                TYPE: "swarm",
+                STAT_CALCULATOR: "swarm",
+            },
+        },
+        {
+            POSITION: [21, 8, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.minigun]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [19, 8, 1, 0, 0, 0, 1 / 3],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.minigun]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [17, 8, 1, 0, 0, 0, 2 / 3],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.minigun]),
+                TYPE: "bullet",
+            },
+        },
+    ],
+};
+Class.honcho = {
+    PARENT: "genericTank",
+    LABEL: "Honcho",
+    STAT_NAMES: statnames.drone,
+    DANGER: 6,
+    BODY: {
+        FOV: base.FOV * 1.1,
+    },
+    GUNS: [
+        {
+            POSITION: [16, 12, 1.4, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.drone, {health: 1.3, damage: 1.3, pen: 1.1}]),
+                TYPE: "drone",
+                AUTOFIRE: true,
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: "drone",
+                MAX_CHILDREN: 5,
+            },
+        },
+    ],
+};
+Class.executive = {
+    PARENT: "genericTank",
+    LABEL: "Executive",
+    STAT_NAMES: statnames.drone,
+    DANGER: 7,
+    BODY: {
+        FOV: base.FOV * 1.15,
+    },
+    GUNS: [
+        {
+            POSITION: [18, 14, 1.4, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.drone, {health: 2, damage: 1.8, pen: 1.15, reload: 1.2 }]),
+                TYPE: "drone",
+                AUTOFIRE: true,
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: "drone",
+                MAX_CHILDREN: 3,
+            },
+        },
+    ],
+};
+Class.executive = {
+    PARENT: "genericTank",
+    LABEL: "Executive",
+    STAT_NAMES: statnames.drone,
+    DANGER: 6,
+    BODY: {
+        FOV: base.FOV * 1.1,
+    },
+    GUNS: [
+        {
+            POSITION: [16, 16, 1.4, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.drone, {health: 1.35, damage: 1.4, pen: 1.1}]),
+                TYPE: "drone",
+                AUTOFIRE: true,
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: "drone",
+                MAX_CHILDREN: 5,
+            },
+        },
+    ],
+};
+Class.bigSwiss = {
+    PARENT: "genericTank",
+    LABEL: "Big Swiss",
+    DANGER: 6,
+    FACING_TYPE: "locksFacing",
+    STAT_NAMES: statnames.swarm,
+    BODY: {
+        FOV: 1.2 * base.FOV,
+    },
+    GUNS: [
+        {
+            POSITION: [14, 10, 0.6, 0, 5.5, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.swarm, g.swarmeer, g.pounder, g.destroyer, { speed: 2.1, maxSpeed: 2, size: 1.65, damage: 0.8 }]),
+                TYPE: "swarm",
+                STAT_CALCULATOR: "swarm",
+            },
+        },
+        {
+            POSITION: [14, 10, 0.6, 0, -5.5, 0, 0.5],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.swarm, g.swarmeer, g.pounder, g.destroyer, { speed: 2.1, maxSpeed: 2, size: 1.65, damage: 0.8 }]),
+                TYPE: "swarm",
+                STAT_CALCULATOR: "swarm",
+            },
+        },
+    ],
+};
+Class.vulcan = {
+    PARENT: "genericTank",
+    LABEL: "Vulcan",
+    DANGER: 7,
+    GUNS: [
+        {
+            POSITION: [ 20, 4, 1, 0, 0, 0, 0, ],
+        },
+        {
+            POSITION: [ 20, 4, 1, 0, 6.5, 0, 0, ],
+        },
+        {
+            POSITION: [ 20, 4, 1, 0, -6.5, 0, 0, ],
+        },
+        {
+            POSITION: [ 5, 4, 1, 20, 0, 0, 0, ],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([
+                    g.basic,
+                    g.twin,
+                    g.gunner,
+                    g.vulcan,
+                ]),
+                TYPE: "bullet",
+            }
+        },
+        {
+            POSITION: [ 5, 4, 1, 20, 6.5, 0, 1/3, ],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([
+                    g.basic,
+                    g.twin,
+                    g.gunner,
+                    g.vulcan,
+                ]),
+                TYPE: "bullet",
+            }
+        },
+        {
+            POSITION: [ 5, 4, 1, 20, -6.5, 0, 2/3, ],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([
+                    g.basic,
+                    g.twin,
+                    g.gunner,
+                    g.vulcan,
+                ]),
+                TYPE: "bullet",
+            }
+        },
+    ],
+};
 Class.seerTurret = {
     PARENT: "genericTank",
     LABEL: "",
@@ -3246,25 +4633,25 @@ Class.quadrupletTurret = makeTurret({
         {
             POSITION: [18, 10, 1, 0, 5.25, 0, 0.5],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, { recoil: 0 }]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.doubleTwin, { recoil: 0 }]),
                 TYPE: "bullet",
             },
         }, {
             POSITION: [18, 10, 1, 0, -5.25, 0, 0.5],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, { recoil: 0 }]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet,g.doubleTwin, { recoil: 0 }]),
                 TYPE: "bullet",
             },
         }, {
             POSITION: [21, 10, 1, 0, 2, 0, 0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, { recoil: 0 }]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet,g.doubleTwin, { recoil: 0 }]),
                 TYPE: "bullet",
             },
         }, {
             POSITION: [21, 7, 1, 0, -4, 0, 0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, { size: 1.5, recoil: 0 }]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet,g.doubleTwin, { size: 1.5, recoil: 0 }]),
                 TYPE: "bullet",
             },
         }
@@ -3403,7 +4790,7 @@ Class.machine = {
     LABEL: "Machine",
     SHAPE: 6,
     BODY: {
-        HEALTH: 2.5 * base.HEALTH * 1.5,
+        HEALTH: 2.5 * basePlayerHealth,
     }
 }
 Class.bigDeco = makeDeco(4.5, "mirror")
@@ -3412,7 +4799,7 @@ Class.brickTank = {
     LABEL: "City",
     SHAPE: 7,
     BODY: {
-        HEALTH: 3.5 * base.HEALTH * 1.5,
+        HEALTH: 3.5 * basePlayerHealth,
     },
     PROPS: [
         {
@@ -3427,7 +4814,7 @@ Class.headquarters = {
     LABEL: "Headquarters",
     SHAPE: 7,
     BODY: {
-        HEALTH: 4.5 * base.HEALTH * 1.5,
+        HEALTH: 4.5 * basePlayerHealth,
     },
     PROPS: [
         {
@@ -3441,7 +4828,7 @@ Class.bunker = {
     LABEL: "Bunker",
     SHAPE: 7,
     BODY: {
-        HEALTH: 6 * base.HEALTH * 1.5,
+        HEALTH: 6 * basePlayerHealth,
     },
     PROPS: [
         {
@@ -3491,7 +4878,7 @@ Class.crusher = {
         }
     ],
     BODY: {
-        DAMAGE: 1.75 * base.DAMAGE
+        DAMAGE: 1.6 * base.DAMAGE
     }
 }
 Class.brambleBody = {
@@ -3511,7 +4898,7 @@ Class.bramble = {
         }
     ],
     BODY: {
-        DAMAGE: 2 * base.DAMAGE
+        DAMAGE: 1.8 * base.DAMAGE
     }
 }
 Class.nettleBody = {
@@ -3531,7 +4918,7 @@ Class.nettle = {
         },
     ],
     BODY: {
-        DAMAGE: 2 * base.DAMAGE,
+        DAMAGE: 1.8 * base.DAMAGE,
         SPEED: 1.1 * base.SPEED
     },
 };
@@ -3585,7 +4972,7 @@ Class.lifebane = {
 };
 Class.decorativeAura5 = addAura(0.01, 1.3);
 Class.decorativeAura4 = addAura(0.01, 1.4);
-Class.auraTankGenBiggest = addAura(1.1, 1.5);
+Class.auraTankGenBiggest = addAura(1.5, 1.5);
 Class.halberd = {
     PARENT: "tank",
     LABEL: "Halberd",
@@ -4291,26 +5678,20 @@ Class.twin.UPGRADES_TIER_8 = ["doubleDestroyer", "bulldozer"];
 Class.musket.UPGRADES_TIER_8 = ["doubleDestroyer", "bulldozer"];
 Class.smasher.UPGRADES_TIER_6 = ["starSystem"];
 //Class.whirlwind.UPGRADES_TIER_3.push("prophet")
-Class.overseer.UPGRADES_TIER_3.push("sentrySeer");
-Class.factory.UPGRADES_TIER_3 = ["topBanana", "foundry", "industry", "cloner", "watchwoman", "sqrtFactory"]
-Class.underseer.UPGRADES_TIER_3.push("polyseer", "enchanter", "preacher", "necroa");
 Class.megaTornado.UPGRADES_TIER_6 = ["starSystem"];
 //Class.hexaTank.UPGRADES_TIER_3.push("hexaWhirl")
 Class.beeNest.UPGRADES_TIER_3 = ["beeHive", "waspNest", "hornetNest", "queenBee", "megaNest",];
 Class.realtor.UPGRADES_TIER_8 = ["arbitrator"];
 Class.bumblebee.UPGRADES_TIER_2 = ["beeNest"];
 Class.bumblebee.UPGRADES_TIER_3 = ["wraith"];
-Class.cruiser.UPGRADES_TIER_3.push("wraith", "gunnerCruiser");
 //Class.auto3.UPGRADES_TIER_3.push("whirl3")
 //Class.artillery.UPGRADES_TIER_3.push("munition");
-Class.director.UPGRADES_TIER_1.push("strangler");
-Class.strangler.UPGRADES_TIER_2 = ["storm", "overdrive"];
-Class.storm.UPGRADES_TIER_3 = ["cortex"];
 Class.radical.UPGRADES_TIER_2 = ["bumblebee", /*"healer",*/ "desmos"];
 Class.radical.UPGRADES_TIER_4 = ["advanced"];
-Class.gunner.UPGRADES_TIER_3.push("gunnerCruiser");
+Class.gunner.UPGRADES_TIER_3.push("gunnerCruiser", "vulcan");
 //Class.trapGuard.UPGRADES_TIER_3.push("whirlGuard")
 Class.advanced.UPGRADES_TIER_5 = ["switcheroo", "realtor", "screamer", "flail"];
+Class.advanced.UPGRADES_TIER_8 = ["fog"];
 Class.polyseer.UPGRADES_TIER_3 = ["polymancer", "polyshadow"];
 Class.fullyAutomatic.UPGRADES_TIER_3 = ["assaulter", "microgun"];
 Class.flankGuard.UPGRADES_TIER_2.push("ringer", "realstar");
@@ -4318,7 +5699,6 @@ Class.ringer.UPGRADES_TIER_3 = ["winger", "singer"];
 Class.realstar.UPGRADES_TIER_3 = ["deathstar", "neutronstar", "apex"];
 Class.sniper.UPGRADES_TIER_2.push("hider")
 Class.hider.UPGRADES_TIER_3 = ["rogue", "cloak", "leader", "stalker"];
-Class.manager.UPGRADES_TIER_3 = ["leader"];
 Class.destroyer.UPGRADES_TIER_3.push("rogue");
 Class.sniper.UPGRADES_TIER_2.push("ringer");
 Class.pounder.UPGRADES_TIER_2.push("realstar");
@@ -4328,23 +5708,37 @@ Class.tankGuardian.UPGRADES_TIER_5 = ["homelandDefender"];
 Class.basic.UPGRADES_TIER_1 = [];
 Class.basic.UPGRADES_TIER_2 = ["radical"];
 Class.basic.UPGRADES_TIER_0 = ["single", "director", "heavy", "trapper"];
-Class.single.UPGRADES_TIER_1 = ["twin", "machineGun", "flankGuard"];
+Class.single.UPGRADES_TIER_1 = ["twin", "machineGun", "flankGuard", "trapGuard"];
 Class.heavy.UPGRADES_TIER_1 = ["pounder", "sniper"];
-Class.trapper.UPGRADES_TIER_1 = ["builder", "triTrapper", "trapGuard", "overtrapper", "barracuda"];
+Class.trapper.UPGRADES_TIER_1 = ["builder", "triTrapper", "trapGuard", "overtrapper", "barracuda", "wark"];
     Class.triTrapper.UPGRADES_TIER_2 = ["hexaTrapper", "quadBuilder", "hexadecimator"];
     Class.trapGuard.UPGRADES_TIER_2 = ["bushwhacker", "planetary", "bulwark", "highlord", "pen", "hexadecimator"];
         Class.trapGuard.UPGRADES_TIER_3 = ["hijacker"]
-    Class.builder.UPGRADES_TIER_2 = ["coop", "engineer", "boomer", "assembler", "quadBuilder", "planetary"];
+    Class.builder.UPGRADES_TIER_2 = ["coop", "engineer", "boomer", "quadBuilder", "planetary"];
+        Class.bushwhacker.UPGRADES_TIER_3 = ["mugger"]
         Class.quadBuilder.UPGRADES_TIER_3 = ["mechanic", "architect", "pentaBuilder"];
         Class.hexaTrapper.UPGRADES_TIER_3 = ["fortress", "octoTrapper", "pentaBuilder"];
-        Class.coop.UPGRADES_TIER_3 = ["construct"];
+        Class.coop.UPGRADES_TIER_3 = ["construct", "assembler", "conqueror", "mugger"];
         Class.planetary.UPGRADES_TIER_3 = ["conqueror"];
         Class.boomer.UPGRADES_TIER_3 = ["parryer", "kinballer"];
         Class.overtrapper.UPGRADES_TIER_3 = ["highlord"];
-        Class.bulwark.UPGRADES_TIER_3 = ["parapet"];
+        Class.bulwark.UPGRADES_TIER_3 = ["parapet", "highlord", "conqueror"];
         Class.engineer.UPGRADES_TIER_3 = ["mechanic", "specializer", "programmer"];
         Class.barracuda.UPGRADES_TIER_3 = ["barricade", "cache"];
         Class.pen.UPGRADES_TIER_3 = ["employer", "kraal", "cache", "overpen", "parryer"];
+    Class.wark.UPGRADES_TIER_2 = ["bulwark", "hexadecimator", "barracuda"]
+        Class.wark.UPGRADES_TIER_3 = ["equalizer", "cache", "programmer"];
+Class.director.UPGRADES_TIER_1 = ["overseer", "executor", "spawner"];
+    Class.executor.UPGRADES_TIER_2 = ["manager", "honcho", "cruiser", "storm"];
+        Class.honcho.UPGRADES_TIER_3 = ["bigCheese", "bigSwiss", "executive"]
+        Class.storm.UPGRADES_TIER_3 = ["cortex"];
+        Class.manager.UPGRADES_TIER_3 = ["leader"];
+    Class.overseer.UPGRADES_TIER_2 = ["overviewer", "overtrapper", "overgunner", "overdrive"];
+        Class.overviewer.UPGRADES_TIER_3 = ["overlord", "commander", "banshee", "sentrySeer"];
+        Class.cruiser.UPGRADES_TIER_3 = ["carrier", "battleship", "fortress", "commander", "wraith", "gunnerCruiser", "bigSwiss"];
+        Class.underseer.UPGRADES_TIER_3 = ["necromancer", "maleficitor", "infestor", "polyseer", "enchanter", "preacher", "necroa"];
+    Class.spawner.UPGRADES_TIER_2 = ["factory"];
+        Class.factory.UPGRADES_TIER_3 = ["topBanana", "foundry", "industry", "cloner", "watchwoman", "sqrtFactory"];
 Class.tank.UPGRADES_TIER_0 = ["auraTank", "smasherTank", "autoTank", "machine", "primary"];
 Class.primary.UPGRADES_TIER_1 = ["droneShip"];
 Class.droneShip.UPGRADES_TIER_2 = ["hydraShip"];
@@ -4378,3 +5772,13 @@ Class.jetstream.UPGRADES_TIER_3 = ["ozone", "orchard", "arboretum"];
 Class.ethereal.UPGRADES_TIER_8 = ["philistine", "sundowner", "spear", "despoiler", "centaur",];
 Class.etherealBody.UPGRADES_TIER_8 = ["mechanism"];
 Class.destroyer.UPGRADES_TIER_3.push("dobloon")
+Class.fog.UPGRADES_TIER_2 = ["daze"]
+Class.daze.UPGRADES_TIER_3 = ["hypnosis", "trance"]
+Class.trance.UPGRADES_TIER_3 = ["reverie", "daydream", "stupefaction"]
+Class.reverie.UPGRADES_TIER_3 = ["flashback", "asphyxia"]
+Class.daydream.UPGRADES_TIER_3 = ["flashback", "mirage"]
+Class.flashback.UPGRADES_TIER_3 = ["nostalgia", "reminiscence", "awe"]
+Class.mirage.UPGRADES_TIER_3 = ["reminiscence", "illusion", "hallucination"]
+Class.stupefaction.UPGRADES_TIER_3 = ["stupor", "disorientation"]
+Class.stupor.UPGRADES_TIER_3 = ["narcosis", "rapture"]
+Class.minigun.UPGRADES_TIER_3.push("hotbed")

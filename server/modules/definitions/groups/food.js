@@ -7,7 +7,7 @@ Class.egg = {
     LABEL: "Egg",
     VALUE: 10,
     SHAPE: 0,
-    SIZE: 4.5,
+    SIZE: 5,
     COLOR: "veryLightGrey",
     INTANGIBLE: true,
     BODY: {
@@ -25,7 +25,7 @@ Class.gem = {
     LABEL: "Gem",
     VALUE: 2e3,
     SHAPE: 6,
-    SIZE: 4.5,
+    SIZE: 5,
     COLOR: "aqua",
     BODY: {
         DAMAGE: basePolygonDamage / 4,
@@ -45,7 +45,7 @@ Class.jewel = {
     LABEL: "Jewel",
     VALUE: 1e5,
     SHAPE: 6,
-    SIZE: 8,
+    SIZE: 9,
     COLOR: "yellow",
     BODY: {
         DAMAGE: basePolygonDamage / 4,
@@ -66,13 +66,36 @@ Class.shadowEgg = makeRare("egg", 2);
 Class.rainbowEgg = makeRare("egg", 3);
 Class.transEgg = makeRare("egg", 4); //ironic
 
+// TRIANGLES
+Class.triangle = {
+    PARENT: "food",
+    LABEL: "Triangle",
+    VALUE: 30,
+    SHAPE: 3,
+    SIZE: 9,
+    COLOR: "yellow",
+    BODY: {
+        DAMAGE: basePolygonDamage,
+        DENSITY: 4,
+        HEALTH: basePolygonHealth,
+        PENETRATION: 2,
+        ACCELERATION: 0.0075
+    },
+    DRAW_HEALTH: true,
+};
+Class.shinyTriangle = makeRare("triangle", 0);
+Class.legendaryTriangle = makeRare("triangle", 1);
+Class.shadowTriangle = makeRare("triangle", 2);
+Class.rainbowTriangle = makeRare("triangle", 3);
+Class.transTriangle = makeRare("triangle", 4);
+
 // SQUARES
 Class.square = {
     PARENT: "food",
     LABEL: "Square",
     VALUE: 120,
     SHAPE: 4,
-    SIZE: 15,
+    SIZE: 17,
     COLOR: "orange",
     BODY: {
         DAMAGE: basePolygonDamage,
@@ -91,36 +114,13 @@ Class.shadowSquare = makeRare("square", 2);
 Class.rainbowSquare = makeRare("square", 3);
 Class.transSquare = makeRare("square", 4);
 
-// TRIANGLES
-Class.triangle = {
-    PARENT: "food",
-    LABEL: "Triangle",
-    VALUE: 30,
-    SHAPE: 3,
-    SIZE: 8,
-    COLOR: "yellow",
-    BODY: {
-        DAMAGE: basePolygonDamage,
-        DENSITY: 4,
-        HEALTH: basePolygonHealth,
-        PENETRATION: 2,
-        ACCELERATION: 0.0075
-    },
-    DRAW_HEALTH: true,
-};
-Class.shinyTriangle = makeRare("triangle", 0);
-Class.legendaryTriangle = makeRare("triangle", 1);
-Class.shadowTriangle = makeRare("triangle", 2);
-Class.rainbowTriangle = makeRare("triangle", 3);
-Class.transTriangle = makeRare("triangle", 4);
-
 // PENTAGONS
 Class.pentagon = {
     PARENT: "food",
     LABEL: "Pentagon",
     VALUE: 500,
     SHAPE: 5,
-    SIZE: 21,
+    SIZE: 24,
     COLOR: "purple",
     BODY: {
         DAMAGE: 1.5 * basePolygonDamage,
@@ -144,7 +144,7 @@ Class.betaPentagon = {
     LABEL: "Beta Pentagon",
     VALUE: 2500,
     SHAPE: 5,
-    SIZE: 30,
+    SIZE: 34,
     COLOR: "purple",
     BODY: {
         DAMAGE: 2 * basePolygonDamage,
@@ -170,7 +170,7 @@ Class.alphaPentagon = {
     LABEL: "Alpha Pentagon",
     VALUE: 15e3,
     SHAPE: 5,
-    SIZE: 58,
+    SIZE: 1.15 * 58,
     COLOR: "purple",
     BODY: {
         DAMAGE: 2 * basePolygonDamage,
@@ -196,7 +196,7 @@ Class.hexagon = {
     LABEL: "Hexagon",
     VALUE: 1000,
     SHAPE: 6,
-    SIZE: 25,
+    SIZE: 28,
     COLOR: "hexagon",
     BODY: {
         DAMAGE: basePolygonDamage,
@@ -220,7 +220,7 @@ Class.heptagon = {
     LABEL: "Heptagon",
     VALUE: 3000,
     SHAPE: 7,
-    SIZE: 35,
+    SIZE: 39,
     COLOR: "tangerine",
     BODY: {
         DAMAGE: 2 * basePolygonDamage,
@@ -239,7 +239,7 @@ Class.octagon = {
     LABEL: "Octagon",
     VALUE: 8e3,
     SHAPE: 8,
-    SIZE: 56,
+    SIZE: 1.15 * 56,
     COLOR: "lavender",
     BODY: {
         DAMAGE: 3 * basePolygonDamage,
@@ -258,7 +258,7 @@ Class.nonagon = {
     LABEL: "Nonagon",
     VALUE: 15e3,
     SHAPE: 9,
-    SIZE: 70,
+    SIZE: 1.15 * 70,
     COLOR: "white",
     BODY: {
         DAMAGE: 3 * basePolygonDamage,
@@ -277,7 +277,7 @@ Class.decagon = {
     LABEL: "Decagon",
     VALUE: 26e3,
     SHAPE: 10,
-    SIZE: 90,
+    SIZE: 1.15 * 90,
     COLOR: "black",
     BODY: {
         DAMAGE: 3 * basePolygonDamage,
