@@ -12,6 +12,7 @@ let EventEmitter = require('events'),
     events,
     init = g => events = g.events;
 const {ioTypes} = require("./controllers");
+const {Color} = require("./color");
 
 class Gun extends EventEmitter {
     constructor(body, info) {

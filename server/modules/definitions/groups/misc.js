@@ -3,6 +3,7 @@ const { base, statnames, dfltskl, smshskl } = require('../constants.js')
 require('./generics.js')
 require('./tanks.js')
 const g = require('../gunvals.js')
+const {makeDeco, makeTurret} = require("../facilitators");
 
 // OBSTACLES
 Class.rock = {
@@ -741,3 +742,61 @@ Class.tagMode = {
     LABEL: "Players",
     SHAPE: ""
 };
+
+Class.underkeeperTurret = makeTurret({
+    GUNS: [
+        {
+            POSITION: [22, 11, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.pounder, g.destroyer, { recoil: 0.1, range: 0.5, size: 1.5 }]),
+                TYPE: "bullet",
+            },
+        },
+    ],
+}, {canRepel: true, limitFov: true, fov: 3})
+Class.keeperBody = makeDeco(3, "black")
+Class.keeper = {
+    PARENT: "genericTank",
+    TYPE: "miniboss",
+    LABEL: "Keeper",
+    DANGER: 10,
+    COLOR: "rainbow",
+    SHAPE: 3,
+    SIZE: 2,
+    SKILL: Array(10).fill(15),
+    VALUE: 30e6,
+    VARIES_IN_SIZE: true,
+    CAN_BE_ON_LEADERBOARD: true,
+    CONTROLLERS: ["nearestDifferentMaster", "mapTargetToGoal"],
+    AI: { NO_LEAD: true },
+    BODY: {
+        FOV: 2,
+        ACCEL: 0.003,
+        DAMAGE: base.DAMAGE * 2,
+        SPEED: base.SPEED * 0.2,
+        HEALTH: 100,
+        SHIELD: base.SHIELD * 0.1,
+        REGEN: base.REGEN * 0.1,
+    },
+    GLOW: {
+        RADIUS: 3,
+        COLOR: "rainbow",
+        ALPHA: 1,
+        RECURSION: 3
+    },
+    MOTION_TYPE: "motor",
+    FACING_TYPE: "smoothToTarget",
+    HITS_OWN_TYPE: "hard",
+    PROPS: [
+        {
+            POSITION: { SIZE: 30, LAYER: 0 },
+            TYPE: "keeperBody"
+        },
+    ],
+    GUNS: [
+    {
+        POSITION: [ 15, 12, 1.6, 0, 0, 180, 0, ],
+    },
+    ],
+};
+Class.underkeeper = makeAuto(Class.keeper, "Underkeeper", { type: "underkeeperTurret"})

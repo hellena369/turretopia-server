@@ -2768,7 +2768,6 @@ Class.destroyer = {
   PARENT: "genericTank",
   LABEL: "Destroyer",
   DANGER: 6,
-
   GUNS: [
     {
       POSITION: [21, 14, 1, 0, 0, 0, 0],
@@ -2779,9 +2778,9 @@ Class.destroyer = {
     },
   ],
 };
-Class.artillery = {
+Class.heavyArtillery = {
   PARENT: "genericTank",
-  LABEL: "Artillery",
+  LABEL: "Heavy Artillery",
   DANGER: 6,
   GUNS: [
     {
@@ -2805,7 +2804,7 @@ Class.artillery = {
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.artillery]),
         TYPE: "bullet",
-        LABEL: "Heavy",
+        LABEL: "Heavy Duty",
       },
     },
   ],
@@ -3003,7 +3002,7 @@ Class.mortar = {
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.artillery]),
         TYPE: "bullet",
-        LABEL: "Heavy",
+        LABEL: "Heavy Duty",
       },
     },
   ],
@@ -3087,7 +3086,7 @@ Class.beekeeper = {
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.artillery]),
         TYPE: "bullet",
-        LABEL: "Heavy",
+        LABEL: "Heavy Duty",
       },
     },
   ],
@@ -4555,8 +4554,6 @@ Class.killme = makeAuto(
   "kill me let it rain edition"
 );
 // Upgrade Paths
-Class.basic.UPGRADES_TIER_3 = [];
-Class.healer.UPGRADES_TIER_3 = ["medic", "ambulance", "surgeon", "paramedic"];
 
 Class.twin.UPGRADES_TIER_2 = [
   "doubleTwin",
@@ -4602,7 +4599,7 @@ Class.rifle.UPGRADES_TIER_3 = ["musket", "crossbow", "armsman", "revolver"];
 Class.marksman.UPGRADES_TIER_3 = ["deadeye", "nimrod", "revolver", "fork"];
 
 Class.machineGun.UPGRADES_TIER_2 = [
-  "artillery",
+  "heavyArtillery",
   "minigun",
   "gunner",
   "sprayer",
@@ -4650,25 +4647,6 @@ Class.triAngle.UPGRADES_TIER_3 = [
 ];
 Class.auto3.UPGRADES_TIER_3 = ["auto5", "mega3", "auto4", "banshee"];
 
-Class.pounder.UPGRADES_TIER_2 = [
-  "destroyer",
-  "builder",
-  "artillery",
-  "launcher",
-];
-Class.pounder.UPGRADES_TIER_3 = ["shotgun", "eagle"];
-Class.destroyer.UPGRADES_TIER_3 = [
-  "conqueror",
-  "annihilator",
-  "hybrid",
-  "construct",
-];
-Class.artillery.UPGRADES_TIER_3 = [
-  "mortar",
-  "ordnance",
-  "beekeeper",
-  "fieldGun",
-];
 Class.launcher.UPGRADES_TIER_3 = [
   "skimmer",
   "twister",

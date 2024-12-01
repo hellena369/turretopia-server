@@ -315,7 +315,7 @@ Class.beeNest = {
     {
         POSITION: [7, 7.5, 0.7, 7, 0, 60, 0],
         PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.swarm, g.bee]),
+            SHOOT_SETTINGS: combineStats([g.swarm, g.bee, g.nest]),
             TYPE: ["bee", { INDEPENDENT: true }],
             STAT_CALCULATOR: "swarm",
             SYNCS_SKILLS: true,
@@ -336,7 +336,7 @@ Class.megaNest = {
     {
         POSITION: [7, 10.5, 0.7, 7, 0, 60, 0],
         PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.swarm, g.bee, g.pounder]),
+            SHOOT_SETTINGS: combineStats([g.swarm, g.bee, g.pounder, g.nest]),
             TYPE: ["bee", { INDEPENDENT: true }],
             STAT_CALCULATOR: "swarm",
             SYNCS_SKILLS: true,
@@ -357,7 +357,7 @@ Class.beeHive = {
         {
             POSITION: [7, 7.5, 0.7, 7, 0, 60, 0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.swarm, g.bee]),
+                SHOOT_SETTINGS: combineStats([g.swarm, g.bee, g.nest]),
                 TYPE: ["bee", { INDEPENDENT: true }],
                 STAT_CALCULATOR: "swarm",
                 SYNCS_SKILLS: true,
@@ -377,7 +377,7 @@ Class.beeGuardian = {
             {
                 POSITION: [7, 7.5, 0.7, 7, 0, 60, 0],
                 PROPERTIES: {
-                    SHOOT_SETTINGS: combineStats([g.swarm, g.battleship, g.bee, {speed: 0.6, maxSpeed: 0.6, health: 1.1, resist: 1.05, size: 0.7}]),
+                    SHOOT_SETTINGS: combineStats([g.swarm, g.battleship, g.bee, g.nest, {speed: 0.6, maxSpeed: 0.6, health: 1.1, resist: 1.05, size: 0.7}]),
                     TYPE: "wasp",
                     STAT_CALCULATOR: "swarm",
                     SYNCS_SKILLS: true,
@@ -388,7 +388,7 @@ Class.beeGuardian = {
             {
                 POSITION: [7, 7.5, 0.7, 7, 0, 0, 0],
                 PROPERTIES: {
-                    SHOOT_SETTINGS: combineStats([g.swarm, g.battleship, g.bee, {speed: 0.6, maxSpeed: 0.6, health: 1.1, resist: 1.05, size: 0.7}]),
+                    SHOOT_SETTINGS: combineStats([g.swarm, g.battleship, g.bee, g.nest, {speed: 0.6, maxSpeed: 0.6, health: 1.1, resist: 1.05, size: 0.7}]),
                     TYPE: "wasp",
                     STAT_CALCULATOR: "swarm",
                     SYNCS_SKILLS: true,
@@ -423,7 +423,7 @@ Class.hornetNest = {
         {
             POSITION: [9, 6.5, 0.7, 7, 0, 60, 0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.swarm, g.bee, { size: 0.7 }]),
+                SHOOT_SETTINGS: combineStats([g.swarm, g.bee, g.nest, { size: 0.7 }]),
                 TYPE: ["hornet", { INDEPENDENT: true }],
                 STAT_CALCULATOR: "swarm",
                 SYNCS_SKILLS: true,
@@ -444,7 +444,7 @@ Class.waspNest = {
         {
             POSITION: [7, 7.5, 0.7, 7, 0, 60, 0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.swarm, g.bee]),
+                SHOOT_SETTINGS: combineStats([g.swarm, g.bee, g.nest,]),
                 TYPE: ["wasp", { INDEPENDENT: true }],
                 STAT_CALCULATOR: "swarm",
                 SYNCS_SKILLS: true,
@@ -472,7 +472,7 @@ Class.queenBee = {
             {
                 POSITION: [7, 7.5, -0.7, 7, 0, 60, 0],
                 PROPERTIES: {
-                    SHOOT_SETTINGS: combineStats([g.swarm, g.bee, g.machineGunner, { reload: 0.7 }]),
+                    SHOOT_SETTINGS: combineStats([g.swarm, g.bee, g.machineGunner, g.nest, { reload: 0.7 }]),
                     TYPE: ["bee", { INDEPENDENT: true }],
                     STAT_CALCULATOR: "swarm",
                     SYNCS_SKILLS: true,
@@ -1746,6 +1746,7 @@ Class.fullyAutomatic = {
 Class.assaulter = {
     PARENT: "genericTank",
     LABEL: "Assaulter",
+    DANGER: 7,
     BODY: {
         FOV: 1.2 * base.FOV
     },
@@ -1753,7 +1754,7 @@ Class.assaulter = {
         {
             POSITION: [28, 7, 1, 0, 0, 0, 0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.lowPower, g.pelleter, g.sniper, { recoil: 1.15 }]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.lowPower, g.pelleter, g.sniper, { recoil: 1.15, damage: 0.9 }]),
                 TYPE: "bullet"
             }
         },
@@ -1764,7 +1765,7 @@ Class.assaulter = {
                 ASPECT: 1.4
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.machineGun]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.machineGun, { damage: 0.9 }]),
                 TYPE: "bullet"
             }
         }
@@ -1773,7 +1774,7 @@ Class.assaulter = {
 Class.microgun = {
     PARENT: "genericTank",
     LABEL: "Microgun",
-    DANGER: 6,
+    DANGER: 7,
     BODY: {
         FOV: base.FOV * 1.2
     },
@@ -1781,21 +1782,21 @@ Class.microgun = {
         {
             POSITION: [24, 9, 1, 0, 0, 0, 0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.minigun, g.sniper]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.minigun, g.sniper, { damage: 0.9 }]),
                 TYPE: "bullet"
             }
         },
         {
-            POSITION: [22, 9, 1, 0, 0, 0, 1/2],
+            POSITION: [22, 9, 1, 0, 0, 0, 1/3],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.minigun, g.sniper]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.minigun, g.sniper, { damage: 0.9 }]),
                 TYPE: "bullet"
             }
         },
         {
-            POSITION: [20, 9, 1, 0, 0, 0, 1/2],
+            POSITION: [20, 9, 1, 0, 0, 0, 2/3],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.minigun, g.sniper]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.minigun, g.sniper, { damage: 0.9 }]),
                 TYPE: "bullet"
             }
         }
@@ -4087,6 +4088,323 @@ Class.octoTrapper = {
         },
     ], 4),
 }
+Class.superHeavyArtillery = {
+    PARENT: "genericTank",
+    LABEL: "Superheavy Artillery",
+    DANGER: 7,
+    GUNS: [
+        {
+            POSITION: [17.5, 3, 1, 0, -8, -7, 0.25],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.artillery]),
+                TYPE: "bullet",
+                LABEL: "Secondary",
+            },
+        },
+        {
+            POSITION: [17.5, 3, 1, 0, 8, 7, 0.75],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.artillery]),
+                TYPE: "bullet",
+                LABEL: "Secondary",
+            },
+        },
+        {
+            POSITION: [19.5, 14, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer, g.artillery]),
+                TYPE: "bullet",
+                LABEL: "Superheavy",
+            },
+        },
+    ],
+};
+Class.artillery = {
+    PARENT: "genericTank",
+    LABEL: "Artillery",
+    GUNS: [
+        {
+            POSITION: [15, 3, 1, 0, -6, -7, 0.25],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.artillery]),
+                TYPE: "bullet",
+                LABEL: "Secondary",
+            },
+        },
+        {
+            POSITION: [15, 3, 1, 0, 6, 7, 0.75],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.artillery]),
+                TYPE: "bullet",
+                LABEL: "Secondary",
+            },
+        },
+        {
+            POSITION: [17, 12, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.heavier]),
+                TYPE: "bullet",
+                LABEL: "Heavy",
+            },
+        },
+    ],
+};
+Class.howitzer = {
+    PARENT: "genericTank",
+    LABEL: "Howitzer",
+    DANGER: 6,
+    GUNS: [
+        {
+            POSITION: [11, 3, 1, 0, -6, -7, 0.6],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([
+                    g.basic,
+                    g.pelleter,
+                    g.artillery,
+                    g.twin,
+                ]),
+                TYPE: "bullet",
+                LABEL: "Secondary",
+            },
+        },
+        {
+            POSITION: [11, 3, 1, 0, 6, 7, 0.8],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([
+                    g.basic,
+                    g.pelleter,
+                    g.artillery,
+                    g.twin,
+                ]),
+                TYPE: "bullet",
+                LABEL: "Secondary",
+            },
+        },
+        {
+            POSITION: [15, 3, 1, 0, -4, -7, 0.2],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([
+                    g.basic,
+                    g.pelleter,
+                    g.artillery,
+                    g.twin,
+                ]),
+                TYPE: "bullet",
+                LABEL: "Secondary",
+            },
+        },
+        {
+            POSITION: [15, 3, 1, 0, 4, 7, 0.4],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([
+                    g.basic,
+                    g.pelleter,
+                    g.artillery,
+                    g.twin,
+                ]),
+                TYPE: "bullet",
+                LABEL: "Secondary",
+            },
+        },
+        {
+            POSITION: [17, 10, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.heavier, g.artillery]),
+                TYPE: "bullet",
+                LABEL: "Heavy",
+            },
+        },
+    ],
+};
+Class.type63 = {
+    PARENT: "genericTank",
+    LABEL: "Type 63 107mm",
+    DANGER: 7,
+    GUNS: [
+        {
+            POSITION: [7, 3, 1, 0, -8, -7, 5/7],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([
+                    g.basic,
+                    g.pelleter,
+                    g.artillery,
+                    g.twin,
+                ]),
+                TYPE: "bullet",
+                LABEL: "Secondary",
+            },
+        },
+        {
+            POSITION: [7, 3, 1, 0, 8, 7, 6/7],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([
+                    g.basic,
+                    g.pelleter,
+                    g.artillery,
+                    g.twin,
+                ]),
+                TYPE: "bullet",
+                LABEL: "Secondary",
+            },
+        },
+        {
+            POSITION: [11, 3, 1, 0, -6, -7, 3/7],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([
+                    g.basic,
+                    g.pelleter,
+                    g.artillery,
+                    g.twin,
+                ]),
+                TYPE: "bullet",
+                LABEL: "Secondary",
+            },
+        },
+        {
+            POSITION: [11, 3, 1, 0, 6, 7, 4/7],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([
+                    g.basic,
+                    g.pelleter,
+                    g.artillery,
+                    g.twin,
+                ]),
+                TYPE: "bullet",
+                LABEL: "Secondary",
+            },
+        },
+        {
+            POSITION: [15, 3, 1, 0, -4, -7, 1/7],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([
+                    g.basic,
+                    g.pelleter,
+                    g.artillery,
+                    g.twin,
+                ]),
+                TYPE: "bullet",
+                LABEL: "Secondary",
+            },
+        },
+        {
+            POSITION: [15, 3, 1, 0, 4, 7, 2/7],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([
+                    g.basic,
+                    g.pelleter,
+                    g.artillery,
+                    g.twin,
+                ]),
+                TYPE: "bullet",
+                LABEL: "Secondary",
+            },
+        },
+        {
+            POSITION: [17, 10, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.heavier, g.artillery]),
+                TYPE: "bullet",
+                LABEL: "Heavy",
+            },
+        },
+    ],
+};
+Class.beeGuard = {
+    PARENT: "genericTank",
+    LABEL: "Bee Guard",
+    DANGER: 6,
+    GUNS: [
+        {
+            POSITION: [14, 3, 1, 0, -6, -7, 0.25],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.swarm, g.bee, { size: 2 }]),
+                TYPE: ["bee", { INDEPENDENT: true }],
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: "swarm",
+                WAIT_TO_CYCLE: true,
+                LABEL: "Secondary",
+            },
+        },
+        {
+            POSITION: [14, 3, 1, 0, 6, 7, 0.75],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.swarm, g.bee, { size: 2 }]),
+                TYPE: ["bee", { INDEPENDENT: true }],
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: "swarm",
+                WAIT_TO_CYCLE: true,
+                LABEL: "Secondary",
+            },
+        },
+        {
+            POSITION: [19, 12, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.heavier, g.artillery]),
+                TYPE: "bullet",
+                LABEL: "Heavy",
+            },
+        },
+    ],
+};
+Class.beemaster = {
+    PARENT: "genericTank",
+    LABEL: "Beemaster",
+    DANGER: 7,
+    GUNS: [
+        {
+            POSITION: [10, 3, 1, 0, -8, -7, 3/5],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.swarm, g.bee, { size: 2 }]),
+                TYPE: ["bee", { INDEPENDENT: true }],
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: "swarm",
+                WAIT_TO_CYCLE: true,
+                LABEL: "Secondary",
+            },
+        },
+        {
+            POSITION: [10, 3, 1, 0, 8, 7, 4/5],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.swarm, g.bee, { size: 2 }]),
+                TYPE: ["bee", { INDEPENDENT: true }],
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: "swarm",
+                WAIT_TO_CYCLE: true,
+                LABEL: "Secondary",
+            },
+        },
+        {
+            POSITION: [14, 3, 1, 0, -6, -7, 1/5],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.swarm, g.bee, { size: 2 }]),
+                TYPE: ["bee", { INDEPENDENT: true }],
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: "swarm",
+                WAIT_TO_CYCLE: true,
+                LABEL: "Secondary",
+            },
+        },
+        {
+            POSITION: [14, 3, 1, 0, 6, 7, 2/5],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.swarm, g.bee, { size: 2 }]),
+                TYPE: ["bee", { INDEPENDENT: true }],
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: "swarm",
+                WAIT_TO_CYCLE: true,
+                LABEL: "Secondary",
+            },
+        },
+        {
+            POSITION: [19, 12, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.heavier, g.artillery]),
+                TYPE: "bullet",
+                LABEL: "Heavy",
+            },
+        },
+    ],
+};
 Class.coop = {
     PARENT: "genericTank",
     LABEL: "Co-Operator",
@@ -5687,7 +6005,7 @@ Class.bumblebee.UPGRADES_TIER_3 = ["wraith"];
 //Class.auto3.UPGRADES_TIER_3.push("whirl3")
 //Class.artillery.UPGRADES_TIER_3.push("munition");
 Class.radical.UPGRADES_TIER_2 = ["bumblebee", /*"healer",*/ "desmos"];
-Class.radical.UPGRADES_TIER_4 = ["advanced"];
+Class.radical.UPGRADES_TIER_3 = ["advanced"];
 Class.gunner.UPGRADES_TIER_3.push("gunnerCruiser", "vulcan");
 //Class.trapGuard.UPGRADES_TIER_3.push("whirlGuard")
 Class.advanced.UPGRADES_TIER_5 = ["switcheroo", "realtor", "screamer", "flail"];
@@ -5699,17 +6017,13 @@ Class.ringer.UPGRADES_TIER_3 = ["winger", "singer"];
 Class.realstar.UPGRADES_TIER_3 = ["deathstar", "neutronstar", "apex"];
 Class.sniper.UPGRADES_TIER_2.push("hider")
 Class.hider.UPGRADES_TIER_3 = ["rogue", "cloak", "leader", "stalker"];
-Class.destroyer.UPGRADES_TIER_3.push("rogue");
 Class.sniper.UPGRADES_TIER_2.push("ringer");
-Class.pounder.UPGRADES_TIER_2.push("realstar");
 Class.triAngle.UPGRADES_TIER_3.push("hawk");
 Class.smashGuard.UPGRADES_TIER_4 = ["tankGuardian"];
 Class.tankGuardian.UPGRADES_TIER_5 = ["homelandDefender"];
-Class.basic.UPGRADES_TIER_1 = [];
-Class.basic.UPGRADES_TIER_2 = ["radical"];
+Class.basic.UPGRADES_TIER_1 = ["radical"];
 Class.basic.UPGRADES_TIER_0 = ["single", "director", "heavy", "trapper"];
 Class.single.UPGRADES_TIER_1 = ["twin", "machineGun", "flankGuard", "trapGuard"];
-Class.heavy.UPGRADES_TIER_1 = ["pounder", "sniper"];
 Class.trapper.UPGRADES_TIER_1 = ["builder", "triTrapper", "trapGuard", "overtrapper", "barracuda", "wark"];
     Class.triTrapper.UPGRADES_TIER_2 = ["hexaTrapper", "quadBuilder", "hexadecimator"];
     Class.trapGuard.UPGRADES_TIER_2 = ["bushwhacker", "planetary", "bulwark", "highlord", "pen", "hexadecimator"];
@@ -5739,6 +6053,16 @@ Class.director.UPGRADES_TIER_1 = ["overseer", "executor", "spawner"];
         Class.underseer.UPGRADES_TIER_3 = ["necromancer", "maleficitor", "infestor", "polyseer", "enchanter", "preacher", "necroa"];
     Class.spawner.UPGRADES_TIER_2 = ["factory"];
         Class.factory.UPGRADES_TIER_3 = ["topBanana", "foundry", "industry", "cloner", "watchwoman", "sqrtFactory"];
+Class.heavy.UPGRADES_TIER_1 = ["pounder", "sniper", "builder", "artillery"]
+    Class.artillery.UPGRADES_TIER_2 = ["howitzer", "beeGuard", "heavyArtillery"]
+        Class.howitzer.UPGRADES_TIER_3 = ["type63"]
+        Class.beeGuard.UPGRADES_TIER_3 = ["beemaster"]
+    Class.pounder.UPGRADES_TIER_2 = ["destroyer", "heavyArtillery", "launcher", "planetary", "realstar"]
+        Class.pounder.UPGRADES_TIER_3 = ["shotgun", "eagle"]
+        Class.heavyArtillery.UPGRADES_TIER_3 = ["mortar", "ordnance", "beekeeper", "fieldGun", "superHeavyArtillery"];
+    Class.destroyer.UPGRADES_TIER_3 = ["conqueror", "annihilator", "hybrid", "construct", "rogue"];
+Class.basic.UPGRADES_TIER_3 = [];
+Class.healer.UPGRADES_TIER_3 = ["medic", "ambulance", "surgeon", "paramedic"];
 Class.tank.UPGRADES_TIER_0 = ["auraTank", "smasherTank", "autoTank", "machine", "primary"];
 Class.primary.UPGRADES_TIER_1 = ["droneShip"];
 Class.droneShip.UPGRADES_TIER_2 = ["hydraShip"];

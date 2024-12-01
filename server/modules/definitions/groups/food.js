@@ -242,7 +242,7 @@ Class.octagon = {
     SIZE: 1.15 * 56,
     COLOR: "lavender",
     BODY: {
-        DAMAGE: 3 * basePolygonDamage,
+        DAMAGE: 2 * basePolygonDamage,
         DENSITY: 30,
         HEALTH: 100 * basePolygonHealth,
         RESIST: 2.1,
@@ -261,7 +261,7 @@ Class.nonagon = {
     SIZE: 1.15 * 70,
     COLOR: "white",
     BODY: {
-        DAMAGE: 3 * basePolygonDamage,
+        DAMAGE: 2 * basePolygonDamage,
         DENSITY: 40,
         HEALTH: 150 * basePolygonHealth,
         RESIST: 2.5,
@@ -280,7 +280,7 @@ Class.decagon = {
     SIZE: 1.15 * 90,
     COLOR: "black",
     BODY: {
-        DAMAGE: 3 * basePolygonDamage,
+        DAMAGE: 2 * basePolygonDamage,
         DENSITY: 50,
         HEALTH: 200 * basePolygonHealth,
         RESIST: 3,
