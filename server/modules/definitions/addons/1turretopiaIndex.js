@@ -4640,7 +4640,7 @@ Class.honcho = {
         {
             POSITION: [16, 12, 1.4, 0, 0, 0, 0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.drone, {health: 1.3, damage: 1.3, pen: 1.1}]),
+                SHOOT_SETTINGS: combineStats([g.drone, {health: 1.3, damage: 1.3}]),
                 TYPE: "drone",
                 AUTOFIRE: true,
                 SYNCS_SKILLS: true,
@@ -4668,28 +4668,6 @@ Class.executive = {
                 SYNCS_SKILLS: true,
                 STAT_CALCULATOR: "drone",
                 MAX_CHILDREN: 3,
-            },
-        },
-    ],
-};
-Class.executive = {
-    PARENT: "genericTank",
-    LABEL: "Executive",
-    STAT_NAMES: statnames.drone,
-    DANGER: 6,
-    BODY: {
-        FOV: base.FOV * 1.1,
-    },
-    GUNS: [
-        {
-            POSITION: [16, 16, 1.4, 0, 0, 0, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.drone, {health: 1.35, damage: 1.4, pen: 1.1}]),
-                TYPE: "drone",
-                AUTOFIRE: true,
-                SYNCS_SKILLS: true,
-                STAT_CALCULATOR: "drone",
-                MAX_CHILDREN: 5,
             },
         },
     ],

@@ -442,6 +442,9 @@ function incoming(message, socket) {
                 if (player.body.color.base == '-1' || player.body.color.base == 'mirror') {
                     player.body.color.base = getTeamColor((Config.GROUPS || (Config.MODE == 'ffa' && !Config.TAG)) ? TEAM_RED : player.body.team);
                 }
+            } else {
+                socket.kick("Ill-sized testbed request.");
+                return 1;
             }
             break;
             case "teleporting":

@@ -8,7 +8,7 @@ module.exports = {
         productionist: { reload: 56, recoil: 0.25, shudder: 0.05, size: 0.7, damage: 0.7, speed: 4, range: 1.5, spray: 5 },
     
     // Spammers
-        desmos: { shudder: 0, spray: 0, speed: 0.001 },
+        desmos: { shudder: 0, spray: 0, speed: 0.001, reload: 1.45 },
         single: { reload: 1.05, speed: 1.05 },
         twin: { recoil: 0.5, shudder: 0.9, health: 0.9, damage: 0.7, spray: 1.2 },
         doubleTwin: { damage: 0.9 },
@@ -65,7 +65,7 @@ module.exports = {
         summoner: { reload: 0.3, size: 1.125, health: 0.5, damage: 0.345, pen: 0.4, density: 0.8 },
         minionGun: { recoil: 0, shudder: 2, health: 0.4, damage: 0.4, pen: 1.2, range: 0.75, spray: 2 },
         babyfactory: { reload: 1.5, maxSpeed: 1.25 },
-        bigCheese: { reload: 1.5, size: 1.8, health: 2.1, damage: 2.1, pen: 1.25, speed: 1.15 },
+        bigCheese: { reload: 1.5, size: 1.8, health: 3.5, damage: 2.1, pen: 1.25, speed: 1.15 },
         mothership: { reload: 1.25, pen: 1.1, speed: 0.775, maxSpeed: 0.8, range: 15, resist: 1.15 },
         satellite: { size: 0.8, reload: 3, damage: 1.875 },
         negro: { reload: 0.5, damage: 0.35 },
