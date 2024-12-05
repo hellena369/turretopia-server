@@ -162,103 +162,135 @@ module.exports = {
   ENEMY_SPAWN_CHANCE_NEST: 0.2, // Likeliness of nest enemies spawn attempts succeeding.
   ENEMY_SPAWN_COOLDOWN_NEST: 60, // Cooldown (in game ticks) of nest enemies spawn attempts being made.
 
-  // Cooldown (in seconds) of boss spawns being announced.
-  BOSS_SPAWN_COOLDOWN: 300,
-  // The delay (in seconds) between the boss spawns being announced and the bosses actually spawning.
-  // NOTE: The spawn message (ex. "A strange trembling...") takes half as long to appear than the boss.
-  BOSS_SPAWN_DURATION: 5,
-  FOOD_TYPES: [
-    [
-      2000,
+    // Cooldown (in seconds) of boss spawns being announced.
+    BOSS_SPAWN_COOLDOWN: 300,
+    // The delay (in seconds) between the boss spawns being announced and the bosses actually spawning.
+    // NOTE: The spawn message (ex. "A strange trembling...") takes half as long to appear than the boss.
+    BOSS_SPAWN_DURATION: 5,
+    
+    FOOD_TYPES: [
       [
-        [256, "egg"],
-        [64, "triangle"],
-        [16, "square"],
-        [4, "pentagon"],
-        [1, "hexagon"],
+          2000,
+          [
+              [256, "egg"],
+              [64, "triangle"],
+              [16, "square"],
+              [4, "pentagon"],
+              [1, "hexagon"],
+          ],
       ],
-    ],
-    [
-      100,
+      /*
       [
-        [4, "heptagon"],
-        [1, "octagon"],
+          250,
+          [
+              [1, "giftRW"],
+              [1, "giftRP"],
+              [1, "giftRY"],
+              [1, "giftBP"],
+              [1, "giftBW"],
+              [1, "giftBY"],
+              [1, "giftGY"],
+              [1, "giftGW"],
+              [1, "giftGP"],
+          ]
       ],
-    ],
-    [
-      10,
+      */
       [
-        [4, "nonagon"],
-        [1, "decagon"],
+          100,
+          [
+              [4, "heptagon"],
+              [1, "octagon"]
+          ],
       ],
-    ],
-    [
-      1,
       [
-        [625, "gem"],
-        [125, "shinyTriangle"],
-        [25, "shinySquare"],
-        [5, "shinyPentagon"],
-        [1, "shinyHexagon"],
+          10,
+          [
+              [4, "nonagon"],
+              [1, "decagon"],
+          ],
       ],
-    ],
-    [
-      0.1,
       [
-        [1296, "jewel"],
-        [216, "legendaryTriangle"],
-        [36, "legendarySquare"],
-        [6, "legendaryPentagon"],
-        [1, "legendaryHexagon"],
+          1,
+          [
+              [625, "gem"],
+              [125, "shinyTriangle"],
+              [25, "shinySquare"],
+              [5, "shinyPentagon"],
+              [1, "shinyHexagon"],
+          ],
       ],
-    ],
+      [
+          0.1,
+          [
+              [1296, "jewel"],
+              [216, "legendaryTriangle"],
+              [36, "legendarySquare"],
+              [6, "legendaryPentagon"],
+              [1, "legendaryHexagon"],
+          ],
+      ],
   ],
 
   // The possible nest food types that can spawn.
   FOOD_TYPES_NEST: [
-    [
-      1,
-      [
-        [16, "pentagon"],
-        [8, "hexagon"],
-        [4, "heptagon"],
-        [2, "octagon"],
+     /* [
+          1,
+          [
+              [16, "pentagon"],
+              [8, "hexagon"],
+              [4, "heptagon"],
+              [2, "octagon"],
+          ],
       ],
-    ],
-    [
-      0.1,
       [
-        [4, "nonagon"],
-        [1, "decagon"],
+          0.1,
+          [
+              [4, "nonagon"],
+              [1, "decagon"],
+          ],
+      ],*/
+      [
+          1,
+          [
+              [1, "giftRW"],
+              [1, "giftRP"],
+              [1, "giftRY"],
+              [1, "giftBP"],
+              [1, "giftBW"],
+              [1, "giftBY"],
+              [1, "giftGY"],
+              [1, "giftGW"],
+              [1, "giftGP"],
+          ]
       ],
-    ],
   ],
 
-  // The possible nest enemy types that can spawn.
-  ENEMY_TYPES_NEST: [
-    [
-        10,
+
+    // The possible nest enemy types that can spawn.
+    ENEMY_TYPES_NEST: [
         [
-            [4, "sentrySwarm"],
-            [2, "sentryTrap"],
-            [1, "sentryGun"]
+            10,
+            [
+                [4, "sentrySwarm"],
+                [2, "sentryTrap"],
+                [1, "sentryGun"]
+            ]
+        ],
+        [
+            1,
+            [
+                [4, "sentinelLauncher"],
+                [1, "sentinelCrossbow"],
+                [16, "sentinelMinigun"]
+            ]
+        ],
+        [
+            0.1,
+            [
+                [1, "underkeeper"]
+            ]
         ]
     ],
-    [
-        1,
-        [
-            [4, "sentinelLauncher"],
-            [1, "sentinelCrossbow"],
-            [16, "sentinelMinigun"]
-        ]
-    ],
-    [
-        0.1,
-        [
-            [128, "underkeeper"]
-        ]
-    ]
-],
 
   // The possible boss types that can spawn.
   BOSS_TYPES: [
