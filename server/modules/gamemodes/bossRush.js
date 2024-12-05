@@ -262,13 +262,13 @@ class BossRush {
 
     //runs once when the server starts
     init() {
-        Class.basic.UPGRADES_TIER_2.push("healer");
+        Class.radical.UPGRADES_TIER_2.push("healer");
         //TODO: filter out tiles that are not of sanctuary type
         for (let tile of room.spawnable[TEAM_BLUE]) {
             this.leftSanctuaries += 1;
             this.spawnSanctuary(tile, TEAM_BLUE, "sanctuaryTier1");
         }
-    } //this looks standard... why aint it working
+    }
 
     //runs every second
     loop() {

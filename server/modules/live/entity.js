@@ -13,6 +13,7 @@ let EventEmitter = require('events'),
     init = g => events = g.events;
 const {ioTypes} = require("./controllers");
 const {Color} = require("./color");
+const {HealthType, Skill} = require("./entitySubFunctions");
 
 class Gun extends EventEmitter {
     constructor(body, info) {

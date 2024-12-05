@@ -172,7 +172,6 @@ Class.director = {
 Class.pounder = {
   PARENT: "genericTank",
   LABEL: "Pounder",
-
   GUNS: [
     {
       POSITION: {

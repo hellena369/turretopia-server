@@ -1194,7 +1194,7 @@ Class.topBanana = {
         {
             POSITION: [2, 20, 1, 15.5, 0, 0, 0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.factory, { reload: 6, size: 1.1, health: 4, speed: 0.5, maxSpeed: 0.5 }]),
+                SHOOT_SETTINGS: combineStats([g.factory, { reload: 6, size: 1.1, health: 5, speed: 0.55, maxSpeed: 0.55 }]),
                 TYPE: "bananaMinion",
                 MAX_CHILDREN: 1,
                 STAT_CALCULATOR: "drone",
@@ -5229,7 +5229,7 @@ Class.auraTank = {
         },
     ],
 };
-Class.decorativeAura1 = addAura(0.01, 1.15);
+Class.decorativeAura1 = addAura(0, 1.15);
 Class.auraTankGenBig = addAura(1, 1.2);
 Class.forgery = {
     PARENT: "tank",
@@ -5245,8 +5245,8 @@ Class.forgery = {
         }
     ],
 };
-Class.decorativeAura2 = addAura(0.01, 1.3);
-Class.decorativeAura3 = addAura(0.01, 1.2);
+Class.decorativeAura2 = addAura(0, 1.3);
+Class.decorativeAura3 = addAura(0, 1.2);
 Class.auraTankGenBigger = addAura(1, 1.35);
 Class.lifebane = {
     PARENT: "tank",
@@ -5266,8 +5266,8 @@ Class.lifebane = {
         },
     ],
 };
-Class.decorativeAura5 = addAura(0.01, 1.3);
-Class.decorativeAura4 = addAura(0.01, 1.4);
+Class.decorativeAura5 = addAura(0, 1.3);
+Class.decorativeAura4 = addAura(0, 1.4);
 Class.auraTankGenBiggest = addAura(1.5, 1.5);
 Class.halberd = {
     PARENT: "tank",
@@ -6025,7 +6025,7 @@ Class.director.UPGRADES_TIER_1 = ["overseer", "executor", "spawner"];
         Class.honcho.UPGRADES_TIER_3 = ["bigCheese", "bigSwiss", "executive"]
         Class.storm.UPGRADES_TIER_3 = ["cortex"];
         Class.manager.UPGRADES_TIER_3 = ["leader"];
-    Class.overseer.UPGRADES_TIER_2 = ["overviewer", "overtrapper", "overgunner", "overdrive"];
+    Class.overseer.UPGRADES_TIER_2 = ["overviewer", "overtrapper", "overgunner", "overdrive", "underseer"];
         Class.overviewer.UPGRADES_TIER_3 = ["overlord", "commander", "banshee", "sentrySeer"];
         Class.cruiser.UPGRADES_TIER_3 = ["carrier", "battleship", "fortress", "commander", "wraith", "gunnerCruiser", "bigSwiss"];
         Class.underseer.UPGRADES_TIER_3 = ["necromancer", "maleficitor", "infestor", "polyseer", "enchanter", "preacher", "necroa"];

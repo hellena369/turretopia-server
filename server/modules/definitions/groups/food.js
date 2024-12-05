@@ -300,7 +300,7 @@ Class.giftSymbol = {
 Class.giftRY = {
     PARENT: "food",
     LABEL: "Gift",
-    VALUE: 16e3,
+    VALUE: 6e3,
     SHAPE: 4,
     SIZE: 25,
     COLOR: "red",
@@ -310,7 +310,7 @@ Class.giftRY = {
         HEALTH: 10 * basePolygonHealth,
         RESIST: 3,
         PENETRATION: 1.1,
-        ACCELERATION: 0.05
+        ACCELERATION: 0.02
     },
     DRAW_HEALTH: true,
     PROPS: [
@@ -323,7 +323,7 @@ Class.giftRY = {
 Class.giftRP = {
     PARENT: "food",
     LABEL: "Gift",
-    VALUE: 16e3,
+    VALUE: 6e3,
     SHAPE: 4,
     SIZE: 25,
     COLOR: "red",
@@ -333,7 +333,7 @@ Class.giftRP = {
         HEALTH: 10 * basePolygonHealth,
         RESIST: 3,
         PENETRATION: 1.1,
-        ACCELERATION: 0.05
+        ACCELERATION: 0.02
     },
     DRAW_HEALTH: true,
     PROPS: [
@@ -346,7 +346,7 @@ Class.giftRP = {
 Class.giftRW = {
     PARENT: "food",
     LABEL: "Gift",
-    VALUE: 16e3,
+    VALUE: 6e3,
     SHAPE: 4,
     SIZE: 25,
     COLOR: "red",
@@ -356,7 +356,7 @@ Class.giftRW = {
         HEALTH: 10 * basePolygonHealth,
         RESIST: 3,
         PENETRATION: 1.1,
-        ACCELERATION: 0.05
+        ACCELERATION: 0.02
     },
     DRAW_HEALTH: true,
     PROPS: [
@@ -370,7 +370,7 @@ Class.giftRW = {
 Class.giftGY = {
     PARENT: "food",
     LABEL: "Gift",
-    VALUE: 16e3,
+    VALUE: 6e3,
     SHAPE: 4,
     SIZE: 25,
     COLOR: "green",
@@ -380,7 +380,7 @@ Class.giftGY = {
         HEALTH: 10 * basePolygonHealth,
         RESIST: 3,
         PENETRATION: 1.1,
-        ACCELERATION: 0.05
+        ACCELERATION: 0.02
     },
     DRAW_HEALTH: true,
     PROPS: [
@@ -393,7 +393,7 @@ Class.giftGY = {
 Class.giftGP = {
     PARENT: "food",
     LABEL: "Gift",
-    VALUE: 16e3,
+    VALUE: 6e3,
     SHAPE: 4,
     SIZE: 25,
     COLOR: "green",
@@ -403,7 +403,7 @@ Class.giftGP = {
         HEALTH: 10 * basePolygonHealth,
         RESIST: 3,
         PENETRATION: 1.1,
-        ACCELERATION: 0.05
+        ACCELERATION: 0.02
     },
     DRAW_HEALTH: true,
     PROPS: [
@@ -416,7 +416,7 @@ Class.giftGP = {
 Class.giftGW = {
     PARENT: "food",
     LABEL: "Gift",
-    VALUE: 16e3,
+    VALUE: 6e3,
     SHAPE: 4,
     SIZE: 25,
     COLOR: "red",
@@ -426,7 +426,7 @@ Class.giftGW = {
         HEALTH: 10 * basePolygonHealth,
         RESIST: 3,
         PENETRATION: 1.1,
-        ACCELERATION: 0.05
+        ACCELERATION: 0.02
     },
     DRAW_HEALTH: true,
     PROPS: [
@@ -440,7 +440,7 @@ Class.giftGW = {
 Class.giftBY = {
     PARENT: "food",
     LABEL: "Gift",
-    VALUE: 16e3,
+    VALUE: 6e3,
     SHAPE: 4,
     SIZE: 25,
     COLOR: "blue",
@@ -450,7 +450,7 @@ Class.giftBY = {
         HEALTH: 10 * basePolygonHealth,
         RESIST: 3,
         PENETRATION: 1.1,
-        ACCELERATION: 0.05
+        ACCELERATION: 0.02
     },
     DRAW_HEALTH: true,
     PROPS: [
@@ -463,7 +463,7 @@ Class.giftBY = {
 Class.giftBP = {
     PARENT: "food",
     LABEL: "Gift",
-    VALUE: 16e3,
+    VALUE: 6e3,
     SHAPE: 4,
     SIZE: 25,
     COLOR: "blue",
@@ -473,7 +473,7 @@ Class.giftBP = {
         HEALTH: 10 * basePolygonHealth,
         RESIST: 3,
         PENETRATION: 1.1,
-        ACCELERATION: 0.05
+        ACCELERATION: 0.02
     },
     DRAW_HEALTH: true,
     PROPS: [
@@ -486,7 +486,7 @@ Class.giftBP = {
 Class.giftBW = {
     PARENT: "food",
     LABEL: "Gift",
-    VALUE: 16e3,
+    VALUE: 6e3,
     SHAPE: 4,
     SIZE: 25,
     COLOR: "blue",
@@ -496,7 +496,7 @@ Class.giftBW = {
         HEALTH: 10 * basePolygonHealth,
         RESIST: 3,
         PENETRATION: 1.1,
-        ACCELERATION: 0.05
+        ACCELERATION: 0.02
     },
     DRAW_HEALTH: true,
     PROPS: [
