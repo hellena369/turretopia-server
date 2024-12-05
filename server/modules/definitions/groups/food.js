@@ -102,7 +102,7 @@ Class.square = {
         DENSITY: 4,
         HEALTH: 3 * basePolygonHealth,
         RESIST: 1.15,
-        PENETRATION: 1.5,
+        PENETRATION: 1.1,
         ACCELERATION: 0.005
     },
     DRAW_HEALTH: true,
@@ -290,6 +290,222 @@ Class.decagon = {
     },
     DRAW_HEALTH: true,
 };
+
+Class.giftSymbol = {
+    SHAPE: [[0.3, -0.3],[1,-0.3],[1,0.3],[0.3,0.3],[0.3,1],[-0.3,1],[-0.3,0.3],[-1,0.3],[-1,-0.3],[-0.3,-0.3],[-0.3,-1],[0.3,-1]],
+    SIZE: 13,
+    COLOR: "white"
+}
+
+Class.giftRY = {
+    PARENT: "food",
+    LABEL: "Gift",
+    VALUE: 16e3,
+    SHAPE: 4,
+    SIZE: 25,
+    COLOR: "red",
+    BODY: {
+        DAMAGE: basePolygonDamage,
+        DENSITY: 50,
+        HEALTH: 10 * basePolygonHealth,
+        RESIST: 3,
+        PENETRATION: 1.1,
+        ACCELERATION: 0.05
+    },
+    DRAW_HEALTH: true,
+    PROPS: [
+        {
+            POSITION: [19.5, 0, 0, 0, 360, 1],
+            TYPE: ["giftSymbol", { COLOR: "yellow"}]
+        }
+    ]
+}
+Class.giftRP = {
+    PARENT: "food",
+    LABEL: "Gift",
+    VALUE: 16e3,
+    SHAPE: 4,
+    SIZE: 25,
+    COLOR: "red",
+    BODY: {
+        DAMAGE: basePolygonDamage,
+        DENSITY: 50,
+        HEALTH: 10 * basePolygonHealth,
+        RESIST: 3,
+        PENETRATION: 1.1,
+        ACCELERATION: 0.05
+    },
+    DRAW_HEALTH: true,
+    PROPS: [
+        {
+            POSITION: [19.5, 0, 0, 0, 360, 1],
+            TYPE: ["giftSymbol", { COLOR: "purple"}]
+        }
+    ]
+}
+Class.giftRW = {
+    PARENT: "food",
+    LABEL: "Gift",
+    VALUE: 16e3,
+    SHAPE: 4,
+    SIZE: 25,
+    COLOR: "red",
+    BODY: {
+        DAMAGE: basePolygonDamage,
+        DENSITY: 50,
+        HEALTH: 10 * basePolygonHealth,
+        RESIST: 3,
+        PENETRATION: 1.1,
+        ACCELERATION: 0.05
+    },
+    DRAW_HEALTH: true,
+    PROPS: [
+        {
+            POSITION: [19.5, 0, 0, 0, 360, 1],
+            TYPE: ["giftSymbol"]
+        }
+    ]
+}
+
+Class.giftGY = {
+    PARENT: "food",
+    LABEL: "Gift",
+    VALUE: 16e3,
+    SHAPE: 4,
+    SIZE: 25,
+    COLOR: "green",
+    BODY: {
+        DAMAGE: basePolygonDamage,
+        DENSITY: 50,
+        HEALTH: 10 * basePolygonHealth,
+        RESIST: 3,
+        PENETRATION: 1.1,
+        ACCELERATION: 0.05
+    },
+    DRAW_HEALTH: true,
+    PROPS: [
+        {
+            POSITION: [19.5, 0, 0, 0, 360, 1],
+            TYPE: ["giftSymbol", { COLOR: "yellow"}]
+        }
+    ]
+}
+Class.giftGP = {
+    PARENT: "food",
+    LABEL: "Gift",
+    VALUE: 16e3,
+    SHAPE: 4,
+    SIZE: 25,
+    COLOR: "green",
+    BODY: {
+        DAMAGE: basePolygonDamage,
+        DENSITY: 50,
+        HEALTH: 10 * basePolygonHealth,
+        RESIST: 3,
+        PENETRATION: 1.1,
+        ACCELERATION: 0.05
+    },
+    DRAW_HEALTH: true,
+    PROPS: [
+        {
+            POSITION: [19.5, 0, 0, 0, 360, 1],
+            TYPE: ["giftSymbol", { COLOR: "purple"}]
+        }
+    ]
+}
+Class.giftGW = {
+    PARENT: "food",
+    LABEL: "Gift",
+    VALUE: 16e3,
+    SHAPE: 4,
+    SIZE: 25,
+    COLOR: "red",
+    BODY: {
+        DAMAGE: basePolygonDamage,
+        DENSITY: 50,
+        HEALTH: 10 * basePolygonHealth,
+        RESIST: 3,
+        PENETRATION: 1.1,
+        ACCELERATION: 0.05
+    },
+    DRAW_HEALTH: true,
+    PROPS: [
+        {
+            POSITION: [19.5, 0, 0, 0, 360, 1],
+            TYPE: ["giftSymbol"]
+        }
+    ]
+}
+
+Class.giftBY = {
+    PARENT: "food",
+    LABEL: "Gift",
+    VALUE: 16e3,
+    SHAPE: 4,
+    SIZE: 25,
+    COLOR: "blue",
+    BODY: {
+        DAMAGE: basePolygonDamage,
+        DENSITY: 50,
+        HEALTH: 10 * basePolygonHealth,
+        RESIST: 3,
+        PENETRATION: 1.1,
+        ACCELERATION: 0.05
+    },
+    DRAW_HEALTH: true,
+    PROPS: [
+        {
+            POSITION: [19.5, 0, 0, 0, 360, 1],
+            TYPE: ["giftSymbol", { COLOR: "yellow"}]
+        }
+    ]
+}
+Class.giftBP = {
+    PARENT: "food",
+    LABEL: "Gift",
+    VALUE: 16e3,
+    SHAPE: 4,
+    SIZE: 25,
+    COLOR: "blue",
+    BODY: {
+        DAMAGE: basePolygonDamage,
+        DENSITY: 50,
+        HEALTH: 10 * basePolygonHealth,
+        RESIST: 3,
+        PENETRATION: 1.1,
+        ACCELERATION: 0.05
+    },
+    DRAW_HEALTH: true,
+    PROPS: [
+        {
+            POSITION: [19.5, 0, 0, 0, 360, 1],
+            TYPE: ["giftSymbol", { COLOR: "purple"}]
+        }
+    ]
+}
+Class.giftBW = {
+    PARENT: "food",
+    LABEL: "Gift",
+    VALUE: 16e3,
+    SHAPE: 4,
+    SIZE: 25,
+    COLOR: "blue",
+    BODY: {
+        DAMAGE: basePolygonDamage,
+        DENSITY: 50,
+        HEALTH: 10 * basePolygonHealth,
+        RESIST: 3,
+        PENETRATION: 1.1,
+        ACCELERATION: 0.05
+    },
+    DRAW_HEALTH: true,
+    PROPS: [
+        {
+            POSITION: [19.5, 0, 0, 0, 360, 1],
+            TYPE: ["giftSymbol", { COLOR: "white"}]
+        }
+    ]
+}
 
 // 3D POLYGONS
 Class.sphere = {

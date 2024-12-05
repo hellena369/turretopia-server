@@ -772,11 +772,11 @@ Class.keeper = {
     BODY: {
         FOV: 2,
         ACCEL: 0.003,
-        DAMAGE: base.DAMAGE * 2,
+        DAMAGE: 1.6,
         SPEED: base.SPEED * 0.2,
-        HEALTH: 100,
-        SHIELD: base.SHIELD * 0.1,
-        REGEN: base.REGEN * 0.1,
+        HEALTH: 40,
+        SHIELD: base.SHIELD * 0.003,
+        REGEN: base.REGEN * 0.003,
     },
     GLOW: {
         RADIUS: 3,
