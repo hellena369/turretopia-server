@@ -178,11 +178,27 @@ module.exports = {
                 [1, "hexagon"],
             ],
         ],
+        /*
+        [
+            250,
+            [
+                [1, "giftRW"],
+                [1, "giftRP"],
+                [1, "giftRY"],
+                [1, "giftBP"],
+                [1, "giftBW"],
+                [1, "giftBY"],
+                [1, "giftGY"],
+                [1, "giftGW"],
+                [1, "giftGP"],
+            ]
+        ],
+        */
         [
             100,
             [
                 [4, "heptagon"],
-                [1, "octagon"],
+                [1, "octagon"]
             ],
         ],
         [
@@ -216,7 +232,7 @@ module.exports = {
 
     // The possible nest food types that can spawn.
     FOOD_TYPES_NEST: [
-        [
+       /* [
             1,
             [
                 [16, "pentagon"],
@@ -231,6 +247,20 @@ module.exports = {
                 [4, "nonagon"],
                 [1, "decagon"],
             ],
+        ],*/
+        [
+            1,
+            [
+                [1, "giftRW"],
+                [1, "giftRP"],
+                [1, "giftRY"],
+                [1, "giftBP"],
+                [1, "giftBW"],
+                [1, "giftBY"],
+                [1, "giftGY"],
+                [1, "giftGW"],
+                [1, "giftGP"],
+            ]
         ],
     ],
 
@@ -255,7 +285,7 @@ module.exports = {
         [
             0.1,
             [
-                [1, "underkeeper"]
+                [128, "underkeeper"]
             ]
         ]
     ],
