@@ -1607,7 +1607,11 @@ class Entity extends EventEmitter {
         this.move();
     }
     get level() {
-        return Math.min(this.levelCap ?? Config.LEVEL_CAP, this.skill.level);
+        if (this.type !== "tank") {
+            return Math.min(this.levelCap ?? 45, this.skill.level);
+        } else {
+            return Math.min(this.levelCap ?? Config.LEVEL_CAP, this.skill.level);
+        }
     }
     get size() {
         return this.bond == null ? (this.coreSize || this.SIZE) * this.sizeMultiplier * (1 + this.level / 45) : this.bond.size * this.bound.size;
