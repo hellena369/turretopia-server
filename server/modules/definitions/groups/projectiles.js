@@ -167,7 +167,7 @@ Class.spinmissile = {
         POSITION: [14, 8, 1, 0, 0, 0, 0],
         PROPERTIES: {
             AUTOFIRE: !0,
-            SHOOT_SETTINGS: combineStats([g.basic, g.lowPower, {size: 1.1, reload: 0.81}]),
+            SHOOT_SETTINGS: combineStats([g.basic, g.lowPower, g.spinner]),
             TYPE: ["bullet", { PERSISTS_AFTER_DEATH: true }],
             STAT_CALCULATOR: "thruster",
             WAIT_TO_CYCLE: true,
@@ -181,7 +181,7 @@ Class.hyperspinmissile = {
         POSITION: [14, 8, 1, 0, 0, 0, 0],
         PROPERTIES: {
             AUTOFIRE: !0,
-            SHOOT_SETTINGS: combineStats([g.basic, g.lowPower, {size: 1.1}]),
+            SHOOT_SETTINGS: combineStats([g.basic, g.lowPower, {size: 1.1}, g.spinner]),
             TYPE: ["bullet", { PERSISTS_AFTER_DEATH: true }],
             STAT_CALCULATOR: "thruster",
             COLOR: "mirror"
@@ -344,8 +344,7 @@ Class.surgeonPillbox = {
     INDEPENDENT: true,
     BODY: {
         SPEED: 1,
-        DENSITY: 5,
-        DAMAGE: 0
+        DENSITY: 5
     },
     DIE_AT_RANGE: true,
     TURRETS: [

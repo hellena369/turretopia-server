@@ -18,6 +18,9 @@ module.exports = {
     // Flatten entity definition, which gets rid of PARENT attributes and applies the parents' attributes to the entity definition, if they're not set in the entity already.
     flattenDefintions: false,
 
+    // Allow other servers to get data from this server
+    allowAccessControlAllowOrigin: true,
+
     // Log speed loop warnings
     LOGS: false, // just dont
 
@@ -26,7 +29,7 @@ module.exports = {
 
     // The \modules\setup\gamemodeconfigs\ files to load.
     // To change specific things about specific gamemodes (such as team count for tdm), edit their config file in \modules\setup\gamemodeconfigs\.
-    GAME_MODES: ["growth", "siege"],
+    GAME_MODES: ["nexus"],
 
     // The room files to load in the setup/rooms folder.
     // NOTE: If a /gamemodeconfig/ file "replaces" the value of ROOM_SETUP, it just adds its own ROOM_SETUP's content to this array.
@@ -138,7 +141,7 @@ module.exports = {
     SPAWN_CLASS: ["tank", "basic"],
 
     // How every entity regenerates their health.
-    REGENERATE_TICK: 100,
+    REGENERATE_TICK: 400,
 
     // How many members a team can have in comparison to an unweighted team.
     // Example: Lets say we have team A and B. If the weigh of A is 2 and B is 1, then the game will try to give A twice as many members as B.
@@ -262,6 +265,26 @@ module.exports = {
                 [1, "giftGP"],
             ]
         ],
+        [
+            0.01,
+            [
+                [128, "shinyGiftY"],
+                [128, "shinyGiftW"],
+                [128, "shinyGiftP"],
+                [64, "legendaryGiftY"],
+                [64, "legendaryGiftW"],
+                [64, "legendaryGiftP"],
+                [16, "shadowGiftY"],
+                [16, "shadowGiftW"],
+                [16, "shadowGiftP"],
+                [4, "rainbowGiftY"],
+                [4, "rainbowGiftW"],
+                [4, "rainbowGiftP"],
+                [1, "transGiftY"],
+                [1, "transGiftW"],
+                [1, "transGiftP"],
+            ]
+        ]
     ],
 
     // The possible nest enemy types that can spawn.

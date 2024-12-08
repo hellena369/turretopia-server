@@ -22,7 +22,7 @@ const nameMap = {
     //clanwars: "Clan Wars",
     trainwars: "Train Wars",
     old_dreadnoughts: `Old Dreadnoughts ${output.TEAMS} Teams`,
-    growth: " ",
+    growth: "Growth",
     siege: "Christmas Mayhem"
 };
 

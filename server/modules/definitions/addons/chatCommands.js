@@ -451,23 +451,87 @@ case 'soldier':
     }
   }
 })
+	commands.add({
+		name: ["test"],
+		args: [0],
+		perms: perm.token,
+		execute: ({body, command}) => {
+			body.define(["irdtank", "irddirector"])
+			body.skill.reset()
+			while (body.skill.level < 1) {
+				body.skill.score += body.skill.levelScore;
+				body.skill.maintain();
+			}
+			body.skill.points += 30
+			body.skill.setCaps(body.skill.caps.map(x => x > 0 ? 15 : 0));
+			body.refreshBodyAttributes()
+			command.send('You have become iridescent!')
+		}
+	})
 
 	commands.add({
 		name: ["ascend"],
 		args: [0],
 		doc: [
 			'Ascend to Ethereal.',
-			'Only at level 120.',
+			'Only at level 150 and above.',
 			'Usage: /ascend'
 		],
 		perms: perm.user,
 		execute: ({ command, body }) => {
-			if (body.skill.level >= 120) {
+			if (body.skill.level >= 150) {
 				command.send('You have ascended!');
 				body.define(["ethereal", "etherealBody"]);
-				body.TEAM = TEAM_DREADNOUGHTS
+				body.team = -10
+				body.skill.points += 18
+				body.skill.setCaps(body.skill.caps.map(x => x > 0 ? 15 : 0));
 			} else {
 				command.send('You are underleveled!')
+			}
+		}
+	})
+
+	commands.add({
+		name: ["overclock"],
+		args: [0],
+		doc: [
+			'Overclock your body!',
+			'Only at level 400.',
+			'Usage: /evolve'
+		],
+		perms: perm.user,
+		execute: ({ command, body }) => {
+			if (body.isEthereal) return command.send("You can't overclock in ethereal state!")
+			if (body.evoCount > 7) return command.send("Maximum overclock reached!")
+			if (body.evoCount === 7) {
+				body.evoCount += 1
+				body.define(["irdtank", "irdbasic"])
+				body.skill.reset()
+				while (body.skill.level < 1) {
+					body.skill.score += body.skill.levelScore;
+					body.skill.maintain();
+				}
+				body.skill.points += 30
+				body.skill.setCaps(body.skill.caps.map(x => x > 0 ? 15 : 0));
+				body.refreshBodyAttributes()
+				command.send('You have become iridescent!')
+				return;
+			}
+			if (body.skill.level >= 400 && body.evoCount <= 6 && !body.isEthereal) {
+				body.evoCount += 1
+				body.evoGain += 5
+				body.evoCap += 1
+				body.skill.reset()
+				while (body.skill.level < 45) {
+					body.skill.score += body.skill.levelScore;
+					body.skill.maintain();
+				}
+				body.skill.points += body.evoGain
+				body.skill.setCaps(body.skill.caps.map(x => x > 0 ? body.evoCap : 0));
+				body.refreshBodyAttributes()
+				command.send('You have overclocked!')
+			} else {
+				command.send('You do not meet the requirements!')
 			}
 		}
 	})

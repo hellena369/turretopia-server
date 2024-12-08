@@ -2,7 +2,10 @@ let permissionsDict = {},
     net = require('net'),
     clients = [],
     players = [],
-    disconnections = [];
+    disconnections = [],
+    playersReceived = [];
+const {dirtyCheck} = require("../live/entitySubFunctions");
+const {groups} = require("../gamemodes/groups");
 
 for (let entry of require("../../permissions.js")) {
     permissionsDict[entry.key] = entry;
@@ -159,6 +162,13 @@ function incoming(message, socket) {
             let name = m[0].replace(Config.BANNED_CHARACTERS_REGEX, "");
             let needsRoom = m[1];
             let autoLVLup = m[2];
+            let transferbodyID = m[3];
+            if (transferbodyID) transferbodyID = transferbodyID.replace(name, "");
+
+            if (!transferbodyID && m.length !== 3) {
+                socket.kick("Ill-sized spawn request.");
+                return 1;
+            }
             // Verify it
             if (typeof name != "string") {
                 socket.kick("Bad spawn request name.");
@@ -190,6 +200,40 @@ function incoming(message, socket) {
             }
             util.log("[INFO] Passed the security, spawning player.");
             socket.party = m[4];
+
+            let spawn = true;
+
+            if (transferbodyID) {
+                let bodyInfo = sockets.playersReceived.find(i => i.id === transferbodyID);
+                if (bodyInfo) {
+
+                    spawn = false;
+                    socket.player = socket.spawn(name);
+                    socket.player.body.upgrades = []
+                    for (let def of bodyInfo.definition) {
+                        if (def in Class) socket.player.body.define(Class[def]);
+                        else if (typeof def === "object") socket.player.body.define(def);
+                    }
+                    socket.player.body.skill.level = bodyInfo.level;
+                    socket.player.body.skill.score = bodyInfo.score;
+                    socket.player.body.skill.deduction = bodyInfo.score;
+                    socket.player.body.skill.setCaps(bodyInfo.skillcap);
+                    socket.player.body.skill.set(bodyInfo.skill);
+                    socket.player.body.skill.points = bodyInfo.points;
+                    socket.player.body.color.base = socket.player.teamColor;
+                    util.remove(sockets.playersReceived, sockets.playersReceived.indexOf(bodyInfo));
+                }
+            }
+            if (spawn) {
+                socket.player = socket.spawn(name);
+                if (autoLVLup) {
+                    while (socket.player.body.skill.level < Config.LEVEL_CHEAT_CAP) {
+                        socket.player.body.skill.score += socket.player.body.skill.levelScore;
+                        socket.player.body.skill.maintain();
+                        socket.player.body.refreshBodyAttributes();
+                    }
+                }
+            }
             socket.player = socket.spawn(name);
 
             if (autoLVLup) {
@@ -216,7 +260,7 @@ function incoming(message, socket) {
             // More important stuff
             socket.talk("updateName", socket.player.body.name);
             // Log it
-            util.log(`[INFO] ${name == "" ? "An unnamed player" : m[0]} ${needsRoom ? "joined" : "rejoined"} the game on team ${socket.player.body.team}! Players: ${players.length}`);
+            util.log(`[INFO] ${name === "" ? "An unnamed player" : m[0]} ${needsRoom ? "joined" : "rejoined"} the game on team ${socket.player.body.team}! Players: ${players.length}`);
             break;
         case "S":
             // clock syncing
@@ -712,7 +756,7 @@ function incoming(message, socket) {
 // Monitor traffic and handle inactivity disconnects
 function traffic(socket) {
     let strikes = 0;
-    // This function wiSl be called in the slow loop
+    // This function will be called in the slow loop
     return () => {
         // Kick if it's d/c'd
         if (performance.now() - socket.status.lastHeartbeat > Config.maxHeartbeatInterval) {
@@ -1565,6 +1609,7 @@ const sockets = {
     players: players,
     clients: clients,
     disconnections: disconnections,
+    playersReceived: playersReceived,
     broadcast: (message) => {
         for (let i = 0; i < clients.length; i++) {
             clients[i].talk("m", Config.MESSAGE_DISPLAY_TIME, message);
@@ -1712,6 +1757,33 @@ const sockets = {
         // Log it
         clients.push(socket);
         util.log("[INFO] New socket opened with ip " + socket.ip);
+    },
+
+    sendToServer: (socket, server) => {
+        if(!socket.player?.body) return;
+        if (socket.player.body.isTransfering) return;
+        socket.player.body.isTransfering = true;
+        let id = Math.floor(Math.random() * 0xffffffff).toString(16).padStart(8, "0");
+        console.log(server)
+        fetch(`${server}/api/sendPlayer`, {
+            method: "POST",
+            body: JSON.stringify({
+                key: process.env.API_KEY,
+                id: id,
+                name: socket.player.body.name,
+                definition: socket.player.body.defs.map(d => Object.keys(Class).find(k => Class[k] === d) || d),
+                score: socket.player.body.skill.score,
+                level: socket.player.body.skill.level,
+                skillcap: socket.player.body.skill.caps,
+                skill: socket.player.body.skill.raw,
+                points: socket.player.body.skill.points,
+            }),
+        }).then(response => response.json()).then(async (json) => {
+            if (json.status === 200) {
+                socket.talk("t", server.replace("http://", "").replace("https://", ""), id);
+                socket.player.body.destroy();
+            }
+        }).catch(error => console.log(error))
     }
 };
 module.exports = { sockets, chatLoop };

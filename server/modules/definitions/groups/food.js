@@ -507,6 +507,22 @@ Class.giftBW = {
     ]
 }
 
+Class.shinyGiftY = makeRare("giftRY", 0);
+Class.shinyGiftP = makeRare("giftRP", 0);
+Class.shinyGiftW = makeRare("giftRW", 0);
+Class.legendaryGiftY = makeRare("giftRY", 1);
+Class.legendaryGiftP = makeRare("giftRP", 1);
+Class.legendaryGiftW = makeRare("giftRW", 1);
+Class.shadowGiftY = makeRare("giftRY", 2);
+Class.shadowGiftP = makeRare("giftRP", 2);
+Class.shadowGiftW = makeRare("giftRW", 2);
+Class.rainbowGiftY = makeRare("giftRY", 3);
+Class.rainbowGiftP = makeRare("giftRP", 3);
+Class.rainbowGiftW = makeRare("giftRW", 3);
+Class.transGiftY = makeRare("giftRY", 4);
+Class.transGiftP = makeRare("giftRP", 4);
+Class.transGiftW = makeRare("giftRW", 4);
+
 // 3D POLYGONS
 Class.sphere = {
     PARENT: "food",

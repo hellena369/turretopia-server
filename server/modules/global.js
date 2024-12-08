@@ -20,6 +20,7 @@ global.entitiesToAvoid = [];
 global.grid = new hshg.HSHG();
 global.arenaClosed = false;
 global.mockupsLoaded = false;
+global.traveling = false;
 
 global.teamFunds = 0;
 global.loadedAddons = [];
@@ -37,7 +38,7 @@ global.TEAM_ENEMIES = -101;
 global.TEAM_HELENA = -666;
 global.getSpawnableArea = team => ran.choose((team in room.spawnable && room.spawnable[team].length) ? room.spawnable[team] : room.spawnableDefault).randomInside();
 global.getTeamName = team => ["BLUE", "GREEN", "RED", "PURPLE", "YELLOW", "ORANGE", "BROWN", "CYAN", "DREADNOUGHTS", "ROOM", "ENEMIES"][-team - 1] ?? "An unknown team";
-global.getTeamColor = team => ([10, 11, 12, 15, "yellow", 26, 27, 28, 4, "#000001", "#000001"][-team - 1] ?? 3);
+global.getTeamColor = team => ([10, 11, 12, 15, "yellow", 26, 27, 28, 4, "lavender", "#000001"][-team - 1] ?? 3);
 global.isPlayerTeam = team => /*team < 0 && */team > -11;
 global.getWeakestTeam = () => {
     let teamcounts = {};

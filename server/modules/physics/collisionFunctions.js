@@ -196,10 +196,10 @@ function advancedcollide(my, n, doDamage, doInelastic, nIsFirmCollide = false) {
         }
         if (!bail) {
             // Calculate base damage
-            let resistDiff = my.health.resist - n.health.resist,
+            let resistDiff = (my.health.resist - n.health.resist),
                 damage = {
-                    _me: Config.DAMAGE_CONSTANT * my.damage * (1 + resistDiff) * (1 + n.heteroMultiplier  * (my.settings.damageClass === n.settings.damageClass)) * ((my.settings.buffVsFood && n.settings.damageType === 1) ? 3 : 1) * my.damageMultiplier() * 1.5,
-                    _n:  Config.DAMAGE_CONSTANT * n.damage  * (1 - resistDiff) * (1 + my.heteroMultiplier * (my.settings.damageClass === n.settings.damageClass)) * ((n.settings.buffVsFood && my.settings.damageType === 1) ? 3 : 1) * n.damageMultiplier() * 1.5,
+                    _me: Config.DAMAGE_CONSTANT * my.damage * (1 + resistDiff) * (1 + n.heteroMultiplier  * (my.settings.damageClass === n.settings.damageClass)) * ((my.settings.buffVsFood && n.settings.damageType === 1) ? 3 : 1) * my.damageMultiplier() * 2,
+                    _n:  Config.DAMAGE_CONSTANT * n.damage  * (1 + resistDiff) * (1 + my.heteroMultiplier * (my.settings.damageClass === n.settings.damageClass)) * ((n.settings.buffVsFood && my.settings.damageType === 1) ? 3 : 1) * n.damageMultiplier() * 2,
                 };
             // Advanced damage calculations
             if (my.settings.ratioEffects) {

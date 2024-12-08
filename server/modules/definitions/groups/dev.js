@@ -1125,22 +1125,18 @@ Class.whirlwind = {
     AI: {
         SPEED: 2, 
     },
-    GUNS: (() => { 
-        let output = []
-        for (let i = 0; i < 6; i++) { 
-            output.push({ 
-                POSITION: {WIDTH: 8, LENGTH: 1, DELAY: i * 0.25},
-                PROPERTIES: {
-                    SHOOT_SETTINGS: combineStats([g.satellite]), 
-                    TYPE: ["satellite", {ANGLE: i * 60}], 
-                    MAX_CHILDREN: 1,   
-                    AUTOFIRE: true,  
-                    SYNCS_SKILLS: false,
-                    WAIT_TO_CYCLE: true
-                }
-            }) 
-        }
-        return output
+    GUNS: (() => {
+        return Array.from({ length: 6 }, (_, i) => ({
+            POSITION: { WIDTH: 8, LENGTH: 1, DELAY: i * 0.25 },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.satellite]),
+                TYPE: ["satellite", { ANGLE: i * 60 }],
+                MAX_CHILDREN: 1,
+                AUTOFIRE: true,
+                SYNCS_SKILLS: false,
+                WAIT_TO_CYCLE: true
+            }
+        }));
     })()
 }
 

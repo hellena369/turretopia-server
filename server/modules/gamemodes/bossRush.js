@@ -183,7 +183,7 @@ class BossRush {
         entity.color.base = getTeamColor(team);
         entity.skill.score = 111069;
         entity.name = 'Sanctuary';
-        entity.SIZE = room.tileWidth / (Config.CLASSIC_SIEGE ? 10 : 17.5);
+        entity.SIZE = 20;
         entity.isDominator = true;
         entity.nameColor = "#ffffff";
         entity.define({ DANGER: 11 });
@@ -244,7 +244,7 @@ class BossRush {
             }
 
             //spawn a friendly boss every 20 waves
-            if (waveId % 20 == 19) {
+            if (waveId % 10 == 9) {
                 setTimeout(() => this.spawnFriendlyBoss(), 5000);
             }
         }

@@ -18,19 +18,7 @@ Class.basic = {
   PARENT: "genericTank",
   LABEL: "Basic",
   DANGER: 4,
-  /*BODY: {
-        ACCELERATION: base.ACCEL * 1,
-        SPEED: base.SPEED * 1,
-        HEALTH: base.HEALTH * 1,
-        DAMAGE: base.DAMAGE * 1,
-        PENETRATION: base.PENETRATION * 1,
-        SHIELD: base.SHIELD * 1,
-        REGEN: base.REGEN * 1,
-        FOV: base.FOV * 1,
-        DENSITY: base.DENSITY * 1,
-        PUSHABILITY: 1,
-        HETERO: 3
-    },
+  /*
     GUNS: [
         {
             POSITION: {
@@ -56,8 +44,7 @@ Class.basic = {
                 NEGATIVE_RECOIL: false
             }
         }
-    ]
-        */
+    ]*/
 };
 Class.twin = {
   PARENT: "genericTank",
@@ -146,6 +133,7 @@ Class.director = {
   PARENT: "genericTank",
   LABEL: "Director",
   STAT_NAMES: statnames.drone,
+  MAX_CHILDREN: 6,
   BODY: {
     FOV: base.FOV * 1.1,
   },
@@ -163,7 +151,6 @@ Class.director = {
         AUTOFIRE: true,
         SYNCS_SKILLS: true,
         STAT_CALCULATOR: "drone",
-        MAX_CHILDREN: 6,
         WAIT_TO_CYCLE: true,
       },
     },
@@ -246,12 +233,7 @@ Class.healer = {
   PARENT: "genericTank",
   LABEL: "Healer",
   STAT_NAMES: statnames.heal,
-  TURRETS: [
-    {
-      POSITION: [13, 0, 0, 0, 360, 1],
-      TYPE: "healerSymbol",
-    },
-  ],
+  
   GUNS: [
     {
       POSITION: {
@@ -741,18 +723,15 @@ Class.assassin = {
   DANGER: 6,
   LABEL: "Assassin",
   BODY: {
-    FOV: 1.4 * base.FOV,
+    FOV: 1.55 * base.FOV,
   },
   GUNS: [
     {
-      POSITION: [27, 8, 1, 0, 0, 0, 0],
+      POSITION: [27, 9, 1, 0, 0, 0, 0],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.assassin]),
         TYPE: "bullet",
       },
-    },
-    {
-      POSITION: [5, 8, -1.4, 8, 0, 0, 0],
     },
   ],
 };
@@ -858,18 +837,15 @@ Class.ranger = {
   LABEL: "Ranger",
   DANGER: 7,
   BODY: {
-    FOV: 1.5 * base.FOV,
+    FOV: 1.75 * base.FOV,
   },
   GUNS: [
     {
-      POSITION: [32, 8, 1, 0, 0, 0, 0],
+      POSITION: [32, 10, 1, 0, 0, 0, 0],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.assassin]),
         TYPE: "bullet",
       },
-    },
-    {
-      POSITION: [5, 8, -1.4, 8, 0, 0, 0],
     },
   ],
 };
@@ -877,11 +853,10 @@ Class.stalker = {
   PARENT: "genericTank",
   DANGER: 7,
   LABEL: "Stalker",
+  ALPHA: 0.3,
   BODY: {
     FOV: 1.35 * base.FOV,
   },
-  INVISIBLE: [0.08, 0.03],
-  TOOLTIP: "Stay still to turn invisible.",
   GUNS: [
     {
       POSITION: [27, 8, -1.8, 0, 0, 0, 0],
@@ -2204,6 +2179,7 @@ Class.banshee = makeRadialAuto("bansheegun", {
   danger: 7,
   size: 10,
   arc: 80,
+  MAX_CHILDREN: 6,
   label: "Banshee",
   body: { FOV: 1.1 * base.FOV },
 });
@@ -2217,7 +2193,6 @@ Class.banshee.GUNS = weaponArray(
       SYNCS_SKILLS: true,
       STAT_CALCULATOR: "drone",
       WAIT_TO_CYCLE: true,
-      MAX_CHILDREN: 2,
     },
   },
   3
@@ -2364,6 +2339,7 @@ Class.bigCheese = {
   PARENT: "genericTank",
   LABEL: "Big Cheese",
   STAT_NAMES: statnames.drone,
+  MAX_CHILDREN: 1,
   DANGER: 7,
   BODY: {
     FOV: base.FOV * 1.1,
@@ -2377,7 +2353,6 @@ Class.bigCheese = {
         AUTOFIRE: true,
         SYNCS_SKILLS: true,
         STAT_CALCULATOR: "drone",
-        MAX_CHILDREN: 1,
       },
     },
   ],
@@ -2414,6 +2389,7 @@ Class.overdrive = {
   LABEL: "Overdrive",
   DANGER: 7,
   STAT_NAMES: statnames.drone,
+  MAX_CHILDREN: 8,
   BODY: {
     FOV: 1.1 * base.FOV,
   },
@@ -2428,7 +2404,6 @@ Class.overdrive = {
           SYNCS_SKILLS: true,
           STAT_CALCULATOR: "drone",
           WAIT_TO_CYCLE: true,
-          MAX_CHILDREN: 4,
         },
       },
       {
@@ -4168,12 +4143,7 @@ Class.medic = {
   BODY: {
     FOV: base.FOV * 1.2,
   },
-  TURRETS: [
-    {
-      POSITION: [13, 0, 0, 0, 360, 1],
-      TYPE: "healerSymbol",
-    },
-  ],
+  
   GUNS: [
     {
       POSITION: [8, 9, -0.5, 16.5, 0, 0, 0],
@@ -4196,12 +4166,7 @@ Class.ambulance = {
     SHIELD: base.SHIELD * 0.8,
     DENSITY: base.DENSITY * 0.6,
   },
-  TURRETS: [
-    {
-      POSITION: [13, 0, 0, 0, 360, 1],
-      TYPE: "healerSymbol",
-    },
-  ],
+  
   GUNS: [
     {
       POSITION: [8, 9, -0.5, 12.5, 0, 0, 0],
@@ -4257,12 +4222,7 @@ Class.surgeon = {
   BODY: {
     FOV: base.FOV * 1.15,
   },
-  TURRETS: [
-    {
-      POSITION: [13, 0, 0, 0, 360, 1],
-      TYPE: "healerSymbol",
-    },
-  ],
+  
   GUNS: [
     {
       POSITION: [5, 11, 1, 10.5, 0, 0, 0],
@@ -4292,12 +4252,7 @@ Class.surgeon = {
 Class.paramedic = {
   PARENT: "genericTank",
   LABEL: "Paramedic",
-  TURRETS: [
-    {
-      POSITION: [13, 0, 0, 0, 360, 1],
-      TYPE: "healerSymbol",
-    },
-  ],
+  
   GUNS: [
     {
       POSITION: [8, 9, -0.5, 10, 0, -17.5, 0.5],

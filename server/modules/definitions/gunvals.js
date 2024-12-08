@@ -23,7 +23,7 @@ module.exports = {
     // Snipers
         sniper: { reload: 1.35, shudder: 0.25, damage: 0.8, pen: 1.1, speed: 1.5, maxSpeed: 1.5, density: 1.5, spray: 0.2, resist: 1.15 },
         crossbow: { reload: 2, health: 0.9, damage: 0.9, pen: 0.8 },
-        assassin: { reload: 1.65, shudder: 0.25, health: 1.15, pen: 1.1, speed: 1.18, maxSpeed: 1.18, density: 3, resist: 1.3 },
+        assassin: { reload: 1.65, shudder: 0.25, health: 1.35, damage: 1.2, pen: 1.6, speed: 1.18, maxSpeed: 1.18, density: 3, resist: 1.3 },
         hunter: { reload: 1.5, recoil: 0.7, size: 0.95, damage: 0.9, speed: 1.1, maxSpeed: 0.8, density: 1.2, resist: 1.15 },
         hunterSecondary: { size: 0.9, health: 2, damage: 0.5, pen: 1.5, density: 1.2, resist: 1.1 },
         predator: { reload: 1.4, size: 0.8, health: 1.5, damage: 0.9, pen: 1.2, speed: 0.9, maxSpeed: 0.9 },
@@ -65,7 +65,7 @@ module.exports = {
         summoner: { reload: 0.3, size: 1.125, health: 0.5, damage: 0.345, pen: 0.4, density: 0.8 },
         minionGun: { recoil: 0, shudder: 2, health: 0.4, damage: 0.4, pen: 1.2, range: 0.75, spray: 2 },
         babyfactory: { reload: 1.5, maxSpeed: 1.25 },
-        bigCheese: { reload: 1.5, size: 1.8, health: 3.5, damage: 2.1, pen: 1.25, speed: 1.15 },
+        bigCheese: { reload: 1.5, size: 1.8, health: 4, damage: 2, pen: 1.2, speed: 1.15 },
         mothership: { reload: 1.25, pen: 1.1, speed: 0.775, maxSpeed: 0.8, range: 15, resist: 1.15 },
         satellite: { size: 0.8, reload: 3, damage: 1.875 },
         negro: { reload: 0.5, damage: 0.35 },
@@ -93,6 +93,7 @@ module.exports = {
         rocketeer: { reload: 1.4, shudder: 0.9, size: 1.2, health: 1.5, damage: 1.4, pen: 1.4, speed: 0.3, range: 1.2, resist: 1.4 },
         missileTrail: { reload: 0.6, recoil: 0.25, shudder: 2, damage: 0.9, pen: 0.7, speed: 0.4, range: 0.5 },
         rocketeerMissileTrail: { reload: 0.5, recoil: 7, shudder: 1.5, size: 0.8, health: 0.8, damage: 0.7, speed: 0.9, maxSpeed: 0.8, spray: 5 },
+        spinner: {size: 1.1, reload: 0.81},
     
     // Traps and blocks
         setTrap: { reload: 1.1, recoil: 2, shudder: 0.1, size: 1.5, health: 1.75, pen: 1.2, speed: 1.5, maxSpeed: 2.5, range: 1.25, resist: 1.25 },
@@ -102,7 +103,7 @@ module.exports = {
         hexaTrapper: { reload: 1.3, shudder: 1.25, speed: 0.8, range: 0.5 },
         trapperDominator: { reload: 1.26, recoil: 0, shudder: 0.25, health: 1.25, damage: 1.45, pen: 1.6, speed: 0.5, maxSpeed: 2, range: 0.7, spray: 0.5 },
         coop: { reload: 2, maxSpeed: 1.05, size: 0.95, damage: 2 },
-        barricade: { reload: 0.81, health: 0.9, damage: 0.8 },
+        barricade: { reload: 0.7, damage: 2, health: 2, resist: 3 },
     
     // Misc
         blank: { reload: 1, recoil: 1, shudder: 1, size: 1, health: 1, damage: 1, pen: 1, speed: 1, maxSpeed: 1, range: 1, density: 1, spray: 1, resist: 1 },
@@ -117,5 +118,5 @@ module.exports = {
         aura: { reload: 0.001, recoil: 0.001, shudder: 0.001, size: 6, speed: 0.001, maxSpeed: 0.001, spray: 0.001 },
         noSpread: { shudder: 0, spray: 0 },
         lessReload: { reload: 2 },
-        fog: { damage: 0.8, health: 0.8, pen: 0.9 }
+        fog: {}
     }

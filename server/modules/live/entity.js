@@ -992,6 +992,10 @@ class Entity extends EventEmitter {
                 this.define(set.PARENT, false);
             }
         }
+        if (set.EVO_COUNT != null) this.evoCount = set.EVO_COUNT;
+        if (set.EVO_GAIN != null) this.evoGain = set.EVO_GAIN;
+        if (set.EVO_CAP != null) this.evoCap = set.EVO_CAP
+        if (set.IS_ETHEREAL != null) this.isEthereal = set.IS_ETHEREAL;
         if (set.LAYER != null) this.layerID = set.LAYER;
         if (set.index != null) this.index = set.index.toString();
         if (set.NAME != null) {
@@ -1779,6 +1783,11 @@ class Entity extends EventEmitter {
                 y: 0,
             };
         switch (this.motionType) {
+            case "trail":
+                this.SIZE -= this.motionTypeArgs.growSpeed ?? 1;
+                if (this.SIZE <= 1) this.kill();
+                this.maxSpeed = this.topSpeed;
+                break;
             case "grow":
                 this.SIZE += this.motionTypeArgs.growSpeed ?? 1;
                 break;
@@ -2004,12 +2013,6 @@ class Entity extends EventEmitter {
                 let waveY = (this.motionTypeArgs.amplitude ?? 15) * Math.cos((this.RANGE - this.range) / (this.motionTypeArgs.period ?? 4)) * this.waveReversed * (this.motionTypeArgs.invert ? -1 : 1);
                 this.x += Math.cos(this.waveAngle) * waveX - Math.sin(this.waveAngle) * waveY;
                 this.y += Math.sin(this.waveAngle) * waveX + Math.cos(this.waveAngle) * waveY;
-                break;
-            case "trail":
-                this.SIZE--;
-                console.log("trail") //for testing
-                if (this.SIZE <= 1) this.kill();
-                this.maxSpeed = this.topSpeed;
                 break;
         }
         this.accel.x += engine.x * this.control.power;

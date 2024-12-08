@@ -9,7 +9,8 @@ let fs = require('fs'),
 		"png": "image/png",
 		"ico": "image/x-icon"
 	},
-	wsServer;
+	wsServer,
+	server;
 
 try {
 	wsServer = new(require('../../lib/ws/index.js').WebSocketServer)({
@@ -32,6 +33,12 @@ if (Config.host.match(/localhost:(\d)/) && Config.host !== 'localhost:' + Config
 
 server = require('http').createServer((req, res) => {
 	let resStr = "";
+	let ok = true;
+	if (Config.allowAccessControlAllowOrigin) {
+		res.setHeader('Access-Control-Allow-Origin', '*');
+		res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+		res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+	}
 	if (req.url.startsWith('/shared/')) {} else switch (req.url) {
 		case "/lib/json/mockups.json":
 			resStr = mockupJsonData;
@@ -47,6 +54,38 @@ server = require('http').createServer((req, res) => {
 				ip: Config.host
 			});
 			break;
+		case "/checkAvailable":
+			resStr = (!this.arenaClosed).toString();
+			break;
+		case "/api/sendPlayer": {
+			ok = false;
+			let body = "";
+			req.on("data", c => body += c);
+			req.on("end", () => {
+				let json = null;
+				try {
+					json = JSON.parse(body);
+				} catch { }
+				console.log(json);
+				if (json) {
+					if (json.key === process.env.API_KEY) {
+						let { id, name, definition, score, level, skillcap, skill, points } = json;
+						sockets.playersReceived.push({ id, name, definition, score, level, skillcap, skill, points });
+						resStr = JSON.stringify({ status: 200, note: "OK" });
+						res.writeHead(200);
+						res.end(resStr);
+						console.log("Successfully received a player.");
+					} else {
+						resStr = JSON.stringify({ status: 404, note: "Invalid API Key" });
+						res.writeHead(200);
+						res.end(resStr);
+					}
+				} else {
+					res.writeHead(400);
+					res.end("Invalid JSON body");
+				}
+			})
+		} break;
 		default:
 			res.writeHead(302, {
 				Location: "https://" + Config.CLIENT_ADDRESS

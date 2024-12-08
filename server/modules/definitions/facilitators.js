@@ -1,5 +1,6 @@
 const { MAX_SKILL } = require("../../config.js")
 const g = require('./gunvals.js')
+const {base: BODY} = require("./constants");
 let skcnv = {
     atk: 6,
     spd: 4,
@@ -834,6 +835,7 @@ exports.makeRare = (type, level) => {
             PENETRATION: [1.5, 1.5, 2, 2.5, 2.5][level] * type.BODY.PENETRATION,
             ACCELERATION: type.BODY.ACCELERATION
         },
+        PROPS: type.PROPS,
         DRAW_HEALTH: true,
         INTANGIBLE: type.INTANGIBLE,
         GIVE_KILL_MESSAGE: true,
@@ -872,4 +874,48 @@ exports.makeLaby = (type, level, baseScale = 1) => {
             TYPE: [type, { COLOR: 'mirror' }]
         }))
     };
+}
+
+exports.makeIrdB = (type) => {
+    type = ensureIsClass(type);
+    let output = exports.dereference(type);
+    output.LABEL = "Iridescent " + type.LABEL;
+    output.COLOR = "rainbow";
+    output.BODY = {
+        DAMAGE: type.BODY.DAMAGE * 1.5,
+        HEALTH: type.BODY.HEALTH * 3,
+        PENETRATION: type.BODY.PENETRATION * 1.1,
+        FOV: type.BODY.FOV * 1.05
+    };
+    try {
+        output.turrets.forEach(g => g.shootSettings ? (g.shootSettings.damage ? g.shootSettings.damage *= 1.2 : null) : null);
+        output.turrets.forEach(g => g.shootSettings ? (g.shootSettings.health ? g.shootSettings.health *= 1.2 : null) : null);
+    } catch (e) {}
+    output.GLOW = {
+        RADIUS: 3,
+        COLOR: "rainbow",
+        ALPHA: 1,
+        RECURSION: 3
+    };
+    output.DANGER = type.DANGER + 3;
+    return output;
+}
+exports.makeIrdA = (type) => {
+    type = ensureIsClass(type);
+    let output = exports.dereference(type);
+    output.LABEL = type.LABEL;
+    output.COLOR = "rainbow";
+    try {
+        output.guns.forEach(g => g.shootSettings ? (g.shootSettings.damage ? g.shootSettings.damage *= 1.2 : null) : null);
+        output.guns.forEach(g => g.shootSettings ? (g.shootSettings.health ? g.shootSettings.health *= 1.2 : null) : null);
+    } catch (e) {}
+    output.GLOW = {
+        RADIUS: 3,
+        COLOR: "rainbow",
+        ALPHA: 1,
+        RECURSION: 3
+    };
+    output.DANGER = type.DANGER + 3;
+    output.MAX_CHILDREN *= 1.5;
+    return output;
 }

@@ -62,7 +62,6 @@ Class.dominator = {
     UPGRADE_LABEL: 'Unknown',
     ON_MINIMAP: false,
     DANGER: 7,
-    ACCEPTS_SCORE: false,
     SKILL: skillSet({
         rld: 1,
         dam: 1,
@@ -70,9 +69,9 @@ Class.dominator = {
         str: 1,
         spd: 1,
     }),
-    LEVEL: 1,
-    LEVEL_CAP: 1,
-    SIZE: 37,
+    LEVEL: 45,
+    LEVEL_CAP: 45,
+    SIZE: 50,
     SYNC_WITH_TANK: true,
     BODY: {
         RESIST: 100,
@@ -189,7 +188,7 @@ Class.sanctuary = {
     PARENT: "dominator",
     LABEL: "Sanctuary",
     LEVEL: 45,
-    SIZE: 37,
+    SIZE: 20,
     FACING_TYPE: ["spin", {speed: 0.02}],
     SKILL: skillSet({
         rld: 1.25,
@@ -668,7 +667,7 @@ Class.antiTankMachineGun = {
         HEALTH: 1e99,
         DAMAGE: 6,
         PENETRATION: 0.25,
-        FOV: 0.8,
+        FOV: 0.3,
         PUSHABILITY: 0,
         HETERO: 0,
         SHIELD: base.SHIELD * 1.4,

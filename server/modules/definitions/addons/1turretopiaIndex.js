@@ -2,7 +2,7 @@ const { base} = require('../constants.js');
 const g = require('../gunvals.js')
 const { addAura, makeAuto, makeDeco, makeTurret, makeOver, combineStats, weaponArray } = require("../facilitators.js");
 const { statnames, smshskl } = require("../constants.js");
-const {makeGuard} = require("../facilitators");
+const {makeGuard, makeIrdA, makeIrdB} = require("../facilitators");
 const {basePlayerHealth} = require("../constants");
 // Addon for base turretopia stuff
 const fakeGun = [
@@ -80,13 +80,14 @@ const polyGuns = [
         }
     }
 ]
+
 Class.healerTrap = {
     PARENT: "trap",
     ...healProperties
 }
 Class.healerSwarm = {
-  PARENT: "swarm",
-  ...healProperties
+    PARENT: "swarm",
+    ...healProperties
 }
 
 Class.fireAura1 = addAura(1, 1, 0.36)
@@ -712,6 +713,7 @@ Class.storm = {
     BODY: {
         FOV: base.FOV * 1.1
     },
+    MAX_CHILDREN: 6,
     GUNS: [
         {
             POSITION: [9, 7, 1.6, 7, 0, 0, 0],
@@ -724,7 +726,6 @@ Class.storm = {
                 AUTOFIRE: true,
                 SYNCS_SKILLS: true,
                 STAT_CALCULATOR: "drone",
-                MAX_CHILDREN: 6,
                 WAIT_TO_CYCLE: true
             }
         }
@@ -737,6 +738,7 @@ Class.cortex = {
     BODY: {
         FOV: base.FOV * 1.1
     },
+    MAX_CHILDREN: 6,
     GUNS: [
         {
             POSITION: [9, 7, 1.6, 7, 0, 0, 0],
@@ -752,7 +754,6 @@ Class.cortex = {
                 AUTOFIRE: true,
                 SYNCS_SKILLS: true,
                 STAT_CALCULATOR: "drone",
-                MAX_CHILDREN: 6,
                 WAIT_TO_CYCLE: true
             }
         }
@@ -1103,12 +1104,6 @@ Class.watchwoman = {
     LABEL: "Watchwoman",
     DANGER: 7,
     SHAPE: 5,
-    PROPS: [
-        {
-            POSITION: [10, 16, 0, 0, 0],
-            TYPE: ['pentagon', { COLOR: 'grey'}]
-        }
-    ],
     STAT_NAMES: statnames.drone,
     BODY: {
         FOV: 1.1,
@@ -1153,6 +1148,9 @@ Class.watchwoman = {
                 SYNCS_SKILLS: true
             },
         },
+        {
+            POSITION: [ 4, 4, 0.6, 13, 0, 0, 0, ],
+        },
     ],
 }
 Class.megaMinion = {
@@ -1162,7 +1160,7 @@ Class.megaMinion = {
         {
             POSITION: [17, 13, 1, 0, 0, 0, 0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.minionGun, g.pounder, {damage: 1.5}]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.pounder]),
                 WAIT_TO_CYCLE: true,
                 TYPE: "bullet",
             },
@@ -1176,16 +1174,56 @@ Class.bananaMinion = {
         {
             POSITION: [17, 16, 1, 0, 0, 0, 0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.minionGun, g.pounder, g.destroyer]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer]),
                 WAIT_TO_CYCLE: true,
                 TYPE: "bullet",
             },
         },
     ],
+    BODY: {
+        FOV: 0.5,
+        SPEED: 2.825,
+        ACCELERATION: 1,
+        HEALTH: 10,
+        SHIELD: 0,
+        DAMAGE: 1.6,
+        RESIST: 1,
+        PENETRATION: 1.1,
+        DENSITY: 0.4,
+    },
 }
+Class.creator = {
+    PARENT: "genericTank",
+    LABEL: "The Creator",
+    DANGER: 7,
+    STAT_NAMES: statnames.drone,
+    BODY: {
+        FOV: 1.2,
+    },
+    MAX_CHILDREN: 7,
+    GUNS: [
+        {
+            POSITION: [6, 14, 1, 10.5, 0, 0, 0],
+        },
+        {
+            POSITION: [3, 17, 1, 15.5, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.factory]),
+                TYPE: "minion",
+                STAT_CALCULATOR: "drone",
+                AUTOFIRE: true,
+                SYNCS_SKILLS: true,
+            },
+        },
+        {
+            POSITION: [12, 17, 1, 0, 0, 0, 0],
+        },
+    ],
+};
 Class.topBanana = {
     PARENT: "factory",
     LABEL: "Top Banana",
+    MAX_CHILDREN: 1,
     BODY: {FOV: 1.1 * base.FOV},
     GUNS: [
         {
@@ -1194,12 +1232,12 @@ Class.topBanana = {
         {
             POSITION: [2, 20, 1, 15.5, 0, 0, 0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.factory, { reload: 6, size: 1.1, health: 5, speed: 0.55, maxSpeed: 0.55 }]),
+                SHOOT_SETTINGS: combineStats([g.factory, { reload: 5, size: 1.1, health: 5, speed: 0.5, maxSpeed: 0.5 }]),
                 TYPE: "bananaMinion",
-                MAX_CHILDREN: 1,
                 STAT_CALCULATOR: "drone",
                 AUTOFIRE: true,
                 SYNCS_SKILLS: true,
+                DELAY_SPAWN: true
             },
         },
         {
@@ -1211,6 +1249,7 @@ Class.foundry = {
     PARENT: "factory",
     LABEL: "Foundry",
     BODY: {FOV: 1.1 * base.FOV},
+    MAX_CHILDREN: 3,
     GUNS: [
         {
             POSITION: [5, 13, 1, 10.5, 0, 0, 0],
@@ -1220,7 +1259,6 @@ Class.foundry = {
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.factory, { reload: 3, size: 1.15, health: 2, speed: 0.6, maxSpeed: 0.6 }]),
                 TYPE: "megaMinion",
-                MAX_CHILDREN: 3,
                 STAT_CALCULATOR: "drone",
                 AUTOFIRE: true,
                 SYNCS_SKILLS: true,
@@ -1548,17 +1586,12 @@ Class.squareMinion = {
         },
     ]
 }
-Class.sqrtFactory = {
+Class.watchman = {
     PARENT: "factory",
-    LABEL: "Square Dance",
+    LABEL: "Watchman",
     SHAPE: 4,
+    MAX_CHILDREN: 4,
     BODY: {FOV: 1.1 * base.FOV},
-    PROPS: [
-        {
-            POSITION: [10, 16, 0, 0, 0],
-            TYPE: ['square', { COLOR: 'grey'}]
-        }
-    ],
     GUNS: [
         {
             POSITION: [5, 11, 1, 10.5, 0, 0, 0],
@@ -1566,9 +1599,8 @@ Class.sqrtFactory = {
         {
             POSITION: [2, 14, 1, 15.5, 0, 0, 0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.factory, { reload: 2 }]),
+                SHOOT_SETTINGS: combineStats([g.factory, { reload: 2, health: 1.2 }]),
                 TYPE: "squareMinion",
-                MAX_CHILDREN: 4,
                 STAT_CALCULATOR: "drone",
                 AUTOFIRE: true,
                 SYNCS_SKILLS: true,
@@ -1576,20 +1608,11 @@ Class.sqrtFactory = {
         },
         {
             POSITION: [12, 14, 1, 0, 0, 0, 0],
-        }
-    ],
-}
-Class.smallminion = {
-    PARENT: "minion",
-    LABEL: "Tiny Minion",
-    GUNS: [
+        },
         {
-            POSITION: [17, 9, 1, 0, 0, 0, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.minionGun, { damage: 0.5 }]),
-                WAIT_TO_CYCLE: true,
-                TYPE: "bullet",
-            },
+            POSITION: [ 2, 2, 0.1, 15.5, 4, 0, 0, ],
+        }, {
+            POSITION: [ 2, 2, 0.1, 15.5, -4, 0, 0, ],
         },
     ],
 }
@@ -1609,8 +1632,8 @@ Class.industry = {
             POSITION: [1, 12, 1, 15, 0, 0, 0],
             PROPERTIES: {
                 MAX_CHILDREN: 4,
-                SHOOT_SETTINGS: combineStats([g.factory, g.babyfactory, { health: 0.15, damage: 0.2, pen: 0.5 }]),
-                TYPE: "smallminion",
+                SHOOT_SETTINGS: combineStats([g.factory, g.babyfactory, {health: 0.5}]),
+                TYPE: "minion",
                 STAT_CALCULATOR: "drone",
                 AUTOFIRE: true,
                 SYNCS_SKILLS: true,
@@ -1621,6 +1644,61 @@ Class.industry = {
         },
     ], 3),
 };
+Class.despot = makeOver({
+    PARENT: "genericTank",
+    LABEL: "Despot",
+    DANGER: 6,
+    GUNS: [
+        {
+            POSITION: [19, 2, 1, 0, -3.5, 0, 0.67],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([
+                    g.basic,
+                    g.pelleter,
+                    g.power,
+                    g.twin,
+                    { speed: 0.7, maxSpeed: 0.7 },
+                    g.flankGuard,
+                    { recoil: 1.8 },
+                ]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [19, 2, 1, 0, 3.5, 0, 0.33],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([
+                    g.basic,
+                    g.pelleter,
+                    g.power,
+                    g.twin,
+                    { speed: 0.7, maxSpeed: 0.7 },
+                    g.flankGuard,
+                    { recoil: 1.8 },
+                ]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [19, 2, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([
+                    g.basic,
+                    g.pelleter,
+                    g.power,
+                    g.twin,
+                    { speed: 0.7, maxSpeed: 0.7 },
+                    g.flankGuard,
+                    { recoil: 1.8 },
+                ]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [12, 13, 1, 0, 0, 0, 0],
+        },
+    ],
+}, "Despot");
 Class.realstar = {
     PARENT: "genericTank",
     LABEL: "Star",
@@ -1821,24 +1899,6 @@ Class.hider = {
         }
     ]
 }
-Class.cloak = {
-    PARENT: "genericTank",
-    DANGER: 7,
-    LABEL: "Cloak",
-    ALPHA: 0.3,
-    BODY: {
-        FOV: 1.35 * base.FOV
-    },
-    GUNS: [
-        {
-            POSITION: [24, 8, -1.8, 0, 0, 0, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.sniper]),
-                TYPE: "bullet"
-            }
-        }
-    ]
-}
 Class.rogue = {
     PARENT: "genericTank",
     DANGER: 7,
@@ -1858,11 +1918,11 @@ Class.leader = {
     PARENT: "genericTank",
     LABEL: "Leader",
     DANGER: 7,
+    ALPHA: 0.25,
     STAT_NAMES: statnames.drone,
     BODY: {
         FOV: 1.15 * base.FOV,
     },
-    ALPHA: 0.4,
     MAX_CHILDREN: 8,
     GUNS: [
         {
@@ -1913,6 +1973,7 @@ Class.quadBuilder = {
     DANGER: 6,
     STAT_NAMES: statnames.trap,
     HAS_NO_RECOIL: true,
+    MAX_CHILDREN: 24,
     GUNS: weaponArray(
         [
             {
@@ -1924,7 +1985,6 @@ Class.quadBuilder = {
                     SHOOT_SETTINGS: combineStats([g.trap, g.setTrap]),
                     TYPE: "unsetTrap",
                     STAT_CALCULATOR: "block",
-                    MAX_CHILDREN: 5,
                     DESTROY_OLDEST_CHILD: true
                 },
             },
@@ -1937,6 +1997,7 @@ Class.pentaBuilder = {
     DANGER: 6,
     STAT_NAMES: statnames.trap,
     HAS_NO_RECOIL: true,
+    MAX_CHILDREN: 30,
     GUNS: weaponArray(
         [
             {
@@ -1948,7 +2009,6 @@ Class.pentaBuilder = {
                     SHOOT_SETTINGS: combineStats([g.trap, g.setTrap]),
                     TYPE: "unsetTrap",
                     STAT_CALCULATOR: "block",
-                    MAX_CHILDREN: 6,
                     DESTROY_OLDEST_CHILD: true
                 },
             },
@@ -2188,7 +2248,7 @@ Class.pen = {
         },
     ],
 };
-Class.overpen = makeOver(Class.pen, "Over-Pen", {count: 1, independent: true})
+Class.overpen = makeOver(Class.pen, "Overpen", {count: 2, independent: false})
 Class.hexadecimator = {
     PARENT: "genericTank",
     LABEL: "Hexadecimator",
@@ -2401,7 +2461,20 @@ Class.cache = {
 };
 Class.tank = {
     PARENT: "genericTank",
-    LABEL: "Tank"
+    LABEL: "Tank",
+    BODY: {
+        ACCELERATION: base.ACCEL,
+        SPEED: base.SPEED,
+        HEALTH: basePlayerHealth,
+        DAMAGE: base.DAMAGE,
+        PENETRATION: base.PENETRATION,
+        SHIELD: base.SHIELD,
+        REGEN: base.REGEN,
+        FOV: base.FOV,
+        DENSITY: base.DENSITY,
+        PUSHABILITY: 1,
+        HETERO: 3,
+    },
 }
 Class.single = {
     PARENT: "genericTank",
@@ -2994,7 +3067,7 @@ Class.reverie = {
         {
             POSITION: [8, 5, 1, 0, -5.5, 0, 1/3],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.doubleTwin,]),
                 TYPE: "bullet",
                 ALPHA: 0,
             }
@@ -3002,7 +3075,7 @@ Class.reverie = {
         {
             POSITION: [8, 5, 1, 0, 5.5, 0, 1/3],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.doubleTwin,]),
                 TYPE: "bullet",
                 ALPHA: 0,
             }
@@ -3010,7 +3083,7 @@ Class.reverie = {
         {
             POSITION: [8, 5, 1, 0, -10.75, 0, 2/3],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.doubleTwin,]),
                 TYPE: "bullet",
                 ALPHA: 0,
             }
@@ -3018,7 +3091,7 @@ Class.reverie = {
         {
             POSITION: [8, 5, 1, 0, 10.75, 0, 2/3],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.doubleTwin,]),
                 TYPE: "bullet",
                 ALPHA: 0,
             }
@@ -3033,7 +3106,7 @@ Class.daydream = {
         {
             POSITION: [15, 16, 1, 0, 0, 0, 0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog, {damage: 2.5, speed: 1.5, health: 1.5, reload: 1.5, size: 0.3}]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.doubleTwin, {damage: 2.5, speed: 1.5, health: 1.5, reload: 1.5, size: 0.3}]),
                 TYPE: "heatMissile",
             }
         },
@@ -3058,7 +3131,7 @@ Class.daydream = {
         {
             POSITION: [8, 5, 1, 0, -5.5, 0, 0.5],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.doubleTwin,]),
                 TYPE: "bullet",
                 ALPHA: 0,
             }
@@ -3066,7 +3139,7 @@ Class.daydream = {
         {
             POSITION: [8, 5, 1, 0, 5.5, 0, 0.5],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.doubleTwin,]),
                 TYPE: "bullet",
                 ALPHA: 0,
             }
@@ -3074,7 +3147,7 @@ Class.daydream = {
         {
             POSITION: [13, 4.75, 1, 0, 0, 0, 0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog, {damage: 2}]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.doubleTwin, {damage: 2}]),
                 TYPE: "bullet",
                 COLOR: "#30d5c8",
             }
@@ -3107,7 +3180,7 @@ Class.asphyxia = {
         {
             POSITION: [15, 16, 1, 0, 0, 0, 0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog, {damage: 2.5, speed: 1.5, health: 1.5, reload: 1.5, size: 0.3}]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.doubleTwin, {damage: 2.5, speed: 1.5, health: 1.5, reload: 1.5, size: 0.3}]),
                 TYPE: "heatMissile",
             }
         },
@@ -3144,7 +3217,7 @@ Class.asphyxia = {
         {
             POSITION: [8, 5, 1, 0, -5.5, 0, 1/3],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.doubleTwin,]),
                 TYPE: ["bullet", {CONTROLLERS: ['snake']}],
                 ALPHA: 0,
             }
@@ -3152,7 +3225,7 @@ Class.asphyxia = {
         {
             POSITION: [8, 5, 1, 0, 5.5, 0, 1/3],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.doubleTwin,]),
                 TYPE: ["bullet", {CONTROLLERS: [['snake', {invert: true}]]}],
                 ALPHA: 0,
             }
@@ -3160,7 +3233,7 @@ Class.asphyxia = {
         {
             POSITION: [8, 5, 1, 0, -10.75, 0, 2/3],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.doubleTwin,]),
                 TYPE: "bullet",
                 ALPHA: 0,
             }
@@ -3168,7 +3241,7 @@ Class.asphyxia = {
         {
             POSITION: [8, 5, 1, 0, 10.75, 0, 2/3],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.doubleTwin,]),
                 TYPE: "bullet",
                 ALPHA: 0,
             }
@@ -3201,7 +3274,7 @@ Class.flashback = {
         {
             POSITION: [15, 16, 1, 0, 0, 0, 0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog, {damage: 2.5, speed: 1.5, health: 1.5, reload: 1.5, size: 0.3}]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.doubleTwin, {damage: 2.5, speed: 1.5, health: 1.5, reload: 1.5, size: 0.3}]),
                 TYPE: "heatMissile",
             }
         },
@@ -3226,7 +3299,7 @@ Class.flashback = {
         {
             POSITION: [8, 5, 1, 0, -5.5, 0, 1/3],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.doubleTwin,]),
                 TYPE: "bullet",
                 ALPHA: 0,
             }
@@ -3234,7 +3307,7 @@ Class.flashback = {
         {
             POSITION: [8, 5, 1, 0, 5.5, 0, 1/3],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.doubleTwin,]),
                 TYPE: "bullet",
                 ALPHA: 0,
             }
@@ -3242,7 +3315,7 @@ Class.flashback = {
         {
             POSITION: [8, 5, 1, 0, -10.75, 0, 2/3],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.doubleTwin,]),
                 TYPE: "bullet",
                 ALPHA: 0,
             }
@@ -3250,7 +3323,7 @@ Class.flashback = {
         {
             POSITION: [8, 5, 1, 0, 10.75, 0, 2/3],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.doubleTwin,]),
                 TYPE: "bullet",
                 ALPHA: 0,
             }
@@ -3258,7 +3331,7 @@ Class.flashback = {
         {
             POSITION: [13, 4.75, 1, 0, 0, 0, 0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog, {damage: 2}]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.doubleTwin, {damage: 2}]),
                 TYPE: "bullet",
                 COLOR: "#30d5c8",
             }
@@ -3273,7 +3346,7 @@ Class.mirage = {
         {
             POSITION: [17, 4.75, 1, 0, 0, 0, 0.5],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog, {damage: 2}]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.doubleTwin, {damage: 2}]),
                 TYPE: "bullet",
                 COLOR: "#30d5c8",
             }
@@ -3306,7 +3379,7 @@ Class.mirage = {
         {
             POSITION: [8, 5, 1, 0, -5.5, 0, 0.5],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.doubleTwin,]),
                 TYPE: "bullet",
                 ALPHA: 0,
             }
@@ -3314,7 +3387,7 @@ Class.mirage = {
         {
             POSITION: [8, 5, 1, 0, 5.5, 0, 0.5],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.doubleTwin,]),
                 TYPE: "bullet",
                 ALPHA: 0,
             }
@@ -3355,7 +3428,7 @@ Class.awe = {
         {
             POSITION: [15, 16, 1, 0, 0, 0, 0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog, {damage: 2.5, speed: 1.5, health: 1.5, reload: 1.5, size: 0.3}]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.doubleTwin, {damage: 2.5, speed: 1.5, health: 1.5, reload: 1.5, size: 0.3}]),
                 TYPE: "heatMissile",
             }
         },
@@ -3380,7 +3453,7 @@ Class.awe = {
         {
             POSITION: [8, 5, 1, 0, -5.5, 0, 1/3],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.doubleTwin,]),
                 TYPE: "bullet",
                 ALPHA: 0,
             }
@@ -3388,7 +3461,7 @@ Class.awe = {
         {
             POSITION: [8, 5, 1, 0, 5.5, 0, 1/3],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.doubleTwin,]),
                 TYPE: "bullet",
                 ALPHA: 0,
             }
@@ -3396,7 +3469,7 @@ Class.awe = {
         {
             POSITION: [8, 5, 1, 0, -10.75, 0, 2/3],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.doubleTwin,]),
                 TYPE: "bullet",
                 ALPHA: 0,
             }
@@ -3404,7 +3477,7 @@ Class.awe = {
         {
             POSITION: [8, 5, 1, 0, 10.75, 0, 2/3],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.fog,]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.doubleTwin,]),
                 TYPE: "bullet",
                 ALPHA: 0,
             }
@@ -3412,7 +3485,7 @@ Class.awe = {
         {
             POSITION: [15, 4, 1.8, 0, 0, 0, 0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.machineGun, g.fog, {damage: 2, pen:1.5, health: 1.6, speed: 0.7, size: 1.6, reload: 0.85}]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.machineGun, g.doubleTwin, { pen:1.5, health: 1.6, speed: 0.7, size: 1.6, reload: 0.85}]),
                 TYPE: "bullet",
                 COLOR: "#30d5c8",
             }
@@ -4094,7 +4167,7 @@ Class.superHeavyArtillery = {
     DANGER: 7,
     GUNS: [
         {
-            POSITION: [17.5, 3, 1, 0, -8, -7, 0.25],
+            POSITION: [17, 3, 1, 0, -7, -7, 0.25],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.artillery]),
                 TYPE: "bullet",
@@ -4102,7 +4175,7 @@ Class.superHeavyArtillery = {
             },
         },
         {
-            POSITION: [17.5, 3, 1, 0, 8, 7, 0.75],
+            POSITION: [17, 3, 1, 0, 7, 7, 0.75],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.artillery]),
                 TYPE: "bullet",
@@ -4216,9 +4289,9 @@ Class.howitzer = {
         },
     ],
 };
-Class.type63 = {
+Class.queller = {
     PARENT: "genericTank",
-    LABEL: "Type 63 107mm",
+    LABEL: "Queller",
     DANGER: 7,
     GUNS: [
         {
@@ -4506,7 +4579,7 @@ Class.specializer = {
         },
     ],
 }
-Class.programAura = addAura(0.6, 1.6)
+Class.programAura = addAura(0.6, 2)
 Class.programPillbox = {
     PARENT: "pillbox",
     LABEL: "Programmed Pillbox",
@@ -4640,7 +4713,7 @@ Class.honcho = {
         {
             POSITION: [16, 12, 1.4, 0, 0, 0, 0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.drone, {health: 1.3, damage: 1.3}]),
+                SHOOT_SETTINGS: combineStats([g.drone, {health: 1.3, damage: 1.3, size: 1.18}]),
                 TYPE: "drone",
                 AUTOFIRE: true,
                 SYNCS_SKILLS: true,
@@ -4662,7 +4735,7 @@ Class.executive = {
         {
             POSITION: [18, 14, 1.4, 0, 0, 0, 0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.drone, {health: 2, damage: 1.8, pen: 1.15, reload: 1.2 }]),
+                SHOOT_SETTINGS: combineStats([g.drone, {health: 2, damage: 1.8, pen: 1.15, reload: 1.2, size: 1.35 }]),
                 TYPE: "drone",
                 AUTOFIRE: true,
                 SYNCS_SKILLS: true,
@@ -4672,6 +4745,7 @@ Class.executive = {
         },
     ],
 };
+Class.villain = makeGuard("assassin", "Villain");
 Class.bigSwiss = {
     PARENT: "genericTank",
     LABEL: "Big Swiss",
@@ -5124,7 +5198,7 @@ Class.bunker = {
     LABEL: "Bunker",
     SHAPE: 7,
     BODY: {
-        HEALTH: 6 * basePlayerHealth,
+        HEALTH: 5 * basePlayerHealth,
     },
     PROPS: [
         {
@@ -5381,6 +5455,110 @@ Class.thermostation = {
         }
     ]
 }
+Class.spinTurret = {
+    PARENT: "genericTank",
+    BODY: { FOV: 3 },
+    CONTROLLERS: ["nearestDifferentMaster"],
+    FACING_TYPE: "fastspin",
+    GUNS: weaponArray({
+        POSITION: [14, 8, 1, 0, 0, 0, 0],
+        PROPERTIES: {
+            AUTOFIRE: false,
+            SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.spinner]),
+            TYPE: ["bullet", { PERSISTS_AFTER_DEATH: true }],
+            WAIT_TO_CYCLE: true,
+            COLOR: "mirror"
+        },
+    }, 2),
+}
+Class.spinner = {
+    PARENT: "tank",
+    LABEL: "Spinner",
+    TURRETS: [
+        {
+            POSITION: [11, 0, 0, 0, 360, 1],
+            TYPE: ["spinTurret", { INDEPENDENT: true }]
+        }
+    ]
+}
+Class.flankspinTurret = {
+    PARENT: "genericTank",
+    BODY: { FOV: 3 },
+    CONTROLLERS: ["nearestDifferentMaster"],
+    FACING_TYPE: "fastspin",
+    GUNS: weaponArray({
+        POSITION: [14, 8, 1, 0, 0, 0, 0],
+        PROPERTIES: {
+            AUTOFIRE: false,
+            SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.spinner]),
+            TYPE: ["bullet", { PERSISTS_AFTER_DEATH: true }],
+            STAT_CALCULATOR: "thruster",
+            WAIT_TO_CYCLE: true,
+            COLOR: "mirror"
+        },
+    }, 3),
+}
+Class.circler = {
+    PARENT: "tank",
+    LABEL: "Circler",
+    TURRETS: [
+        {
+            POSITION: [11, 0, 0, 0, 360, 1],
+            TYPE: ["flankspinTurret", { INDEPENDENT: true }]
+        }
+    ]
+}
+Class.hyperspinTurret = {
+    PARENT: "genericTank",
+    BODY: { FOV: 3 },
+    CONTROLLERS: ["nearestDifferentMaster"],
+    FACING_TYPE: "fastspin",
+    GUNS: weaponArray({
+        POSITION: [14, 8, 1, 0, 0, 0, 0],
+        PROPERTIES: {
+            AUTOFIRE: false,
+            SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.spinner]),
+            TYPE: ["bullet", { PERSISTS_AFTER_DEATH: true }],
+            WAIT_TO_CYCLE: true,
+            COLOR: "mirror"
+        },
+    }, 4),
+}
+Class.hyperspinner = {
+    PARENT: "tank",
+    LABEL: "Hyperspinner",
+    TURRETS: [
+        {
+            POSITION: [11, 0, 0, 0, 360, 1],
+            TYPE: ["hyperspinTurret", { INDEPENDENT: true }]
+        }
+    ]
+}
+Class.ultraspinTurret = {
+    PARENT: "genericTank",
+    BODY: { FOV: 3 },
+    CONTROLLERS: ["nearestDifferentMaster"],
+    FACING_TYPE: "fastspin",
+    GUNS: weaponArray({
+        POSITION: [14, 8, 1, 0, 0, 0, 0],
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.spinner]),
+            TYPE: ["bullet", { PERSISTS_AFTER_DEATH: true }],
+            WAIT_TO_CYCLE: true,
+            COLOR: "mirror"
+        },
+    }, 6, 0.5),
+}
+Class.ultraspinner = {
+    PARENT: "tank",
+    LABEL: "Ultraspinner",
+    TURRETS: [
+        {
+            POSITION: [11, 0, 0, 0, 360, 1],
+            TYPE: ["ultraspinTurret", { INDEPENDENT: true }]
+        }
+    ]
+}
 // Mixing
 Class.top = {
     PARENT: "tank",
@@ -5483,7 +5661,7 @@ Class.buffer = {
     ],
     BODY: {
         DAMAGE: 1.5 * base.DAMAGE,
-        HEALTH: 1.75 * base.HEALTH * 2
+        HEALTH: 2.5 * basePlayerHealth
     }
 }
 Class.cage = {
@@ -5497,19 +5675,13 @@ Class.cage = {
         },
         {
             POSITION: [11, 0, 0, 0, 360, 1],
-            TYPE: ["autoTankGun", { INDEPENDENT: true }]
+            TYPE: ["autoTankGun", { INDEPENDENT: true, COLOR: "mirror" }]
         }
     ],
     BODY: {
         DAMAGE: 1.5 * base.DAMAGE,
-        HEALTH: 2.5 * base.HEALTH * 2
+        HEALTH: 3.5 * basePlayerHealth
     },
-    PROPS: [
-        {
-            POSITION: [8, 0, 0, 0, 1],
-            TYPE: 'bigDeco'
-        }
-    ]
 }
 Class.consolidation = {
     PARENT: "tank",
@@ -5525,10 +5697,9 @@ Class.consolidation = {
             TYPE: ["autoDoubleTurret", { INDEPENDENT: true }]
         }
     ],
-    
     BODY: {
         DAMAGE: 1.5 * base.DAMAGE,
-        HEALTH: 1.75 * base.HEALTH * 2
+        HEALTH: 2.5 * basePlayerHealth
     }
 }
 Class.penitaniary = {
@@ -5545,13 +5716,11 @@ Class.penitaniary = {
             TYPE: ["autoTankGun", { INDEPENDENT: true }]
         }
     ],
-    
     BODY: {
         DAMAGE: 2 * base.DAMAGE,
-        HEALTH: 1.75 * base.HEALTH * 2
+        HEALTH: 2.5 * basePlayerHealth
     }
 }
-
 Class.garrison = {
     PARENT: "tank",
     LABEL: "Garrison",
@@ -5565,7 +5734,6 @@ Class.garrison = {
             TYPE: "auraTankGen"
         }
     ],
-    
     BODY: {
         DAMAGE: 1.5 * base.DAMAGE
     }
@@ -5583,7 +5751,6 @@ Class.commandPost = {
             TYPE: "auraTankGenBig"
         }
     ],
-    
     BODY: {
         DAMAGE: 1.5 * base.DAMAGE
     }
@@ -5601,7 +5768,6 @@ Class.hangar = {
             TYPE: "auraTankGenBigger"
         }
     ],
-    
     BODY: {
         DAMAGE: 1.5 * base.DAMAGE
     }
@@ -5619,7 +5785,6 @@ Class.aerosols = {
             TYPE: "auraTankGen"
         }
     ],
-    
     BODY: {
         DAMAGE: 2 * base.DAMAGE
     }
@@ -5673,10 +5838,9 @@ Class.jetstream= {
             TYPE: "auraTankGen"
         }
     ],
-    
     BODY: {
         DAMAGE: 1.5 * base.DAMAGE,
-        HEALTH: 1.75 * base.HEALTH * 2
+        HEALTH: 2.5 * basePlayerHealth
     }
 }
 Class.arboretum= {
@@ -5693,10 +5857,9 @@ Class.arboretum= {
             TYPE: "auraTankGen"
         }
     ],
-    
     BODY: {
         DAMAGE: 2 * base.DAMAGE,
-        HEALTH: 1.75 * base.HEALTH * 2
+        HEALTH: 2.5 * basePlayerHealth
     }
 }
 Class.ozoneDeco = makeDeco(0, "darkGrey")
@@ -5714,10 +5877,9 @@ Class.ozone= {
             TYPE: "auraTankGen"
         }
     ],
-    
     BODY: {
         DAMAGE: 1.5 * base.DAMAGE,
-        HEALTH: 2.5 * base.HEALTH * 2
+        HEALTH: 3.5 * basePlayerHealth
     },
     PROPS: [
         {
@@ -5747,7 +5909,22 @@ Class.orchard= {
     
     BODY: {
         DAMAGE: 2 * base.DAMAGE,
-        HEALTH: 1.75 * base.HEALTH * 2
+        HEALTH: 2.5 * basePlayerHealth
+    }
+}
+Class.hut = {
+    PARENT: "tank",
+    LABEL: "Hut",
+    SHAPE: 6,
+    TURRETS: [
+        {
+            POSITION: [21.5, 0, 0, 0, 360, 0],
+            TYPE: "smashTankBody"
+        },
+    ],
+    BODY: {
+        DAMAGE: 1.5 * base.DAMAGE,
+        HEALTH: 2.5 * basePlayerHealth
     }
 }
 //ETHEREALS
@@ -5756,11 +5933,11 @@ const etherealDeco = {
     SHAPE: 3.5,
     COLOR: "teal",
     SIZE: 20,
-    
+    IS_ETHEREAL: true
 }
 const smolEtherealBody = {
-    SPEED: base.SPEED * 0.7,
-    HEALTH: base.HEALTH * 10,
+    SPEED: base.SPEED * 0.65,
+    HEALTH: base.HEALTH * 12,
 	SHIELD: base.SHIELD * 2.5,
 	REGEN: base.REGEN * 1.25,
     DENSITY: base.DENSITY * 2.5,
@@ -5771,8 +5948,8 @@ Class.genericSmolEthereal = {
     BODY: smolEtherealBody
 }
 const normEtherealBody = {
-    SPEED: base.SPEED * 0.625,
-	HEALTH: base.HEALTH * 20,
+    SPEED: base.SPEED * 0.575,
+	HEALTH: base.HEALTH * 25,
 	SHIELD: base.SHIELD * 3,
 	REGEN: base.REGEN * 1.5,
 	DENSITY: base.DENSITY * 3,
@@ -5783,8 +5960,8 @@ Class.genericNormEthereal = {
     BODY: normEtherealBody
 }
 const bigEtherealBody = {
-    SPEED: base.SPEED * 0.55,
-    HEALTH: base.HEALTH * 30,
+    SPEED: base.SPEED * 0.52,
+    HEALTH: base.HEALTH * 40,
 	SHIELD: base.SHIELD * 3.6,
 	REGEN: base.REGEN * 1.6,
 	DENSITY: base.DENSITY * 3.6,
@@ -5808,16 +5985,12 @@ Class.etherealAutoGun = makeTurret({
 Class.ethereal = {
     PARENT: "genericSmolEthereal",
     UPGRADE_LABEL: "ASCEND",
-    UPGRADE_TOOLTIP: "WARNING: Upgrade the body first, then the guns, otherwise you'll lose a lot of skill points!",
     LABEL: "Ethereal",
-    EXTRA_SKILL: 6
 }
 Class.etherealBody = {
     PARENT: "genericSmolEthereal",
     UPGRADE_LABEL: "ASCEND",
-    UPGRADE_TOOLTIP: "WARNING: Upgrade the body first, then the guns, otherwise you'll lose a lot of skill points!",
     LABEL: "Node",
-    EXTRA_SKILL: 6
 }
 Class.etherealHull = {
     PARENT: "genericSmolEthereal",
@@ -5887,7 +6060,7 @@ Class.sundowner = {
                     Y: 6.5
                 },
                 PROPERTIES: {
-                    SHOOT_SETTINGS: combineStats([g.drone, g.overseer, { reload: 1.05, maxSpeed: 0.9, health: 1.1, size: 1.75 }]),
+                    SHOOT_SETTINGS: combineStats([g.drone, g.overseer, { reload: 1.05, maxSpeed: 0.9, health: 1.2, damage: 1.2, size: 1.75 }]),
                     TYPE: "drone",
                     MAX_CHILDREN: 2,
                     AUTOFIRE: true,
@@ -5905,7 +6078,7 @@ Class.sundowner = {
                     DELAY: 0.5
                 },
                 PROPERTIES: {
-                    SHOOT_SETTINGS: combineStats([g.drone, g.overseer, { reload: 1.05, maxSpeed: 0.9, health: 1.1, size: 1.75 }]),
+                    SHOOT_SETTINGS: combineStats([g.drone, g.overseer, { reload: 1.05, maxSpeed: 0.9, health: 1.2, damage: 1.2, size: 1.75 }]),
                     TYPE: "drone",
                     MAX_CHILDREN: 2,
                     AUTOFIRE: true,
@@ -5966,9 +6139,16 @@ Class.mechanism = {
     ]
 }
 
+//IRIDESCENT
+Class.irdbasic = makeIrdA("basic")
+Class.irddirector = makeIrdA("director")
+Class.irdtank = makeIrdB("tank")
+
 //Cutthroat
+
 //length, width, aspect, x, y, angle, delay
 //size, x, y, angle, arc, layer
+
 Class.annihilator.UPGRADES_TIER_8 = ["doubleDestroyer"];
 Class.twin.UPGRADES_TIER_8 = ["doubleDestroyer", "bulldozer"];
 Class.musket.UPGRADES_TIER_8 = ["doubleDestroyer", "bulldozer"];
@@ -5987,27 +6167,35 @@ Class.radical.UPGRADES_TIER_3 = ["advanced"];
 Class.gunner.UPGRADES_TIER_3.push("gunnerCruiser", "vulcan");
 //Class.trapGuard.UPGRADES_TIER_3.push("whirlGuard")
 Class.advanced.UPGRADES_TIER_5 = ["switcheroo", "realtor", "screamer", "flail"];
-Class.advanced.UPGRADES_TIER_8 = ["fog"];
 Class.polyseer.UPGRADES_TIER_3 = ["polymancer", "polyshadow"];
 Class.fullyAutomatic.UPGRADES_TIER_3 = ["assaulter", "microgun"];
 Class.flankGuard.UPGRADES_TIER_2.push("ringer", "realstar");
 Class.ringer.UPGRADES_TIER_3 = ["winger", "singer"];
 Class.realstar.UPGRADES_TIER_3 = ["deathstar", "neutronstar", "apex"];
 Class.sniper.UPGRADES_TIER_2.push("hider")
-Class.hider.UPGRADES_TIER_3 = ["rogue", "cloak", "leader", "stalker"];
+Class.hider.UPGRADES_TIER_3 = ["rogue", "leader", "stalker"];
 Class.sniper.UPGRADES_TIER_2.push("ringer");
 Class.triAngle.UPGRADES_TIER_3.push("hawk");
 Class.smashGuard.UPGRADES_TIER_4 = ["tankGuardian"];
 Class.tankGuardian.UPGRADES_TIER_5 = ["homelandDefender"];
 Class.basic.UPGRADES_TIER_1 = ["radical"];
-Class.basic.UPGRADES_TIER_0 = ["single", "director", "heavy", "trapper"];
+Class.basic.UPGRADES_TIER_0 = ["single", "director", "heavy", "trapper", "fog"];
+        Class.fog.UPGRADES_TIER_2 = ["daze"]
+            Class.daze.UPGRADES_TIER_3 = ["hypnosis", "trance"]
+            Class.trance.UPGRADES_TIER_3 = ["reverie", "daydream", "stupefaction"]
+            Class.reverie.UPGRADES_TIER_3 = ["flashback", "asphyxia"]
+            Class.daydream.UPGRADES_TIER_3 = ["flashback", "mirage"]
+            Class.flashback.UPGRADES_TIER_3 = ["nostalgia", "reminiscence", "awe"]
+            Class.mirage.UPGRADES_TIER_3 = ["reminiscence", "illusion", "hallucination"]
+            Class.stupefaction.UPGRADES_TIER_3 = ["stupor", "disorientation"]
+            Class.stupor.UPGRADES_TIER_3 = ["narcosis", "rapture"]
 Class.single.UPGRADES_TIER_1 = ["twin", "machineGun", "flankGuard", "trapGuard"];
 Class.trapper.UPGRADES_TIER_1 = ["builder", "triTrapper", "trapGuard", "overtrapper", "barracuda", "wark"];
     Class.triTrapper.UPGRADES_TIER_2 = ["hexaTrapper", "quadBuilder", "hexadecimator"];
     Class.trapGuard.UPGRADES_TIER_2 = ["bushwhacker", "planetary", "bulwark", "highlord", "pen", "hexadecimator"];
         Class.trapGuard.UPGRADES_TIER_3 = ["hijacker"]
     Class.builder.UPGRADES_TIER_2 = ["coop", "engineer", "boomer", "quadBuilder", "planetary"];
-        Class.bushwhacker.UPGRADES_TIER_3 = ["mugger"]
+        Class.bushwhacker.UPGRADES_TIER_3 = ["mugger", "villain"]
         Class.quadBuilder.UPGRADES_TIER_3 = ["mechanic", "architect", "pentaBuilder"];
         Class.hexaTrapper.UPGRADES_TIER_3 = ["fortress", "octoTrapper", "pentaBuilder"];
         Class.coop.UPGRADES_TIER_3 = ["construct", "assembler", "conqueror", "mugger"];
@@ -6030,57 +6218,50 @@ Class.director.UPGRADES_TIER_1 = ["overseer", "executor", "spawner"];
         Class.cruiser.UPGRADES_TIER_3 = ["carrier", "battleship", "fortress", "commander", "wraith", "gunnerCruiser", "bigSwiss"];
         Class.underseer.UPGRADES_TIER_3 = ["necromancer", "maleficitor", "infestor", "polyseer", "enchanter", "preacher", "necroa"];
     Class.spawner.UPGRADES_TIER_2 = ["factory"];
-        Class.factory.UPGRADES_TIER_3 = ["topBanana", "foundry", "industry", "cloner", "watchwoman", "sqrtFactory"];
+        Class.factory.UPGRADES_TIER_3 = ["creator", "topBanana", "foundry", "industry", "cloner", "watchwoman", "watchman"];
 Class.heavy.UPGRADES_TIER_1 = ["pounder", "sniper", "builder", "artillery"]
     Class.artillery.UPGRADES_TIER_2 = ["howitzer", "beeGuard", "heavyArtillery"]
-        Class.howitzer.UPGRADES_TIER_3 = ["type63"]
+        Class.howitzer.UPGRADES_TIER_3 = ["queller"]
         Class.beeGuard.UPGRADES_TIER_3 = ["beemaster"]
     Class.pounder.UPGRADES_TIER_2 = ["destroyer", "heavyArtillery", "launcher", "planetary", "realstar"]
         Class.pounder.UPGRADES_TIER_3 = ["shotgun", "eagle"]
         Class.heavyArtillery.UPGRADES_TIER_3 = ["mortar", "ordnance", "beekeeper", "fieldGun", "superHeavyArtillery"];
-    Class.destroyer.UPGRADES_TIER_3 = ["conqueror", "annihilator", "hybrid", "construct", "rogue"];
-Class.basic.UPGRADES_TIER_3 = [];
+        Class.destroyer.UPGRADES_TIER_3 = ["conqueror", "annihilator", "hybrid", "construct", "rogue", "dobloon"];
 Class.healer.UPGRADES_TIER_3 = ["medic", "ambulance", "surgeon", "paramedic"];
-Class.tank.UPGRADES_TIER_0 = ["auraTank", "smasherTank", "autoTank", "machine", "primary"];
-Class.primary.UPGRADES_TIER_1 = ["droneShip"];
-Class.droneShip.UPGRADES_TIER_2 = ["hydraShip"];
-Class.hydraShip.UPGRADES_TIER_3 = ["fleet"];
-Class.autoTank.UPGRADES_TIER_1 = ["doubleAutoTank", "megaAutoTank", "doublegAutoTank", "top",];
-Class.doubleAutoTank.UPGRADES_TIER_2 = ["tripleAutoTank"];
-Class.tripleAutoTank.UPGRADES_TIER_3 = ["pentaAutoTank"];
-Class.megaAutoTank.UPGRADES_TIER_2 = ["gigaAutoTank"];
-Class.gigaAutoTank.UPGRADES_TIER_3 = ["teraAutoTank"];
-Class.doublegAutoTank.UPGRADES_TIER_2 = ["tripletAutoTank"];
-Class.tripletAutoTank.UPGRADES_TIER_3 = ["quadrupleAutoTank"];
-Class.machine.UPGRADES_TIER_1 = ["brickTank"];
-Class.brickTank.UPGRADES_TIER_2 = ["headquarters"];
-Class.headquarters.UPGRADES_TIER_3 = ["bunker"];
-Class.smasherTank.UPGRADES_TIER_1 = ["crusher", "top", "garrison"];
-Class.crusher.UPGRADES_TIER_2 = ["bramble"];
-Class.bramble.UPGRADES_TIER_3 = ["nettle"];
-Class.auraTank.UPGRADES_TIER_1 = ["forgery"];
-Class.forgery.UPGRADES_TIER_2 = ["lifebane", "thermosphere", "heliosphere"];
-Class.heliosphere.UPGRADES_TIER_3 = ["realm"];
-Class.lifebane.UPGRADES_TIER_3 = ["halberd"];
-Class.thermosphere.UPGRADES_TIER_3 = ["mender", "thermostation"];
-Class.top.UPGRADES_TIER_2 = ["presidio", "outpost", "buffer"];
-Class.presidio.UPGRADES_TIER_3 = ["entrenchment", "penitaniary"];
-Class.outpost.UPGRADES_TIER_3 = ["stockade", "consolidation"];
-Class.buffer.UPGRADES_TIER_3 = ["cage", "penitaniary", "consolidation"];
-Class.garrison.UPGRADES_TIER_2 = ["commandPost", "aerosols", "jetstream"];
-Class.commandPost.UPGRADES_TIER_3 = ["hangar", "drizzle", "orchard"];
-Class.aerosols.UPGRADES_TIER_3 = ["drizzle", "greenhouse", "arboretum"];
-Class.jetstream.UPGRADES_TIER_3 = ["ozone", "orchard", "arboretum"];
-Class.ethereal.UPGRADES_TIER_8 = ["philistine", "sundowner", "spear", "despoiler", "centaur",];
+Class.tank.UPGRADES_TIER_0 = ["auraTank", "smasherTank", "autoTank", "machine", "primary", "spinner"];
+    Class.primary.UPGRADES_TIER_1 = ["droneShip"];
+        Class.droneShip.UPGRADES_TIER_2 = ["hydraShip"];
+            Class.hydraShip.UPGRADES_TIER_3 = ["fleet"];
+    Class.autoTank.UPGRADES_TIER_1 = ["doubleAutoTank", "megaAutoTank", "doublegAutoTank", "top",];
+        Class.doubleAutoTank.UPGRADES_TIER_2 = ["tripleAutoTank"];
+            Class.tripleAutoTank.UPGRADES_TIER_3 = ["pentaAutoTank"];
+        Class.megaAutoTank.UPGRADES_TIER_2 = ["gigaAutoTank"];
+            Class.gigaAutoTank.UPGRADES_TIER_3 = ["teraAutoTank"];
+        Class.doublegAutoTank.UPGRADES_TIER_2 = ["tripletAutoTank"];
+            Class.tripletAutoTank.UPGRADES_TIER_3 = ["quadrupleAutoTank"];
+    Class.machine.UPGRADES_TIER_1 = ["brickTank", "hut"];
+        Class.brickTank.UPGRADES_TIER_2 = ["headquarters"];
+            Class.headquarters.UPGRADES_TIER_3 = ["bunker"];
+    Class.smasherTank.UPGRADES_TIER_1 = ["crusher", "top", "garrison", "hut"];
+        Class.crusher.UPGRADES_TIER_2 = ["bramble"];
+            Class.bramble.UPGRADES_TIER_3 = ["nettle"];
+    Class.auraTank.UPGRADES_TIER_1 = ["forgery", "garrison"];
+        Class.forgery.UPGRADES_TIER_2 = ["lifebane", "thermosphere", "heliosphere"];
+            Class.heliosphere.UPGRADES_TIER_3 = ["realm"];
+            Class.lifebane.UPGRADES_TIER_3 = ["halberd"];
+            Class.thermosphere.UPGRADES_TIER_3 = ["mender", "thermostation"];
+        Class.top.UPGRADES_TIER_2 = ["presidio", "outpost", "buffer"];
+            Class.presidio.UPGRADES_TIER_3 = ["entrenchment", "penitaniary"];
+            Class.outpost.UPGRADES_TIER_3 = ["stockade", "consolidation"];
+            Class.buffer.UPGRADES_TIER_3 = ["cage", "penitaniary", "consolidation"];
+        Class.garrison.UPGRADES_TIER_2 = ["commandPost", "aerosols", "jetstream"];
+            Class.commandPost.UPGRADES_TIER_3 = ["hangar", "drizzle", "orchard"];
+            Class.aerosols.UPGRADES_TIER_3 = ["drizzle", "greenhouse", "arboretum"];
+            Class.jetstream.UPGRADES_TIER_3 = ["ozone", "orchard", "arboretum"];
+        Class.hut.UPGRADES_TIER_2 = ["jetstream", "buffer"];
+    Class.spinner.UPGRADES_TIER_1 = ["circler"];
+        Class.circler.UPGRADES_TIER_2 = ["hyperspinner"];
+            Class.hyperspinner.UPGRADES_TIER_3 = ["ultraspinner"];
+Class.ethereal.UPGRADES_TIER_8 = ["philistine", "sundowner", "spear", "despoiler", "centaur"];
 Class.etherealBody.UPGRADES_TIER_8 = ["mechanism"];
-Class.destroyer.UPGRADES_TIER_3.push("dobloon")
-Class.fog.UPGRADES_TIER_2 = ["daze"]
-Class.daze.UPGRADES_TIER_3 = ["hypnosis", "trance"]
-Class.trance.UPGRADES_TIER_3 = ["reverie", "daydream", "stupefaction"]
-Class.reverie.UPGRADES_TIER_3 = ["flashback", "asphyxia"]
-Class.daydream.UPGRADES_TIER_3 = ["flashback", "mirage"]
-Class.flashback.UPGRADES_TIER_3 = ["nostalgia", "reminiscence", "awe"]
-Class.mirage.UPGRADES_TIER_3 = ["reminiscence", "illusion", "hallucination"]
-Class.stupefaction.UPGRADES_TIER_3 = ["stupor", "disorientation"]
-Class.stupor.UPGRADES_TIER_3 = ["narcosis", "rapture"]
 Class.minigun.UPGRADES_TIER_3.push("hotbed")

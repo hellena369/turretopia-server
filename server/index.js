@@ -103,6 +103,23 @@ function collide(collision) {
   )
     return 0;
   switch (true) {
+    case instance.label === "Travel Portal" || other.label === "Travel Portal":
+      let [portal, otherBody] = instance.label === "Travel Portal" ? [instance, other] : [other, instance];
+
+      if (portal.settings.destination && otherBody.isPlayer && otherBody.socket) {
+        let dx = portal.x - otherBody.x;
+        let dy = portal.y - otherBody.y;
+        let d2 = dx * dx + dy * dy;
+        let totalRadius = portal.realSize + otherBody.realSize;
+        if (otherBody.isPlayer && !otherBody.isTravelling) {
+          otherBody.isTravelling = true;
+          if (d2 > totalRadius * totalRadius) sockets.sendToServer(otherBody.socket, portal.settings.destination);
+        }
+      } else if (["bullet", "drone", "trap", "satellite"].includes(otherBody.type)) {
+        if (otherBody.master !== portal) otherBody.kill();
+      }
+      else if (!["wall", "aura"].includes(otherBody.type)) advancedcollide(portal, otherBody, false, false);
+      break;
     case instance.type === "wall" || other.type === "wall":
       if (instance.type === "wall" && other.type === "wall") return;
       if (instance.type === "aura" || other.type === "aura") return;
@@ -408,7 +425,7 @@ const maintainloop = () => {
   // then add new bots if arena is open
   if (!global.arenaClosed && bots.length < Config.BOTS) {
     let botName = Config.BOT_NAME_PREFIX + ran.chooseBotName(),
-      team = Config.MODE === "tdm" ? getWeakestTeam() : undefined,
+      team = Config.MODE == "tdm" || Config.TAG ? getWeakestTeam() : undefined,
       limit = 20, // give up after 20 attempts and just pick whatever is currently chosen
       loc;
     do {
@@ -428,7 +445,7 @@ const maintainloop = () => {
       ? Math.floor(Math.random() * 20)
       : team
       ? getTeamColor(team)
-      : "darkGrey";
+      : "red";
     if (team) o.team = team;
     bots.push(o);
     setTimeout(() => {
