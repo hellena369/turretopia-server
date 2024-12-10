@@ -2,6 +2,8 @@ const { combineStats } = require('../facilitators.js');
 const { base } = require('../constants.js');
 const g = require('../gunvals.js');
 
+return console.log("[serverPortalTravel.js] Disabled")
+
 // Portal Class Definition
 
 Class.portalAura = {
@@ -75,8 +77,8 @@ Class.serverPortal = {
 
 const chooseAvailableServers = [
     {
-        ip: "citrine-sunny-music.glitch.me",
-        name: "Server 1"
+        ip: "celestial-pattern-albatross.glitch.me",
+        name: "FFA"
     }
 ]
 

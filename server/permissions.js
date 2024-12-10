@@ -2,7 +2,7 @@ module.exports = [
   {
     key: process.env.developer,
     discordID: "0",
-    nameColor: "#0292f2",
+    nameColor: "#c399ff",
     class: "developer",
     infiniteLevelUp: true,
     note: "Developer Permissions",

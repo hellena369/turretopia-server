@@ -13,24 +13,13 @@ Error.stackTraceLimit = Infinity;
 let enviroment = require("./lib/dotenv.js")(
   fs.readFileSync(path.join(__dirname, "../.env")).toString()
 );
-for (let key in enviroment) {
-  process.env[key] = enviroment[key];
-}
+for (let key in enviroment) {process.env[key] = enviroment[key];}
 const GLOBAL = require("./modules/global.js");
-const {
-  mazewallcollide,
-  mooncollide,
-  advancedcollide,
-  firmcollide,
-  simplecollide,
-} = require("./modules/physics/collisionFunctions");
+const {mazewallcollide, mooncollide, advancedcollide, firmcollide, simplecollide,} = require("./modules/physics/collisionFunctions");
 const { Entity } = require("./modules/live/entity");
 const { Vector } = require("./modules/physics/relative");
 const { logs } = require("./modules/debug/logs");
-const {
-  purgeEntities,
-  dirtyCheck,
-} = require("./modules/live/entitySubFunctions");
+const {purgeEntities, dirtyCheck,} = require("./modules/live/entitySubFunctions");
 const { sockets, chatLoop } = require("./modules/network/sockets");
 const { closeArena } = require("./modules/gamemodes/closeArena");
 const { gamemodeLoop } = require("./modules/gamemodes/gamemodeLoop");
@@ -103,23 +92,6 @@ function collide(collision) {
   )
     return 0;
   switch (true) {
-    case instance.label === "Travel Portal" || other.label === "Travel Portal":
-      let [portal, otherBody] = instance.label === "Travel Portal" ? [instance, other] : [other, instance];
-
-      if (portal.settings.destination && otherBody.isPlayer && otherBody.socket) {
-        let dx = portal.x - otherBody.x;
-        let dy = portal.y - otherBody.y;
-        let d2 = dx * dx + dy * dy;
-        let totalRadius = portal.realSize + otherBody.realSize;
-        if (otherBody.isPlayer && !otherBody.isTravelling) {
-          otherBody.isTravelling = true;
-          if (d2 > totalRadius * totalRadius) sockets.sendToServer(otherBody.socket, portal.settings.destination);
-        }
-      } else if (["bullet", "drone", "trap", "satellite"].includes(otherBody.type)) {
-        if (otherBody.master !== portal) otherBody.kill();
-      }
-      else if (!["wall", "aura"].includes(otherBody.type)) advancedcollide(portal, otherBody, false, false);
-      break;
     case instance.type === "wall" || other.type === "wall":
       if (instance.type === "wall" && other.type === "wall") return;
       if (instance.type === "aura" || other.type === "aura") return;

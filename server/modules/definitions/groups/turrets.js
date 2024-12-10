@@ -744,25 +744,28 @@ Class.baseSwarmTurret = makeTurret({
         {
             POSITION: [5, 4.5, 0.6, 7, 2, 0, 0.15],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.swarm, g.baseProtector]),
-                TYPE: "swarm",
-                STAT_CALCULATOR: "swarm",
+                SHOOT_SETTINGS: combineStats([g.drone, g.baseProtector]),
+                TYPE: "drone",
+                STAT_CALCULATOR: "drone",
+                MAX_CHILDREN: 1
             },
         },
         {
             POSITION: [5, 4.5, 0.6, 7, -2, 0, 0.15],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.swarm, g.baseProtector]),
-                TYPE: "swarm",
-                STAT_CALCULATOR: "swarm",
+                SHOOT_SETTINGS: combineStats([g.drone, g.baseProtector]),
+                TYPE: "drone",
+                STAT_CALCULATOR: "drone",
+                MAX_CHILDREN: 1
             },
         },
         {
             POSITION: [5, 4.5, 0.6, 7.5, 0, 0, 0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.swarm, g.baseProtector]),
-                TYPE: ["swarm", { INDEPENDENT: true, AI: { LIKES_SHAPES: true }}],
-                STAT_CALCULATOR: "swarm",
+                SHOOT_SETTINGS: combineStats([g.drone, g.baseProtector]),
+                TYPE: ["drone", { INDEPENDENT: true, AI: { LIKES_SHAPES: true }}],
+                STAT_CALCULATOR: "drone",
+                MAX_CHILDREN: 1
             },
         },
     ],

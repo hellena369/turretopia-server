@@ -15,11 +15,11 @@ atmg = new Tile({ color: "#C5C5C5", init: tile => spawnPermanentAntiTankMachineG
 
 outside = new Tile({
   color: "#C5C5C5",
-  tick: tile => {
+  /*tick: tile => {
     for (let entity of tile.entities) {
       entity.kill();
     }
-  }
+  }*/
 }),
 
 redt = new Tile({ color: getTeamColor(TEAM_RED) }),

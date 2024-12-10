@@ -559,6 +559,7 @@ Class.baseProtector = {
             POSITION: [12, 7, 0, 45, 100, 0],
             TYPE: "baseSwarmTurret",
         }, 4)
+
     ],
     GUNS: weaponArray([
         {

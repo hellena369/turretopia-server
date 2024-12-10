@@ -456,13 +456,13 @@ case 'soldier':
 		args: [0],
 		perms: perm.token,
 		execute: ({body, command}) => {
-			body.define(["irdtank", "irddirector"])
+			body.define(["irdprimary", "irddirector"])
 			body.skill.reset()
 			while (body.skill.level < 1) {
 				body.skill.score += body.skill.levelScore;
 				body.skill.maintain();
 			}
-			body.skill.points += 30
+			body.skill.points += 25
 			body.skill.setCaps(body.skill.caps.map(x => x > 0 ? 15 : 0));
 			body.refreshBodyAttributes()
 			command.send('You have become iridescent!')

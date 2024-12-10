@@ -89,4 +89,8 @@ wall = new Tile({
     }
 });
 
+if (Config.OW_TILES) {
+    normal.color = "green"
+}
+
 module.exports = { normal, nest, wall, nestNoBoss };

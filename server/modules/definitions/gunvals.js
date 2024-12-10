@@ -1,14 +1,14 @@
 module.exports = {
     // Bases
-        basic: { reload: 11, recoil: 1, shudder: 0.1, damage: 0.7, speed: 4.5, spray: 15 },
-        drone: { reload: 36, recoil: 0.25, shudder: 0.1, size: 0.6, damage: 0.7, speed: 2, spray: 0.1 },
-        trap: { reload: 23, shudder: 0.25, size: 0.6, damage: 0.5, health: 0.5, speed: 5, spray: 15, resist: 3 },
+        basic: { reload: 11, recoil: 1, shudder: 0.1, damage: 0.75, speed: 4.5, spray: 15 },
+        drone: { reload: 36, recoil: 0.25, shudder: 0.1, size: 0.6, damage: 0.75, speed: 2, spray: 0.1 },
+        trap: { reload: 23, shudder: 0.25, size: 0.6, damage: 0.65, health: 0.5, speed: 5, spray: 15, resist: 3 },
         swarm: { reload: 18, recoil: 0.25, shudder: 0.05, size: 0.4, damage: 0.7, speed: 4, spray: 5 },
-        factory: { reload: 48, shudder: 0.1, size: 0.7, damage: 0.7, health: 0.7, speed: 3, spray: 0.1 },
-        productionist: { reload: 56, recoil: 0.25, shudder: 0.05, size: 0.7, damage: 0.7, speed: 4, range: 1.5, spray: 5 },
+        factory: { reload: 48, shudder: 0.1, size: 0.7, damage: 0.75, health: 0.7, speed: 3, spray: 0.1 },
+        productionist: { reload: 56, recoil: 0.25, shudder: 0.05, size: 0.7, damage: 0.75, speed: 4, range: 1.5, spray: 5 },
     
     // Spammers
-        desmos: { shudder: 0, spray: 0, speed: 0.001, reload: 1.45 },
+        desmos: { shudder: 0, spray: 0, speed: 0.001, reload: 1.4, recoil: 0.2 },
         single: { reload: 1.05, speed: 1.05 },
         twin: { recoil: 0.5, shudder: 0.9, health: 0.9, damage: 0.7, spray: 1.2 },
         doubleTwin: { damage: 0.9 },
@@ -21,9 +21,9 @@ module.exports = {
         autoTurret: { reload: 0.9, recoil: 0.75, shudder: 0.5, size: 0.8, health: 0.9, damage: 0.6, pen: 1.2, speed: 1.1, range: 0.8, density: 1.3, resist: 1.25 },
 
     // Snipers
-        sniper: { reload: 1.35, shudder: 0.25, damage: 0.8, pen: 1.1, speed: 1.5, maxSpeed: 1.5, density: 1.5, spray: 0.2, resist: 1.15 },
+        sniper: { reload: 1.35, shudder: 0.25, damage: 0.8, pen: 1.1, speed: 1.5, maxSpeed: 1.5, density: 1.5, spray: 0.2, resist: 1.3, },
         crossbow: { reload: 2, health: 0.9, damage: 0.9, pen: 0.8 },
-        assassin: { reload: 1.65, shudder: 0.25, health: 1.35, damage: 1.2, pen: 1.6, speed: 1.18, maxSpeed: 1.18, density: 3, resist: 1.3 },
+        assassin: { reload: 1.65, shudder: 0.25, health: 1.35, damage: 1.2, pen: 1.6, speed: 1.18, maxSpeed: 1.18, density: 3, resist: 2 },
         hunter: { reload: 1.5, recoil: 0.7, size: 0.95, damage: 0.9, speed: 1.1, maxSpeed: 0.8, density: 1.2, resist: 1.15 },
         hunterSecondary: { size: 0.9, health: 2, damage: 0.5, pen: 1.5, density: 1.2, resist: 1.1 },
         predator: { reload: 1.4, size: 0.8, health: 1.5, damage: 0.9, pen: 1.2, speed: 0.9, maxSpeed: 0.9 },
@@ -56,7 +56,7 @@ module.exports = {
         overseer: { reload: 1.25, size: 0.85, health: 0.7, damage: 0.8, maxSpeed: 0.9, density: 2 },
         overdrive: { reload: 2.5, health: 0.8, damage: 0.8, pen: 0.8, speed: 0.9, maxSpeed: 0.9, range: 0.9, spray: 1.2 },
         commander: { reload: 1.5, health: 0.4, damage: 0.7 },
-        baseProtector: { reload: 2, recoil: 0, health: 100, range: 0.5, density: 5, resist: 10 },
+        baseProtector: { reload: 2, recoil: 0, health: 100, range: 0.5, density: 5, resist: 10, size: 2 },
         battleship: { health: 1.5, damage: 2, maxSpeed: 0.85, resist: 1.1 },
         carrier: { reload: 1.25, speed: 1.3, maxSpeed: 1.2, range: 1.2 },
         bee: { reload: 1.3, size: 1.8, damage: 1.45, pen: 0.8, speed: 1.5, maxSpeed: 1.5, density: 0.25 },
@@ -70,7 +70,7 @@ module.exports = {
         satellite: { size: 0.8, reload: 3, damage: 1.875 },
         negro: { reload: 0.5, damage: 0.35 },
         swarmeer: { reload: 0.98, size: 0.9 },
-        babyDrone: { reload: 1.5, health: 0.8, damage: 0.8, size: 1.8 },
+        babyDrone: { reload: 1.5, damage: 0.9, size: 1.8 },
         nest: { damage: 1.6 },
     
     // Heavy cannons

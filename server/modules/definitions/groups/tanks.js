@@ -954,7 +954,8 @@ Class.dual = {
   LABEL: "Dual",
   DANGER: 7,
   BODY: {
-    FOV: 1.1 * base.FOV,
+    FOV: 1.2 * base.FOV,
+    SPEED: 1.05
   },
   CONTROLLERS: ["zoom"],
   TOOLTIP: "Hold right click to zoom.",
@@ -962,7 +963,7 @@ Class.dual = {
     {
       POSITION: [18, 7, 1, 0, 5.5, 0, 0],
       PROPERTIES: {
-        SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.dual, g.lowPower]),
+        SHOOT_SETTINGS: combineStats([g.basic, g.dual, g.lowPower]),
         TYPE: "bullet",
         LABEL: "Small",
       },
@@ -970,7 +971,7 @@ Class.dual = {
     {
       POSITION: [18, 7, 1, 0, -5.5, 0, 0.5],
       PROPERTIES: {
-        SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.dual, g.lowPower]),
+        SHOOT_SETTINGS: combineStats([g.basic, g.dual, g.lowPower]),
         TYPE: "bullet",
         LABEL: "Small",
       },
@@ -978,14 +979,14 @@ Class.dual = {
     {
       POSITION: [16, 8.5, 1, 0, 5.5, 0, 0.25],
       PROPERTIES: {
-        SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.dual]),
+        SHOOT_SETTINGS: combineStats([g.basic, g.dual]),
         TYPE: "bullet",
       },
     },
     {
       POSITION: [16, 8.5, 1, 0, -5.5, 0, 0.75],
       PROPERTIES: {
-        SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.dual]),
+        SHOOT_SETTINGS: combineStats([g.basic, g.dual]),
         TYPE: "bullet",
       },
     },
@@ -4527,37 +4528,8 @@ Class.tripleShot.UPGRADES_TIER_3 = [
   "triplex",
 ];
 
-Class.sniper.UPGRADES_TIER_2 = [
-  "assassin",
-  "hunter",
-  "minigun",
-  "rifle",
-  "marksman",
-];
-Class.sniper.UPGRADES_TIER_3 = ["bushwhacker"];
-Class.assassin.UPGRADES_TIER_3 = [
-  "ranger",
-  "falcon",
-  "stalker",
-  "deadeye",
-];
-Class.hunter.UPGRADES_TIER_3 = [
-  "predator",
-  "xHunter",
-  "poacher",
-  "ordnance",
-  "dual",
-  "nimrod",
-];
-Class.rifle.UPGRADES_TIER_3 = ["musket", "crossbow", "armsman", "revolver"];
-Class.marksman.UPGRADES_TIER_3 = ["deadeye", "nimrod", "revolver", "fork"];
 
-Class.machineGun.UPGRADES_TIER_2 = [
-  "heavyArtillery",
-  "minigun",
-  "gunner",
-  "sprayer",
-];
+Class.machineGun.UPGRADES_TIER_2 = ["heavyArtillery", "minigun", "gunner", "sprayer",];
 Class.minigun.UPGRADES_TIER_3 = [
   "streamliner",
   "nailgun",

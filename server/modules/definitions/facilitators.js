@@ -1,6 +1,6 @@
 const { MAX_SKILL } = require("../../config.js")
 const g = require('./gunvals.js')
-const {base: BODY} = require("./constants");
+const {base, BODY, basePlayerHealth} = require("./constants");
 let skcnv = {
     atk: 6,
     spd: 4,
@@ -882,15 +882,25 @@ exports.makeIrdB = (type) => {
     output.LABEL = "Iridescent " + type.LABEL;
     output.COLOR = "rainbow";
     output.BODY = {
-        DAMAGE: type.BODY.DAMAGE * 1.5,
-        HEALTH: type.BODY.HEALTH * 3,
-        PENETRATION: type.BODY.PENETRATION * 1.1,
-        FOV: type.BODY.FOV * 1.05
+        DAMAGE: (base.DAMAGE ?? type.BODY.DAMAGE) * 1.5,
+        HEALTH: (basePlayerHealth ?? type.BODY.HEALTH) * 3,
+        PENETRATION: base.PENETRATION * 1.1,
+        FOV: base.FOV * 1.05
     };
-    try {
-        output.turrets.forEach(g => g.shootSettings ? (g.shootSettings.damage ? g.shootSettings.damage *= 1.2 : null) : null);
-        output.turrets.forEach(g => g.shootSettings ? (g.shootSettings.health ? g.shootSettings.health *= 1.2 : null) : null);
-    } catch (e) {}
+    output.turrets?.type?.guns.forEach(g => g.shootSettings ? (g.shootSettings.damage ? g.shootSettings.damage *= 1.2 : null) : null);
+    output.turrets?.type?.guns.forEach(g => g.shootSettings ? (g.shootSettings.health ? g.shootSettings.health *= 1.2 : null) : null);
+    if (type.TURRETS) {
+        for (let thing of output?.TURRETS?.TYPE.GUNS) {
+            if (thing.PROPERTIES.MAX_CHILDREN) {
+                thing.PROPERTIES.MAX_CHILDREN *= 1.5;
+            }
+        }
+        for (let thing of output.TURRETS.TYPE.MAX_CHILDREN) {
+            if (thing.MAX_CHILDREN) {
+                thing.MAX_CHILDREN *= 1.5;
+            }
+        }
+    }
     output.GLOW = {
         RADIUS: 3,
         COLOR: "rainbow",
@@ -916,6 +926,13 @@ exports.makeIrdA = (type) => {
         RECURSION: 3
     };
     output.DANGER = type.DANGER + 3;
-    output.MAX_CHILDREN *= 1.5;
+    try {output.MAX_CHILDREN *= 1.5} catch(e) {}
+    if (type.GUNS) {
+        for (let gun of output.GUNS) {
+            if (gun.PROPERTIES.MAX_CHILDREN) {
+                gun.PROPERTIES.MAX_CHILDREN *= 1.5;
+            }
+        }
+    }
     return output;
 }
