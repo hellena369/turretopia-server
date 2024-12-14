@@ -126,6 +126,15 @@ Class.genericTank = {
     EVO_COUNT: 0,
     EVO_GAIN: 0,
     EVO_CAP: 9,
+    TCURRENCY: {
+        WOOD: 0,
+        IRON: 0,
+        GOLD: 0,
+        AMETHYST: 0,
+        TITANIUM: 0,
+        TOKENS: 1
+    },
+    OPEN_PORTAL_COUNT: 0,
     GUNS: [],
     TURRETS: [],
     PROPS: [],

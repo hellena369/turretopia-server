@@ -1236,7 +1236,7 @@ Class.megaTornado = {
             output.push({ 
                 POSITION: {WIDTH: 16, LENGTH: 1, DELAY: i * 0.25},
                 PROPERTIES: {
-                    SHOOT_SETTINGS: combineStats([g.satellite, g.pounder, g.destroyer]), 
+                    SHOOT_SETTINGS: combineStats([g.satellite, g.pounder, g.destroyer, {resist: 2}]),
                     TYPE: ["satellite", {ANGLE: i * 180}], 
                     MAX_CHILDREN: 1,   
                     AUTOFIRE: true,  
@@ -2671,7 +2671,6 @@ Class.developer.UPGRADES_TIER_0 = ["tanks", "bosses", "spectator", "levels", "te
                 Class.flangle.UPGRADES_TIER_3 = ["flooster", "flace"]
             Class.volute.UPGRADES_TIER_3 = []
             Class.whirlwind.UPGRADES_TIER_2 = ["tornado", "hurricane"]
-                Class.whirlwind.UPGRADES_TIER_3 = ["hexaWhirl", "munition", "whirl3", "whirlGuard", /*"prophet",*/ "vortex"]
                 Class.tornado.UPGRADES_TIER_3 = ["megaTornado", "tempest", "thunderbolt"]
                 Class.hurricane.UPGRADES_TIER_3 = ["typhoon", "blizzard"]
         Class.dominators.UPGRADES_TIER_0 = ["destroyerDominator", "gunnerDominator", "trapperDominator"]

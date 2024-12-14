@@ -2,7 +2,7 @@ module.exports = {
 	basePolygonDamage: 1,
 	basePolygonHealth: 2,
 
-	basePlayerHealth: 40,
+	basePlayerHealth: 30,
 
 	// SKILL DEFINITIONS
 	dfltskl: 9,

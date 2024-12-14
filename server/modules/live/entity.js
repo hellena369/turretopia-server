@@ -721,6 +721,7 @@ class Entity extends EventEmitter {
         this.master = master;
         this.source = this;
         this.parent = this;
+        this.tcurrency = {};
         this.control = {
             target: new Vector(0, 0),
             goal: new Vector(0, 0),
@@ -992,10 +993,21 @@ class Entity extends EventEmitter {
                 this.define(set.PARENT, false);
             }
         }
+        //vars for turretopia
         if (set.EVO_COUNT != null) this.evoCount = set.EVO_COUNT;
         if (set.EVO_GAIN != null) this.evoGain = set.EVO_GAIN;
         if (set.EVO_CAP != null) this.evoCap = set.EVO_CAP
         if (set.IS_ETHEREAL != null) this.isEthereal = set.IS_ETHEREAL;
+        if (set.OPEN_PORTAL_COUNT != null) this.openPortalCount = set.OPEN_PORTAL_COUNT;
+        if (set.TCURRENCY != null) {
+            if (set.TCURRENCY.WOOD != null) this.tcurrency.wood = set.TCURRENCY.WOOD;
+            if (set.TCURRENCY.IRON != null) this.tcurrency.iron = set.TCURRENCY.IRON;
+            if (set.TCURRENCY.GOLD != null) this.tcurrency.gold = set.TCURRENCY.GOLD;
+            if (set.TCURRENCY.AMETHYST != null) this.tcurrency.amethyst = set.TCURRENCY.AMETHYST;
+            if (set.TCURRENCY.TITANIUM != null) this.tcurrency.titanium = set.TCURRENCY.TITANIUM;
+            if (set.TCURRENCY.TOKENS != null) this.tcurrency.tokens = set.TCURRENCY.TOKENS;
+        }
+        //vars for turretopia
         if (set.LAYER != null) this.layerID = set.LAYER;
         if (set.index != null) this.index = set.index.toString();
         if (set.NAME != null) {
@@ -1650,7 +1662,7 @@ class Entity extends EventEmitter {
         // Turret layer ordering
         turretsAndProps.sort((a, b) => a.bound.layer - b.bound.layer);
         return {
-            type: 0 + tur * 0x01 + this.settings.drawHealth * 0x02 + (this.type === "tank" && this.displayName) * 0x04,
+            type: tur * 0x01 + this.settings.drawHealth * 0x02 + (this.type === "tank" && this.displayName) * 0x04,
             invuln: this.invuln,
             id: this.id,
             index: this.index,

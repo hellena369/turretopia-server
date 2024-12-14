@@ -2,7 +2,7 @@ const { base} = require('../constants.js');
 const g = require('../gunvals.js')
 const { addAura, makeAuto, makeDeco, makeTurret, makeOver, combineStats, weaponArray } = require("../facilitators.js");
 const { statnames, smshskl } = require("../constants.js");
-const {makeGuard, makeIrdA, makeIrdB} = require("../facilitators");
+const {makeGuard, makeIrdA, makeIrdB, makeBird} = require("../facilitators");
 const {basePlayerHealth} = require("../constants");
 // Addon for base turretopia stuff
 const fakeGun = [
@@ -12,6 +12,50 @@ const fakeGun = [
             SHOOT_SETTINGS: combineStats([g.basic, g.gunner, g.machineGunner, { size: 0.6 }]),
             TYPE: "bullet",
         }
+    },
+]
+const dobloong = [
+    {
+        POSITION: [15, 3.5, 1, 0, 0, 90, 0],
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
+            TYPE: "bullet",
+        },
+    },
+    {
+        POSITION: [15, 3.5, 1, 0, 0, -90, 0],
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
+            TYPE: "bullet",
+        },
+    },
+    {
+        POSITION: [15, 3.5, 1, 0, 0, 55, 1/2],
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
+            TYPE: "bullet",
+        },
+    },
+    {
+        POSITION: [15, 3.5, 1, 0, 0, -55, 1/2],
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
+            TYPE: "bullet",
+        },
+    },
+    {
+        POSITION: [15, 3.5, 1, 0, 0, 125, 1/2],
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
+            TYPE: "bullet",
+        },
+    },
+    {
+        POSITION: [15, 3.5, 1, 0, 0, -125, 1/2],
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
+            TYPE: "bullet",
+        },
     },
 ]
 const healProperties = {
@@ -2600,7 +2644,6 @@ Class.warkloon = {
     LABEL: "Warkloon",
     STAT_NAMES: statnames.trap,
     GUNS: [
-
         {
             POSITION: [15, 3.5, 1, 0, 0, 90, 0],
             PROPERTIES: {
@@ -2820,48 +2863,7 @@ Class.dobloon = {
                 TYPE: "bullet",
             },
         },
-        {
-            POSITION: [15, 3.5, 1, 0, 0, 90, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
-                TYPE: "bullet",
-            },
-        },
-        {
-            POSITION: [15, 3.5, 1, 0, 0, -90, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
-                TYPE: "bullet",
-            },
-        },
-        {
-            POSITION: [15, 3.5, 1, 0, 0, 45, 1/2],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
-                TYPE: "bullet",
-            },
-        },
-        {
-            POSITION: [15, 3.5, 1, 0, 0, -45, 1/2],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
-                TYPE: "bullet",
-            },
-        },
-        {
-            POSITION: [15, 3.5, 1, 0, 0, 135, 1/2],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
-                TYPE: "bullet",
-            },
-        },
-        {
-            POSITION: [15, 3.5, 1, 0, 0, -135, 1/2],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
-                TYPE: "bullet",
-            },
-        },
+        ...dobloong
     ],
 };
 Class.equalizer = {
@@ -5142,6 +5144,12 @@ Class.vulcan = {
         },
     ],
 };
+Class.bird = makeBird(Class.single, "Bird")
+Class.superbird = makeBird(Class.single, "Superbird", {super: true})
+Class.cockatiel = makeBird(Class.pen, "Cockatiel")
+Class.sunbird = makeBird(Class.gunner, "Sunbird")
+Class.siskin = makeBird(Class.honcho, "Siskin")
+Class.shoebill = makeBird(Class.coop, "Shoebill")
 Class.seerTurret = {
     PARENT: "genericTank",
     LABEL: "",
@@ -5190,7 +5198,7 @@ Class.primary = {
     TURRETS: [
         {
             POSITION: [9, 0, 0, 0, 0, 1],
-            TYPE: {...Class.seerTurret},
+            TYPE: "seerTurret",
         },
     ],
 };
@@ -5771,29 +5779,13 @@ Class.thermostation = {
         }
     ]
 }
-Class.spinTurret = {
-    PARENT: "genericTank",
-    BODY: { FOV: 3 },
-    CONTROLLERS: ["nearestDifferentMaster"],
-    FACING_TYPE: "fastspin",
-    GUNS: weaponArray({
-        POSITION: [14, 8, 1, 0, 0, 0, 0],
-        PROPERTIES: {
-            AUTOFIRE: false,
-            SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.spinner]),
-            TYPE: ["bullet", { PERSISTS_AFTER_DEATH: true }],
-            WAIT_TO_CYCLE: true,
-            COLOR: "mirror"
-        },
-    }, 2),
-}
-Class.spinner = {
+Class.system = {
     PARENT: "tank",
-    LABEL: "Spinner",
-    TURRETS: [
+    LABEL: "System",
+    PROPS: [
         {
-            POSITION: [11, 0, 0, 0, 360, 1],
-            TYPE: ["spinTurret", { INDEPENDENT: true }]
+            POSITION: [8, 0, 0, 0, 1],
+            TYPE: ["pentagon", {COLOR: "grey"}]
         }
     ]
 }
@@ -5814,9 +5806,9 @@ Class.flankspinTurret = {
         },
     }, 3),
 }
-Class.circler = {
+Class.spinner = {
     PARENT: "tank",
-    LABEL: "Circler",
+    LABEL: "Spinner",
     TURRETS: [
         {
             POSITION: [11, 0, 0, 0, 360, 1],
@@ -6503,6 +6495,8 @@ Class.basic.UPGRADES_TIER_0 = ["single", "director", "heavy", "trapper", "radica
             Class.stupefaction.UPGRADES_TIER_3 = ["stupor", "disorientation"]
             Class.stupor.UPGRADES_TIER_3 = ["narcosis", "rapture"]
 Class.single.UPGRADES_TIER_1 = ["twin", "machineGun", "flankGuard", "trapGuard"];
+    Class.flankGuard.UPGRADES_TIER_2.push("bird");
+        Class.bird.UPGRADES_TIER_3 = ["superbird", "shoebill", "cockatiel", "sunbird", "siskin", "falcon", "eagle", "vulture", "phoenix"]
 Class.trapper.UPGRADES_TIER_1 = ["builder", "triTrapper", "trapGuard", "overtrapper", "barracuda", "wark"];
     Class.triTrapper.UPGRADES_TIER_2 = ["hexaTrapper", "quadBuilder", "hexadecimator"];
     Class.trapGuard.UPGRADES_TIER_2 = ["bushwhacker", "planetary", "bulwark", "highlord", "pen", "hexadecimator"];
@@ -6548,7 +6542,8 @@ Class.heavy.UPGRADES_TIER_1 = ["pounder", "sniper", "builder", "artillery"]
             Class.rifle.UPGRADES_TIER_3 = ["musket", "crossbow", "armsman", "revolver"];
             Class.marksman.UPGRADES_TIER_3 = ["deadeye", "nimrod", "revolver", "fork"];
             Class.healer.UPGRADES_TIER_3 = ["medic", "ambulance", "surgeon", "paramedic"];
-Class.tank.UPGRADES_TIER_0 = ["auraTank", "smasherTank", "autoTank", "machine", "primary", "spinner"];
+Class.tank.UPGRADES_TIER_0 = ["auraTank", "smasherTank", "autoTank", "machine", "primary", "system"];
+Class.system.UPGRADES_TIER_1 = ["spinner", "whirlwind"];
     Class.primary.UPGRADES_TIER_1 = ["droneShip"];
         Class.droneShip.UPGRADES_TIER_2 = ["hydraShip"];
             Class.hydraShip.UPGRADES_TIER_3 = ["fleet"];
@@ -6579,8 +6574,7 @@ Class.tank.UPGRADES_TIER_0 = ["auraTank", "smasherTank", "autoTank", "machine", 
             Class.aerosols.UPGRADES_TIER_3 = ["drizzle", "greenhouse", "arboretum"];
             Class.jetstream.UPGRADES_TIER_3 = ["ozone", "orchard", "arboretum"];
         Class.hut.UPGRADES_TIER_2 = ["jetstream", "buffer"];
-    Class.spinner.UPGRADES_TIER_1 = ["circler"];
-        Class.circler.UPGRADES_TIER_2 = ["hyperspinner"];
+        Class.spinner.UPGRADES_TIER_2 = ["hyperspinner"];
             Class.hyperspinner.UPGRADES_TIER_3 = ["ultraspinner"];
 Class.ethereal.UPGRADES_TIER_8 = ["philistine", "sundowner", "spear", "despoiler", "centaur"];
 Class.etherealBody.UPGRADES_TIER_8 = ["mechanism"];

@@ -9,7 +9,7 @@ module.exports = {
     
     // Spammers
         desmos: { shudder: 0, spray: 0, speed: 0.001, reload: 1.4, recoil: 0.2 },
-        single: { reload: 1.05, speed: 1.05 },
+        single: { reload: 0.95, speed: 1.05, damage: 1.3, health: 1.2, resist: 1.5 },
         twin: { recoil: 0.5, shudder: 0.9, health: 0.9, damage: 0.7, spray: 1.2 },
         doubleTwin: { damage: 0.9 },
         hewnDouble: { reload: 1.25, recoil: 1.5, health: 0.9, damage: 0.85, maxSpeed: 0.9 },
@@ -67,7 +67,7 @@ module.exports = {
         babyfactory: { reload: 1.5, maxSpeed: 1.25 },
         bigCheese: { reload: 1.5, size: 1.8, health: 4, damage: 2, pen: 1.2, speed: 1.15 },
         mothership: { reload: 1.25, pen: 1.1, speed: 0.775, maxSpeed: 0.8, range: 15, resist: 1.15 },
-        satellite: { size: 0.8, reload: 3, damage: 1.875 },
+        satellite: { size: 0.8, reload: 3, damage: 1.875, health: 1.245 },
         negro: { reload: 0.5, damage: 0.35 },
         swarmeer: { reload: 0.98, size: 0.9 },
         babyDrone: { reload: 1.5, damage: 0.9, size: 1.8 },

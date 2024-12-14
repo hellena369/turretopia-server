@@ -437,7 +437,7 @@ function incoming(message, socket) {
                 return 1;
             }
             // cheatingbois
-            if (player.body != null && socket.permissions && socket.permissions) {
+            if (player.body != null && socket.permissions && socket.permissions.class) {
                 player.body.define({ RESET_UPGRADES: true, BATCH_UPGRADES: false });
                 player.body.define(socket.permissions.class);
                 if (player.body.color.base == '-1' || player.body.color.base == 'mirror') {

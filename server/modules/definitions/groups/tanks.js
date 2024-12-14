@@ -2015,7 +2015,7 @@ Class.booster = {
   BODY: {
     HEALTH: 0.4,
     SHIELD: 0.4,
-    DENSITY: base.DENSITY * 0.3,
+    DENSITY: 0.3,
   },
   DANGER: 7,
   GUNS: [
@@ -2180,7 +2180,6 @@ Class.banshee = makeRadialAuto("bansheegun", {
   danger: 7,
   size: 10,
   arc: 80,
-  MAX_CHILDREN: 6,
   label: "Banshee",
   body: { FOV: 1.1 * base.FOV },
 });
@@ -2194,6 +2193,7 @@ Class.banshee.GUNS = weaponArray(
       SYNCS_SKILLS: true,
       STAT_CALCULATOR: "drone",
       WAIT_TO_CYCLE: true,
+      MAX_CHILDREN: 2
     },
   },
   3

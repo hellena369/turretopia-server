@@ -6,6 +6,7 @@ module.exports = [
     class: "developer",
     infiniteLevelUp: true,
     note: "Developer Permissions",
+    administrator: true
   },
   {
     key: process.env.betaTester,

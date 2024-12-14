@@ -535,6 +535,22 @@ case 'soldier':
 			}
 		}
 	})
+
+	commands.add({
+		name: ['obtain', 'o'],
+		args: [0],
+		doc: [
+			'Obtain a new tank!',
+			'Uses wood, iron, gold, amethyst or titanium.',
+			'If it can\'t use any of these, uses your tank tokens instead.',
+			'Usage: /obtain [tank name]'
+		],
+		perms: perm.user,
+		execute: ({command, body, args }) => {
+			const arg = args.get(0);
+			command.send("This command is currently a placeholder.")
+		}
+	})
   
 	commands.add({
 		name: ['help', 'h', '?'],

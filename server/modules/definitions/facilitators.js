@@ -206,6 +206,11 @@ exports.makeBird = (type, name = -1, options = {}) => {
     if (output.FACING_TYPE == "locksFacing") output.FACING_TYPE = "toTarget";
     output.GUNS = type.GUNS == null ? [...shootyBois] : [...output.GUNS, ...shootyBois];
     output.LABEL = name == -1 ? "Bird " + type.LABEL : name;
+    output.BODY = {
+        HEALTH: 0.8,
+        DENSITY: 0.8,
+        SHIELD: 0.8
+    }
     return output;
 }
 
@@ -887,20 +892,8 @@ exports.makeIrdB = (type) => {
         PENETRATION: base.PENETRATION * 1.1,
         FOV: base.FOV * 1.05
     };
-    output.turrets?.type?.guns.forEach(g => g.shootSettings ? (g.shootSettings.damage ? g.shootSettings.damage *= 1.2 : null) : null);
-    output.turrets?.type?.guns.forEach(g => g.shootSettings ? (g.shootSettings.health ? g.shootSettings.health *= 1.2 : null) : null);
-    if (type.TURRETS) {
-        for (let thing of output?.TURRETS?.TYPE.GUNS) {
-            if (thing.PROPERTIES.MAX_CHILDREN) {
-                thing.PROPERTIES.MAX_CHILDREN *= 1.5;
-            }
-        }
-        for (let thing of output.TURRETS.TYPE.MAX_CHILDREN) {
-            if (thing.MAX_CHILDREN) {
-                thing.MAX_CHILDREN *= 1.5;
-            }
-        }
-    }
+    output?.turrets?.type?.guns.forEach(g => g.shootSettings ? (g.shootSettings.damage ? g.shootSettings.damage *= 1.2 : null) : null);
+    output?.turrets?.type?.guns.forEach(g => g.shootSettings ? (g.shootSettings.health ? g.shootSettings.health *= 1.2 : null) : null);
     output.GLOW = {
         RADIUS: 3,
         COLOR: "rainbow",
