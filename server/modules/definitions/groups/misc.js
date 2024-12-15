@@ -285,6 +285,7 @@ Class.sentry = {
         shi: 0,
         rgn: 0.7,
         mob: 0,
+        mxc: 0
     }),
     VALUE: 1500,
     VARIES_IN_SIZE: true,
@@ -390,6 +391,7 @@ Class.sentinel = {
         shi: 0.45, //shield capacity
         rgn: 0.35, //shield regeneration
         mob: 0, //movement speed
+        mxc: 1, //max children
     }),
     VALUE: 26668,
     VARIES_IN_SIZE: true,
@@ -640,7 +642,7 @@ Class.arenaCloser = {
         FOV: 10,
         SPEED: 8,
     },
-    SKILL: skillSet({ rld: 1, dam: 1, pen: 1, str: 1, spd: 1, atk: 1, hlt: 1, shi: 1, rgn: 1, mob: 1 }),
+    SKILL: skillSet({ rld: 1, dam: 1, pen: 1, str: 1, spd: 1, atk: 1, hlt: 1, shi: 1, rgn: 1, mob: 1, mxc: 1 }),
     DRAW_HEALTH: false,
     HITS_OWN_TYPE: "never",
     ARENA_CLOSER: true,

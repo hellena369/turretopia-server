@@ -1141,6 +1141,45 @@ Class.whirlwind = {
 }
 
 // Whirlwind upgrades
+Class.turbinate = {
+    PARENT: "genericTank",
+    LABEL: "Turbinate",
+    DANGER: 7,
+    TURRETS: [
+        {
+            POSITION: [6, 12, 0, 0, 360, 1],
+            TYPE: "whirlwindDeco",
+        },
+    ],
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8,
+                ASPECT: 1,
+                X: 0,
+                Y: 0,
+                ANGLE: 0,
+                DELAY: 0
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, { reload: 1.05 }]),
+                TYPE: "whirlet",
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 17,
+                WIDTH: 3,
+                ASPECT: 1.3,
+                X: 0,
+                Y: 0,
+                ANGLE: 0,
+                DELAY: 0
+            },
+        }
+    ]
+}
 Class.tornado = {
     PARENT: "genericTank",
     LABEL: "Tornado",

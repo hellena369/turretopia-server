@@ -133,7 +133,6 @@ Class.director = {
   PARENT: "genericTank",
   LABEL: "Director",
   STAT_NAMES: statnames.drone,
-  MAX_CHILDREN: 6,
   BODY: {
     FOV: base.FOV * 1.1,
   },
@@ -152,6 +151,7 @@ Class.director = {
         SYNCS_SKILLS: true,
         STAT_CALCULATOR: "drone",
         WAIT_TO_CYCLE: true,
+        MAX_CHILDREN: 6,
       },
     },
   ],
@@ -2208,7 +2208,6 @@ Class.overseer = {
   BODY: {
     FOV: 1.1 * base.FOV,
   },
-  MAX_CHILDREN: 8,
   GUNS: weaponArray(
     {
       POSITION: [6, 12, 1.2, 8, 0, 90, 0],
@@ -2219,6 +2218,7 @@ Class.overseer = {
         SYNCS_SKILLS: true,
         STAT_CALCULATOR: "drone",
         WAIT_TO_CYCLE: true,
+        MAX_CHILDREN: 8,
       },
     },
     2
@@ -2322,7 +2322,6 @@ Class.manager = {
   },
   INVISIBLE: [0.08, 0.03],
   TOOLTIP: "Stay still to turn invisible.",
-  MAX_CHILDREN: 8,
   GUNS: [
     {
       POSITION: [6, 12, 1.2, 8, 0, 0, 0],
@@ -2332,6 +2331,7 @@ Class.manager = {
         AUTOFIRE: true,
         SYNCS_SKILLS: true,
         STAT_CALCULATOR: "drone",
+        MAX_CHILDREN: 8,
       },
     },
   ],
@@ -2340,7 +2340,6 @@ Class.bigCheese = {
   PARENT: "genericTank",
   LABEL: "Big Cheese",
   STAT_NAMES: statnames.drone,
-  MAX_CHILDREN: 1,
   DANGER: 7,
   BODY: {
     FOV: base.FOV * 1.1,
@@ -2354,6 +2353,7 @@ Class.bigCheese = {
         AUTOFIRE: true,
         SYNCS_SKILLS: true,
         STAT_CALCULATOR: "drone",
+        MAX_CHILDREN: 1
       },
     },
   ],
@@ -2369,7 +2369,6 @@ Class.overlord = {
     FOV: 1.1 * base.FOV,
     SPEED: 0.9
   },
-  MAX_CHILDREN: 8,
   GUNS: weaponArray(
     {
       POSITION: [6, 12, 1.2, 8, 0, 0, 0],
@@ -2380,6 +2379,7 @@ Class.overlord = {
         SYNCS_SKILLS: true,
         STAT_CALCULATOR: "drone",
         WAIT_TO_CYCLE: true,
+        MAX_CHILDREN: 8,
       },
     },
     4
@@ -2390,7 +2390,6 @@ Class.overdrive = {
   LABEL: "Overdrive",
   DANGER: 7,
   STAT_NAMES: statnames.drone,
-  MAX_CHILDREN: 8,
   BODY: {
     FOV: 1.1 * base.FOV,
   },
@@ -2405,6 +2404,7 @@ Class.overdrive = {
           SYNCS_SKILLS: true,
           STAT_CALCULATOR: "drone",
           WAIT_TO_CYCLE: true,
+          MAX_CHILDREN: 8,
         },
       },
       {
@@ -4508,6 +4508,16 @@ Class.killme = makeAuto(
   },
   "kill me let it rain edition"
 );
+Class.killme2 = makeAuto(
+    {
+      PARENT: "genericTank",
+      BODY: {
+        FOV: 1.2 * base.FOV
+      },
+      GUNS: combineGuns("annihilator", "mortar", "ranger", "builder")
+    },
+    "kill me annihilation edition"
+)
 // Upgrade Paths
 
 Class.twin.UPGRADES_TIER_2 = [

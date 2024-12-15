@@ -757,7 +757,6 @@ Class.storm = {
     BODY: {
         FOV: base.FOV * 1.1
     },
-    MAX_CHILDREN: 6,
     GUNS: [
         {
             POSITION: [9, 7, 1.6, 7, 0, 0, 0],
@@ -770,7 +769,8 @@ Class.storm = {
                 AUTOFIRE: true,
                 SYNCS_SKILLS: true,
                 STAT_CALCULATOR: "drone",
-                WAIT_TO_CYCLE: true
+                WAIT_TO_CYCLE: true,
+                MAX_CHILDREN: 6,
             }
         }
     ],
@@ -782,7 +782,6 @@ Class.cortex = {
     BODY: {
         FOV: base.FOV * 1.1
     },
-    MAX_CHILDREN: 6,
     GUNS: [
         {
             POSITION: [9, 7, 1.6, 7, 0, 0, 0],
@@ -798,7 +797,8 @@ Class.cortex = {
                 AUTOFIRE: true,
                 SYNCS_SKILLS: true,
                 STAT_CALCULATOR: "drone",
-                WAIT_TO_CYCLE: true
+                WAIT_TO_CYCLE: true,
+                MAX_CHILDREN: 6,
             }
         }
     ]
@@ -974,7 +974,6 @@ Class.sentryDeco = makeDeco(3, "pink")
 Class.sentrySeer = {
     PARENT: "genericTank",
     LABEL: "Sentryseer",
-    MAX_CHILDREN: 3,
     DANGER: 7,
     STAT_NAMES: statnames.drone,
     BODY: {
@@ -988,7 +987,8 @@ Class.sentrySeer = {
                 TYPE: ["sentrySwarmMinion", { COLOR: "mirror"}],
                 SYNCS_SKILLS: true,
                 STAT_CALCULATOR: "drone",
-                AUTOFIRE: true
+                AUTOFIRE: true,
+                MAX_CHILDREN: 1,
             },
         }, {
             POSITION: [6, 12, 1.2, 8, 0, 0, 0],
@@ -997,7 +997,8 @@ Class.sentrySeer = {
                 TYPE: ["sentryTrapMinion", { COLOR: "mirror"}],
                 SYNCS_SKILLS: true,
                 STAT_CALCULATOR: "drone",
-                AUTOFIRE: true
+                AUTOFIRE: true,
+                MAX_CHILDREN: 1,
             },
         }, {
             POSITION: [6, 12, 1.2, 8, 0, 240, 0],
@@ -1006,7 +1007,8 @@ Class.sentrySeer = {
                 TYPE: ["sentryGunMinion", { COLOR: "mirror"}],
                 SYNCS_SKILLS: true,
                 STAT_CALCULATOR: "drone",
-                AUTOFIRE: true
+                AUTOFIRE: true,
+                MAX_CHILDREN: 1,
             },
         },
         ...weaponArray(
@@ -1041,7 +1043,6 @@ Class.overviewer = {
     BODY: {
         FOV: 1.1 * base.FOV,
     },
-    MAX_CHILDREN: 8,
     GUNS: weaponArray({
         POSITION: [6, 12, 1.2, 8, 0, 120, 0],
         PROPERTIES: {
@@ -1050,7 +1051,8 @@ Class.overviewer = {
             AUTOFIRE: true,
             SYNCS_SKILLS: true,
             STAT_CALCULATOR: "drone",
-            WAIT_TO_CYCLE: true
+            WAIT_TO_CYCLE: true,
+            MAX_CHILDREN: 8,
         }
     }, 3)
 }
@@ -1244,7 +1246,6 @@ Class.creator = {
     BODY: {
         FOV: 1.2,
     },
-    MAX_CHILDREN: 7,
     GUNS: [
         {
             POSITION: [6, 14, 1, 10.5, 0, 0, 0],
@@ -1257,6 +1258,7 @@ Class.creator = {
                 STAT_CALCULATOR: "drone",
                 AUTOFIRE: true,
                 SYNCS_SKILLS: true,
+                MAX_CHILDREN: 7,
             },
         },
         {
@@ -1267,7 +1269,6 @@ Class.creator = {
 Class.topBanana = {
     PARENT: "factory",
     LABEL: "Top Banana",
-    MAX_CHILDREN: 1,
     BODY: {FOV: 1.1 * base.FOV},
     GUNS: [
         {
@@ -1281,7 +1282,8 @@ Class.topBanana = {
                 STAT_CALCULATOR: "drone",
                 AUTOFIRE: true,
                 SYNCS_SKILLS: true,
-                DELAY_SPAWN: true
+                DELAY_SPAWN: true,
+                MAX_CHILDREN: 1,
             },
         },
         {
@@ -1293,7 +1295,6 @@ Class.foundry = {
     PARENT: "factory",
     LABEL: "Foundry",
     BODY: {FOV: 1.1 * base.FOV},
-    MAX_CHILDREN: 3,
     GUNS: [
         {
             POSITION: [5, 13, 1, 10.5, 0, 0, 0],
@@ -1306,6 +1307,7 @@ Class.foundry = {
                 STAT_CALCULATOR: "drone",
                 AUTOFIRE: true,
                 SYNCS_SKILLS: true,
+                MAX_CHILDREN: 3,
             },
         },
         {
@@ -1634,7 +1636,6 @@ Class.watchman = {
     PARENT: "factory",
     LABEL: "Watchman",
     SHAPE: 4,
-    MAX_CHILDREN: 4,
     BODY: {FOV: 1.1 * base.FOV},
     GUNS: [
         {
@@ -1648,6 +1649,7 @@ Class.watchman = {
                 STAT_CALCULATOR: "drone",
                 AUTOFIRE: true,
                 SYNCS_SKILLS: true,
+                MAX_CHILDREN: 4,
             },
         },
         {
@@ -1970,7 +1972,6 @@ Class.leader = {
     BODY: {
         FOV: 1.15 * base.FOV,
     },
-    MAX_CHILDREN: 8,
     GUNS: [
         {
             POSITION: [6, 12, 1.2, 8, 0, 0, 0],
@@ -1980,6 +1981,7 @@ Class.leader = {
                 AUTOFIRE: true,
                 SYNCS_SKILLS: true,
                 STAT_CALCULATOR: "drone",
+                MAX_CHILDREN: 8,
             },
         },
     ],
@@ -2866,6 +2868,149 @@ Class.dobloon = {
         ...dobloong
     ],
 };
+Class.oobloon = {
+    PARENT: "genericTank",
+    LABEL: "Oobloon",
+    DANGER: 7,
+    HAS_NO_RECOIL: true,
+    GUNS: [
+        {
+            POSITION: [18, 8, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [18, 8, 1, 0, 0, 180, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic]),
+                TYPE: "bullet",
+            },
+        },
+        ...dobloong
+    ],
+};
+Class.superloon = {
+    PARENT: "genericTank",
+    LABEL: "Superloon",
+    DANGER: 7,
+    HAS_NO_RECOIL: true,
+    GUNS: [
+        {
+            POSITION: [18, 8, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [18, 8, 1, 0, 0, 180, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic]),
+                TYPE: "bullet",
+            },
+        },
+
+        {
+            POSITION: [15, 3.5, 1, 0, 0, 90, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [15, 3.5, 1, 0, 0, -90, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [15, 3.5, 1, 0, 0, 35, 2/3],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [15, 3.5, 1, 0, 0, -35, 2/3],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [15, 3.5, 1, 0, 0, 142.5, 2/3],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [15, 3.5, 1, 0, 0, -142.5, 2/3],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [15, 3.5, 1, 0, 0, 115, 1/3],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [15, 3.5, 1, 0, 0, -115, 1/3],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [15, 3.5, 1, 0, 0, 62.5, 1/3],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [15, 3.5, 1, 0, 0, -62.5, 1/3],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
+                TYPE: "bullet",
+            },
+        },
+    ],
+};
+Class.twinloon = {
+    PARENT: "doubleTwin",
+    LABEL: "Twinloon",
+    DANGER: 7,
+    HAS_NO_RECOIL: true,
+    GUNS: [
+        ...weaponArray(
+        [
+            {
+                POSITION: [20, 8, 1, 0, 5.5, 0, 0],
+                PROPERTIES: {
+                    SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.doubleTwin]),
+                    TYPE: "bullet",
+                },
+            },
+            {
+                POSITION: [20, 8, 1, 0, -5.5, 0, 0.5],
+                PROPERTIES: {
+                    SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.doubleTwin]),
+                    TYPE: "bullet",
+                },
+            },
+        ], 2
+        ),
+        ...dobloong
+    ]
+}
 Class.equalizer = {
     PARENT: "genericTank",
     LABEL: "Equalizer",
@@ -6239,9 +6384,10 @@ Class.hut = {
 const etherealDeco = {
     PARENT: "genericTank",
     SHAPE: 3.5,
-    COLOR: "teal",
+    COLOR: "lavender",
     SIZE: 20,
-    IS_ETHEREAL: true
+    IS_ETHEREAL: true,
+    REROOT_UPGRADE_TREE: "ethereal"
 }
 const smolEtherealBody = {
     SPEED: base.SPEED * 0.65,
@@ -6279,17 +6425,42 @@ Class.genericBigEthereal = {
     ...etherealDeco,
     BODY: bigEtherealBody
 }
+g.autoGun = {recoil: 0.125}
 Class.etherealAutoGun = makeTurret({
     GUNS: [
         {
-            POSITION: [22, 10, 1, 0, 0, 0, 0],
+            POSITION: [26, 10, 1, 0, 0, 0, 0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.heavier, { reload: 1.25, range: 1.1 }]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.heavier, g.autoGun, g.autoTurret, { range: 1.1, damage: 1.275, health: 1.05, reload: 1.05 }]),
                 TYPE: "bullet"
             },
         },
     ],
 }, {canRepel: true, limitFov: true, fov: 2})
+Class.bombardAutoTurret = makeTurret({
+    GUNS: [
+        {
+            POSITION: [24, 14, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.autoGun, g.autoTurret, { range: 1.1, damage: 1.275, health: 1.05, reload: 1.05 }]),
+                TYPE: "bullet"
+            },
+        },
+    ],
+}, {canRepel: true, limitFov: true, fov: 2})
+Class.spamAutoTurret = {
+    PARENT: "autoTankGun",
+    INDEPENDENT: true,
+    GUNS: [
+        {
+            POSITION: [22, 10, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.flankGuard, g.flankGuard, g.autoTurret, g.autoGun, {recoil: 0.125}]),
+                TYPE: "bullet",
+            },
+        },
+    ],
+}
 Class.ethereal = {
     PARENT: "genericSmolEthereal",
     UPGRADE_LABEL: "ASCEND",
@@ -6300,11 +6471,6 @@ Class.etherealBody = {
     UPGRADE_LABEL: "ASCEND",
     LABEL: "Node",
 }
-Class.etherealHull = {
-    PARENT: "genericSmolEthereal",
-    UPGRADE_LABEL: "ASCEND",
-    LABEL: "Hull"
-}
 Class.philistine = {
     PARENT: "genericSmolEthereal",
     LABEL: "Philistine",
@@ -6314,26 +6480,13 @@ Class.philistine = {
             {
                 POSITION: {
                     LENGTH: 13.5,
-                    WIDTH: 6,
-                    Y: 5.5
+                    WIDTH: 6
                 },
                 PROPERTIES: {
-                    SHOOT_SETTINGS: combineStats([g.basic, g.twin, { reload: 1.05, range: 0.9, health: 1.1 }]),
+                    SHOOT_SETTINGS: combineStats([g.basic, { reload: 1.05, range: 0.9 }]),
                     TYPE: "bullet"
                 }
             },
-            {
-                POSITION: {
-                    LENGTH: 13.5,
-                    WIDTH: 6,
-                    Y: -5.5,
-                    DELAY: 0.5
-                },
-                PROPERTIES: {
-                    SHOOT_SETTINGS: combineStats([g.basic, g.twin, { reload: 1.05, range: 0.9, health: 1.1 }]),
-                    TYPE: "bullet"
-                }
-            }
         ], 3
     )
 }
@@ -6364,8 +6517,7 @@ Class.sundowner = {
                 POSITION: {
                     LENGTH: 14,
                     WIDTH: 5.5,
-                    ASPECT: 1.7,
-                    Y: 6.5
+                    ASPECT: 1.7
                 },
                 PROPERTIES: {
                     SHOOT_SETTINGS: combineStats([g.drone, g.overseer, { reload: 1.05, maxSpeed: 0.9, health: 1.2, damage: 1.2, size: 1.75 }]),
@@ -6377,24 +6529,6 @@ Class.sundowner = {
                     WAIT_TO_CYCLE: true,
                 }
             },
-            {
-                POSITION: {
-                    LENGTH: 14,
-                    WIDTH: 5.5,
-                    ASPECT: 1.7,
-                    Y: -6.5,
-                    DELAY: 0.5
-                },
-                PROPERTIES: {
-                    SHOOT_SETTINGS: combineStats([g.drone, g.overseer, { reload: 1.05, maxSpeed: 0.9, health: 1.2, damage: 1.2, size: 1.75 }]),
-                    TYPE: "drone",
-                    MAX_CHILDREN: 2,
-                    AUTOFIRE: true,
-                    SYNCS_SKILLS: true,
-                    STAT_CALCULATOR: "drone",
-                    WAIT_TO_CYCLE: true,
-                }
-            }
         ], 3
     )
 }
@@ -6435,14 +6569,48 @@ Class.centaur = {
         ], 3
     )
 }
-Class.mechanism = {
+Class.autoEth = {
     PARENT: "genericSmolEthereal",
-    LABEL: "Mechanism",
+    LABEL: "Auto",
     UPGRADE_TOOLTIP: "Mainly focuses on auto-turrets.",
     TURRETS: [
         {
             POSITION: [9, 0, 0, 0, 360, 1],
             TYPE: ["etherealAutoGun", { INDEPENDENT: true }]
+        }
+    ]
+}
+Class.networks = {
+    PARENT: "genericSmolEthereal",
+    LABEL: "Network",
+    UPGRADE_TOOLTIP: "Center auto turret with more small ones.",
+    TURRETS: [
+        {
+            POSITION: [9, 0, 0, 0, 360, 1],
+            TYPE: ["etherealAutoGun", { INDEPENDENT: true }]
+        },
+        {
+            POSITION: [5, 8, 0, 60, 360, 1],
+            TYPE: ["spamAutoTurret", { INDEPENDENT: true }]
+        },
+        {
+            POSITION: [5, 8, 0, 180, 360, 1],
+            TYPE: ["spamAutoTurret", { INDEPENDENT: true }]
+        },
+        {
+            POSITION: [5, 8, 0, 300, 360, 1],
+            TYPE: ["spamAutoTurret", { INDEPENDENT: true }]
+        }
+    ]
+}
+Class.bombard = {
+    PARENT: "genericSmolEthereal",
+    LABEL: "Bombard",
+    UPGRADE_TOOLTIP: "Beefy boi.",
+    TURRETS: [
+        {
+            POSITION: [9, 0, 0, 0, 360, 1],
+            TYPE: ["bombardAutoTurret", { INDEPENDENT: true }]
         }
     ]
 }
@@ -6477,6 +6645,7 @@ Class.radical.UPGRADES_TIER_2 = ["bumblebee", /*"healer",*/ "desmos"];
 Class.radical.UPGRADES_TIER_3 = ["advanced"];
 Class.gunner.UPGRADES_TIER_3.push("gunnerCruiser", "vulcan");
 //Class.trapGuard.UPGRADES_TIER_3.push("whirlGuard")
+Class.advanced.UPGRADES_TIER_3 = ["turbinate"]
 Class.advanced.UPGRADES_TIER_5 = ["switcheroo", "realtor", "screamer", "flail"];
 Class.polyseer.UPGRADES_TIER_3 = ["polymancer", "polyshadow"];
 Class.fullyAutomatic.UPGRADES_TIER_3 = ["assaulter", "microgun"];
@@ -6577,5 +6746,6 @@ Class.system.UPGRADES_TIER_1 = ["spinner", "whirlwind"];
         Class.spinner.UPGRADES_TIER_2 = ["hyperspinner"];
             Class.hyperspinner.UPGRADES_TIER_3 = ["ultraspinner"];
 Class.ethereal.UPGRADES_TIER_8 = ["philistine", "sundowner", "spear", "despoiler", "centaur"];
-Class.etherealBody.UPGRADES_TIER_8 = ["mechanism"];
+Class.etherealBody.UPGRADES_TIER_8 = ["autoEth"];
+Class.autoEth.UPGRADES_TIER_8 = ["networks"];
 Class.minigun.UPGRADES_TIER_3.push("hotbed")

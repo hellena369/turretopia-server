@@ -17,6 +17,7 @@ const skcnv = {
     hlt: 7,
     rgn: 8,
     mob: 9,
+    mxc: 10
 };
 
 let curvePoints = [];
@@ -33,7 +34,7 @@ class Skill {
         // Just skill stuff.
         this.raw = inital;
         this.caps = [];
-        this.setCaps([ Config.MAX_SKILL, Config.MAX_SKILL, Config.MAX_SKILL, Config.MAX_SKILL, Config.MAX_SKILL, Config.MAX_SKILL, Config.MAX_SKILL, Config.MAX_SKILL, Config.MAX_SKILL, Config.MAX_SKILL ]);
+        this.setCaps([ Config.MAX_SKILL, Config.MAX_SKILL, Config.MAX_SKILL, Config.MAX_SKILL, Config.MAX_SKILL, Config.MAX_SKILL, Config.MAX_SKILL, Config.MAX_SKILL, Config.MAX_SKILL, Config.MAX_SKILL, Config.MAX_SKILL ]);
         this.name = [
             "Reload",
             "Weapon Penetration",
@@ -45,6 +46,7 @@ class Skill {
             "Max Health",
             "Shield Regeneration",
             "Movement Speed",
+            "Max Drone Count"
         ];
         this.atk = 0;
         this.hlt = 0;
@@ -56,6 +58,7 @@ class Skill {
         this.mob = 0;
         this.rgn = 0;
         this.shi = 0;
+        this.mxc = 0;
         this.rst = 0;
         this.brst = 0;
         this.ghost = 0;
@@ -73,14 +76,14 @@ class Skill {
         this.maintain();
     }
     update() {
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 11; i++) {
             if (this.raw[i] > this.caps[i]) {
                 this.points += this.raw[i] - this.caps[i];
                 this.raw[i] = this.caps[i];
             }
         }
         let attrib = [];
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 11; i++) {
             attrib[i] = curve(this.raw[i] / Config.MAX_SKILL);
         }
         this.rld = Math.pow(0.5, attrib[skcnv.rld]);
@@ -97,6 +100,7 @@ class Skill {
         this.mob = apply(0.8, attrib[skcnv.mob]);
         this.rgn = apply(25, attrib[skcnv.rgn]);
         this.brst = 0.3 * (0.5 * attrib[skcnv.atk] + 0.5 * attrib[skcnv.hlt] + attrib[skcnv.rgn]);
+        this.mxc = Math.pow(0.5, attrib[skcnv.mxc]);
     }
     set(thing) {
         this.raw[0] = thing[0];
@@ -109,6 +113,7 @@ class Skill {
         this.raw[7] = thing[7];
         this.raw[8] = thing[8];
         this.raw[9] = thing[9];
+        this.raw[10] = thing[10];
         this.update();
     }
     setCaps(thing) {
@@ -122,6 +127,7 @@ class Skill {
         this.caps[7] = thing[7];
         this.caps[8] = thing[8];
         this.caps[9] = thing[9];
+        this.caps[10] = thing[10];
         this.update();
     }
     maintain() {

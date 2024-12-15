@@ -218,6 +218,7 @@ function incoming(message, socket) {
             socket.talk("updateName", socket.player.body.name);
             // Log it
             util.log(`[INFO] ${name === "" ? "An unnamed player" : m[0]} ${needsRoom ? "joined" : "rejoined"} the game on team ${socket.player.body.team}! Players: ${players.length}`);
+            sockets.broadcast(`${name === "" ? "An unnamed player" : m[0]} ${needsRoom ? "joined" : "rejoined"} the game.`)
             break;
         case "S":
             // clock syncing
@@ -388,7 +389,7 @@ function incoming(message, socket) {
             }
             let number = m[0],
                 max = m[1],
-                stat = ["atk", "hlt", "spd", "str", "pen", "dam", "rld", "mob", "rgn", "shi"][number];
+                stat = ["atk", "hlt", "spd", "str", "pen", "dam", "rld", "mob", "rgn", "shi", "mxc"][number];
 
             if (typeof number != "number") {
                 socket.kick("Weird stat upgrade request number.");
@@ -795,7 +796,7 @@ function container(player) {
     let vars = [],
         skills = player.body.skill,
         out = [],
-        statnames = ["atk", "hlt", "spd", "str", "pen", "dam", "rld", "mob", "rgn", "shi"];
+        statnames = ["atk", "hlt", "spd", "str", "pen", "dam", "rld", "mob", "rgn", "shi", "mxc"];
     // Load everything (b/c I'm too lazy to do it manually)
     for (let i = 0; i < statnames.length; i++) {
         vars.push(floppy());
@@ -852,6 +853,7 @@ function container(player) {
 function getstuff(s) {
     let val = '';
     //these have to be in reverse order
+    val += s.amount("mxc").toString(16).padStart(2, '0');
     val += s.amount("shi").toString(16).padStart(2, '0');
     val += s.amount("rgn").toString(16).padStart(2, '0');
     val += s.amount("mob").toString(16).padStart(2, '0');

@@ -2,9 +2,9 @@ module.exports = {
     // Bases
         basic: { reload: 11, recoil: 1, shudder: 0.1, damage: 0.75, speed: 4.5, spray: 15 },
         drone: { reload: 36, recoil: 0.25, shudder: 0.1, size: 0.6, damage: 0.75, speed: 2, spray: 0.1 },
-        trap: { reload: 23, shudder: 0.25, size: 0.6, damage: 0.65, health: 0.5, speed: 5, spray: 15, resist: 3 },
-        swarm: { reload: 18, recoil: 0.25, shudder: 0.05, size: 0.4, damage: 0.7, speed: 4, spray: 5 },
-        factory: { reload: 48, shudder: 0.1, size: 0.7, damage: 0.75, health: 0.7, speed: 3, spray: 0.1 },
+        trap: { reload: 23, shudder: 0.25, size: 0.6, damage: 0.65, health: 0.75, speed: 5, spray: 15, resist: 3 },
+        swarm: { reload: 18, recoil: 0.25, shudder: 0.05, size: 0.4, damage: 0.75, speed: 4, spray: 5 },
+        factory: { reload: 48, shudder: 0.1, size: 0.75, damage: 0.75, health: 0.7, speed: 3, spray: 0.1 },
         productionist: { reload: 56, recoil: 0.25, shudder: 0.05, size: 0.7, damage: 0.75, speed: 4, range: 1.5, spray: 5 },
     
     // Spammers
@@ -68,9 +68,10 @@ module.exports = {
         bigCheese: { reload: 1.5, size: 1.8, health: 4, damage: 2, pen: 1.2, speed: 1.15 },
         mothership: { reload: 1.25, pen: 1.1, speed: 0.775, maxSpeed: 0.8, range: 15, resist: 1.15 },
         satellite: { size: 0.8, reload: 3, damage: 1.875, health: 1.245 },
+        suborbit: { size: 1.2, damage: 0.7, health: 0.8 },
         negro: { reload: 0.5, damage: 0.35 },
         swarmeer: { reload: 0.98, size: 0.9 },
-        babyDrone: { reload: 1.5, damage: 0.9, size: 1.8 },
+        babyDrone: { reload: 1.5, size: 1.8 },
         nest: { damage: 1.6 },
     
     // Heavy cannons

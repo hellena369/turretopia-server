@@ -1,6 +1,6 @@
 const { MAX_SKILL } = require("../../config.js")
 const g = require('./gunvals.js')
-const {base, BODY, basePlayerHealth} = require("./constants");
+const {base, basePlayerHealth} = require("./constants");
 let skcnv = {
     atk: 6,
     spd: 4,
@@ -12,6 +12,7 @@ let skcnv = {
     pen: 1,
     rgn: 8,
     hlt: 7,
+    mxc: 10
 }
 
 // gun definitions
@@ -929,3 +930,38 @@ exports.makeIrdA = (type) => {
     }
     return output;
 }
+// Facilitators
+const addMorphAnimation = (baseName, frames, reverse, delay) => {
+    if (reverse) {
+        return [{
+            event: "altFire",
+            handler: ({body}) => {
+                for (let i = frames - 1; i > -1; i--) {
+                    let multiplier = frames - i;
+                    setTimeout(() => {
+                        body.define(Class[`${baseName}${i}`]);
+                    }, (multiplier - 1) * delay);
+                }
+            }
+        }]
+    } else {
+        return [{
+            event: "altFire",
+            handler: ({body}) => {
+                for (let i = 1; i < frames + 1; i++) {
+                    setTimeout(() => {
+                        body.define(Class[`${baseName}${i}`]);
+                    }, i * delay);
+                }
+            }
+        }]
+    }
+};
+const addMorphBarrel = [{
+    POSITION: [0, 0, 1, 0, 0, 0, 0],
+    PROPERTIES: {
+        TYPE: "bullet",
+        SHOOT_SETTINGS: exports.combineStats([g.basic, {range: 10e-8, reload: 2.5}]),
+        ALT_FIRE: true,
+    }
+}];

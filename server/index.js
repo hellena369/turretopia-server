@@ -382,7 +382,7 @@ const maintainloop = () => {
     }
     o.skill.maintain();
     o.skillUp(
-      ["atk", "hlt", "spd", "str", "pen", "dam", "rld", "mob", "rgn", "shi"][
+      ["atk", "hlt", "spd", "str", "pen", "dam", "rld", "mob", "rgn", "shi", "mxc"][
         ran.chooseChance(...Config.BOT_SKILL_UPGRADE_CHANCES)
       ]
     );

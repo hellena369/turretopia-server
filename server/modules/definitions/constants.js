@@ -1,6 +1,6 @@
 module.exports = {
-	basePolygonDamage: 1,
-	basePolygonHealth: 2,
+	basePolygonDamage: 2,
+	basePolygonHealth: 3,
 
 	basePlayerHealth: 30,
 
@@ -22,6 +22,7 @@ module.exports = {
 			MOVE_SPEED: 'Movement Speed',
 			SHIELD_REGEN: 'Shield Regeneration',
 			SHIELD_CAP: 'Shield Capacity',
+			MAXCHILDREN: 'Max Drone Count'
 		},
 		mixed: {
 			BULLET_SPEED: 'Weapon Speed',
@@ -47,7 +48,7 @@ module.exports = {
 			BULLET_HEALTH: 'Drone Health',
 			BULLET_PEN: 'Drone Penetration',
 			BULLET_DAMAGE: 'Drone Damage',
-			RELOAD: 'Max Drone Count',
+			RELOAD: 'Respawn Rate',
 		},
 		trap: {
 			BULLET_SPEED: 'Placement Speed',

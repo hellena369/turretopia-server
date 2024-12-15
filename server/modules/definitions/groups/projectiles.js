@@ -707,3 +707,68 @@ Class.heatMissile = {
         }
     ]
 }
+
+Class.subSatellite = {
+    LABEL: "Satellite",
+    TYPE: "satellite",
+    ACCEPTS_SCORE: false,
+    DANGER: 2,
+    SHAPE: 0,
+    LAYER: 13,
+    CONTROLLERS: ['orbit2'],
+    FACING_TYPE: "spin",
+    BODY: {
+        PENETRATION: 1.2,
+        PUSHABILITY: 0.6,
+        ACCELERATION: 0.75,
+        HEALTH: 0.3,
+        DAMAGE: 3.375,
+        SPEED: 10,
+        RANGE: 200,
+        DENSITY: 0.03,
+        RESIST: 1.5,
+        FOV: 0.5,
+    },
+
+    COLOR: 'mirror',
+    DRAW_HEALTH: false,
+    CLEAR_ON_MASTER_UPGRADE: true,
+    BUFF_VS_FOOD: true,
+    MOTION_TYPE: 'motor'
+}
+
+
+//projectiles.js
+
+
+Class.whirlet = {
+    PARENT:'bullet',
+    HAS_NO_RECOIL: true,
+    CONTROLLERS: ["whirlwind"],
+    TURRETS: [
+        {
+            POSITION: [8, 0, 0, 0, 360, 1],
+            TYPE: "whirlwindDeco"
+        }
+    ],
+    AI: {
+        SPEED: 2,
+    },
+    GUNS: (() => {
+        let output = []
+        for (let i = 0; i < 6; i++) {
+            output.push({
+                POSITION: {WIDTH: 8, LENGTH: 1, DELAY: i * 0.25},
+                PROPERTIES: {
+                    SHOOT_SETTINGS: combineStats([g.satellite, g.suborbit]),
+                    TYPE: ["subSatellite", {ANGLE: i * 60},],
+                    MAX_CHILDREN: 1,
+                    AUTOFIRE: true,
+                    SYNCS_SKILLS: false,
+                    WAIT_TO_CYCLE: true
+                }
+            })
+        }
+        return output
+    })()
+}

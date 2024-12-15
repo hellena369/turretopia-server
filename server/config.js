@@ -81,10 +81,10 @@ module.exports = {
     bulletSpawnOffset: 0.6,
 
     // General damage multiplier everytime damage is dealt.
-    DAMAGE_CONSTANT: 0.5,
+    DAMAGE_CONSTANT: 0.8,
 
     // General knockback multiplier everytime knockback is applied.
-    KNOCKBACK_CONSTANT: 1.25,
+    KNOCKBACK_CONSTANT: 1.125,
 
     // TODO: Figure out how the math behind this works.
     GLASS_HEALTH_FACTOR: 2,

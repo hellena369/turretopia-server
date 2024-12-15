@@ -49,10 +49,10 @@ class Gun extends EventEmitter {
             this.statCalculator = info.PROPERTIES.STAT_CALCULATOR ?? "default";
             this.waitToCycle = info.PROPERTIES.WAIT_TO_CYCLE ?? false;
             this.delaySpawn = info.PROPERTIES.DELAY_SPAWN ?? this.waitToCycle;
-            this.bulletSkills = (info.PROPERTIES.BULLET_STATS == null || info.PROPERTIES.BULLET_STATS == "master") ? "master" : new Skill(info.PROPERTIES.BULLET_STATS);
+            this.bulletSkills = (info.PROPERTIES.BULLET_STATS == null || info.PROPERTIES.BULLET_STATS === "master") ? "master" : new Skill(info.PROPERTIES.BULLET_STATS);
             this.useMasterSkills = this.bulletSkills === "master";
             this.shootSettings = info.PROPERTIES.SHOOT_SETTINGS == null ? [] : JSON.parse(JSON.stringify(info.PROPERTIES.SHOOT_SETTINGS));
-            this.maxChildren = info.PROPERTIES.MAX_CHILDREN ?? false;
+            this.maxChildren = info.PROPERTIES.MAX_CHILDREN * this.childrenLimitFactor ?? false;
             this.syncsSkills = info.PROPERTIES.SYNCS_SKILLS ?? false;
             this.negativeRecoil = info.PROPERTIES.NEGATIVE_RECOIL ? -1 : 1;
             this.independentChildren = info.PROPERTIES.INDEPENDENT_CHILDREN ?? false;
@@ -395,6 +395,7 @@ class Gun extends EventEmitter {
             HETERO: Math.max(0, 3 - 1.2 * this.bulletSkills.ghost),
         };
         this.reloadRateFactor = this.bulletSkills.rld;
+        this.childrenLimitFactor = this.bulletSkills.mxc;
         // Special cases
         switch (this.statCalculator) {
             case "thruster":
@@ -416,8 +417,7 @@ class Gun extends EventEmitter {
                 this.reloadRateFactor = 1;
                 break;
             case "necro":
-                this.childrenLimitFactor = this.bulletSkills.rld;
-                this.reloadRateFactor = 1;
+                break;
             case "drone":
                 out.PUSHABILITY = 1;
                 out.PENETRATION = Math.max(1, shoot.pen * (0.5 * (this.bulletSkills.pen - 1) + 1));
@@ -467,6 +467,7 @@ class Gun extends EventEmitter {
                 this.body.skill.raw[2],
                 this.body.skill.raw[3],
                 this.body.skill.raw[4],
+                0,
                 0,
                 0,
                 0,
@@ -1110,6 +1111,7 @@ class Entity extends EventEmitter {
             move_speed: set.STAT_NAMES?.MOVE_SPEED ?? 'Movement Speed',
             shield_regen: set.STAT_NAMES?.SHIELD_REGEN ?? 'Shield Regeneration',
             shield_cap: set.STAT_NAMES?.SHIELD_CAP ?? 'Shield Capacity',
+            max_children: set.STAT_NAMES?.MAXCHILDREN ?? 'Max Drone Count',
         };
         if (set.AI != null) this.aiSettings = set.AI;
         if (set.INVISIBLE != null) this.invisible = set.INVISIBLE;
@@ -1202,12 +1204,12 @@ class Entity extends EventEmitter {
             }
             this.refreshBodyAttributes();
         }
-        if (set.SKILL_CAP != null && set.SKILL_CAP != []) {
-            if (set.SKILL_CAP.length != 10) throw "Inappropiate skill cap amount.";
+        if (set.SKILL_CAP != null && set.SKILL_CAP !== []) {
+            if (set.SKILL_CAP.length !== 10) throw "Inappropriate skill cap amount.";
             this.skill.setCaps(set.SKILL_CAP);
         }
-        if (set.SKILL != null && set.SKILL != []) {
-            if (set.SKILL.length != 10) throw "Inappropiate skill raws.";
+        if (set.SKILL != null && set.SKILL !== []) {
+            if (set.SKILL.length !== 11) throw "Inappropriate skill raws.";
             this.skill.set(set.SKILL);
             this.syncSkillsToGuns();
         }
