@@ -30,7 +30,7 @@ function apply(f, x) {
 }
 
 class Skill {
-    constructor(inital = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]) {
+    constructor(inital = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]) {
         // Just skill stuff.
         this.raw = inital;
         this.caps = [];
@@ -101,8 +101,7 @@ class Skill {
         this.rgn = apply(25, attrib[skcnv.rgn]);
         this.brst = 0.3 * (0.5 * attrib[skcnv.atk] + 0.5 * attrib[skcnv.hlt] + attrib[skcnv.rgn]);
         this.mxc = Math.pow(0.5, attrib[skcnv.mxc]);
-    }
-    set(thing) {
+    }    set(thing) {
         this.raw[0] = thing[0];
         this.raw[1] = thing[1];
         this.raw[2] = thing[2];
@@ -114,6 +113,7 @@ class Skill {
         this.raw[8] = thing[8];
         this.raw[9] = thing[9];
         this.raw[10] = thing[10];
+        this.raw[11] = thing[11];
         this.update();
     }
     setCaps(thing) {
@@ -128,6 +128,7 @@ class Skill {
         this.caps[8] = thing[8];
         this.caps[9] = thing[9];
         this.caps[10] = thing[10];
+        this.caps[11] = thing[11];
         this.update();
     }
     maintain() {

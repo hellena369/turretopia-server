@@ -1209,7 +1209,7 @@ class Entity extends EventEmitter {
             this.skill.setCaps(set.SKILL_CAP);
         }
         if (set.SKILL != null && set.SKILL !== []) {
-            if (set.SKILL.length !== 11) throw "Inappropriate skill raws.";
+            //if (set.SKILL.length !== 11) throw "Inappropriate skill raws.";
             this.skill.set(set.SKILL);
             this.syncSkillsToGuns();
         }
