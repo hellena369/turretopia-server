@@ -16,7 +16,7 @@ Class.developer = {
         DENSITY: 20,
         FOV: 2,
     },
-    SKILL_CAP: Array(10).fill(dfltskl),
+    SKILL_CAP: Array(11).fill(dfltskl),
     IGNORED_BY_AI: true,
     RESET_CHILDREN: true,
     ACCEPTS_SCORE: true,
@@ -62,7 +62,7 @@ Class.spectator = {
     ARENA_CLOSER: true,
     IS_IMMUNE_TO_TILES: true,
     TOOLTIP: "Left click to teleport, Right click above or below the screen to change FOV",
-    SKILL_CAP: [0, 0, 0, 0, 0, 0, 0, 0, 0, 255],
+    SKILL_CAP: [0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 0],
     BODY: {
         PUSHABILITY: 0,
         SPEED: 5,
@@ -111,7 +111,7 @@ Class.generatorBase = {
     HITS_OWN_TYPE: "never",
     ARENA_CLOSER: true,
     IS_IMMUNE_TO_TILES: true,
-    SKILL_CAP: [31, 0, 0, 0, 0, 0, 0, 0, 0, 31],
+    SKILL_CAP: [31, 0, 0, 0, 0, 0, 0, 0, 0, 31, 0],
     BODY: {
         SPEED: 5,
         FOV: 2.5,
@@ -880,7 +880,7 @@ Class.armyOfOne = {
     PARENT: "genericTank",
     LABEL: "Army Of One",
     DANGER: 9,
-    SKILL_CAP: [31, 31, 31, 31, 31, 31, 31, 31, 31, 31],
+    SKILL_CAP: [31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31],
     BODY: {
         SPEED: 0.5 * base.SPEED,
         FOV: 1.8 * base.FOV,
@@ -2304,7 +2304,7 @@ Class.genericFlail = {
     PARENT: "genericTank",
     STAT_NAMES: statnames.flail,
     SYNC_WITH_TANK: true,
-    SKILL_CAP: [dfltskl, dfltskl, dfltskl, dfltskl, 0, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl],
+    SKILL_CAP: [dfltskl, dfltskl, dfltskl, dfltskl, 0, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, 0],
 }
 Class.flail = {
     PARENT: "genericFlail",
@@ -2619,7 +2619,7 @@ Class.flangle = {
             INDEPENDENT: true
         }]
     }],
-    SKILL_CAP: [dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl],
+    SKILL_CAP: [dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl],
 }
 Class.flooster = {
     PARENT: "genericFlail",
@@ -2666,7 +2666,7 @@ Class.flooster = {
             INDEPENDENT: true
         }]
     }],
-    SKILL_CAP: [dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl],
+    SKILL_CAP: [dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl],
 }
 Class.flace = {
     PARENT: "genericFlail",
@@ -2697,7 +2697,7 @@ Class.flace = {
             INDEPENDENT: true
         }]
     }],
-    SKILL_CAP: [dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl],
+    SKILL_CAP: [dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl],
 }
 
 

@@ -93,7 +93,7 @@ Class.eliteSprayer = {
     PARENT: "elite",
     UPGRADE_LABEL: "Elite Sprayer",
     UPGRADE_COLOR: "pink",
-    SKILL: [0, 9, 3, 9, 2, 9, 9, 9, 9, 0],
+    SKILL: [0, 9, 3, 9, 2, 9, 9, 9, 9, 0, 0],
     AI: { NO_LEAD: false },
     HAS_NO_RECOIL: true,
     TURRETS: [
@@ -350,7 +350,7 @@ Class.sprayerLegion = {
     UPGRADE_COLOR: "pink",
     AI: { NO_LEAD: false },
     SIZE: 30,
-    SKILL: [0, 9, 3, 9, 2, 9, 9, 9, 9, 0],
+    SKILL: [0, 9, 3, 9, 2, 9, 9, 9, 9, 0, 0],
     HAS_NO_RECOIL: true,
     BODY: {
         HEALTH: 8 * base.HEALTH,
@@ -1022,7 +1022,7 @@ Class.terrestrial = {
     LABEL: "Terrestrial",
     VALUE: 5e5,
     SHAPE: 7,
-    SKILL: [9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
+    SKILL: [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
     SIZE: 35,
     CONTROLLERS: [["minion", {orbit: 170}]],
     BODY: {
@@ -1040,7 +1040,7 @@ Class.celestial = {
     VALUE: 1e6,
     SHAPE: 9,
     SIZE: 45,
-    SKILL: [9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
+    SKILL: [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
     CONTROLLERS: [["minion", {orbit: 200}]],
     BODY: {
         FOV: 1,
@@ -1062,7 +1062,7 @@ Class.eternal = {
     VALUE: 4e6,
     SHAPE: 11,
     SIZE: 90,
-    SKILL: [9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
+    SKILL: [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
     CONTROLLERS: [["minion", {orbit: 240}]],
     BODY: {
         FOV: 1,
@@ -1358,7 +1358,7 @@ Class.timeline = {
     VALUE: 1e7,
     SHAPE: 12,
     SIZE: 100,
-    SKILL: [9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
+    SKILL: [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
     CONTROLLERS: [["minion", {orbit: 260}]],
     BODY: {
         FOV: 1,

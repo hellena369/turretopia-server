@@ -99,7 +99,7 @@ const hexnoughtScaleFactor = 0.9;
 // Misc
 Class.genericDreadnoughtOfficialV2 = {
 	PARENT: "genericTank",
-	SKILL_CAP: Array(10).fill(smshskl),
+	SKILL_CAP: Array(11).fill(smshskl),
 	REROOT_UPGRADE_TREE: ["dreadWeaponOfficialV2", "dreadBodyOfficialV2"],
 }
 Class.genericEggnought = {

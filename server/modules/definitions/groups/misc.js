@@ -581,7 +581,7 @@ Class.mothership = {
     SHAPE: 16,
     STAT_NAMES: statnames.drone,
     VALUE: 5e5,
-    SKILL: [9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
+    SKILL: [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
     BODY: {
         REGEN: 0,
         FOV: 1,
@@ -675,8 +675,8 @@ Class.antiTankMachineGun = {
         HETERO: 0,
         SHIELD: base.SHIELD * 1.4,
     },
-    SKILL_CAP: Array(10).fill(255),
-    SKILL: Array(10).fill(255),
+    SKILL_CAP: Array(11).fill(255),
+    SKILL: Array(11).fill(255),
     GUNS: [
         {
             POSITION: [18, 12, 0.8, 0, 0, 90, 0],
@@ -726,7 +726,7 @@ Class.tracker3 = {
   PARENT: "genericTank",
   LABEL: "Tracker-3",
   FACING_TYPE: ["spin", {speed: 0.02}],
-  SKILL_CAP: [0, 0, 0, 0, 0, smshskl, smshskl, smshskl, smshskl, smshskl],
+  SKILL_CAP: [0, 0, 0, 0, 0, smshskl, smshskl, smshskl, smshskl, smshskl, 0],
   TURRETS: weaponArray({
         POSITION: [11, 8, 0, 0, 190, 0],
         TYPE: ["tracker3gun", { INDEPENDENT: true }],
@@ -766,7 +766,7 @@ Class.keeper = {
     COLOR: "rainbow",
     SHAPE: 3,
     SIZE: 8,
-    SKILL: Array(10).fill(15),
+    SKILL: Array(11).fill(15),
     VALUE: 30e6,
     VARIES_IN_SIZE: true,
     CAN_BE_ON_LEADERBOARD: true,

@@ -774,8 +774,8 @@ Class.antiTankMachineGunArm = {
     PARENT: "genericTank",
     COLOR: "grey",
     CONTROLLERS: ["mapTargetToGoal"],
-    SKILL_CAP: Array(10).fill(255),
-    SKILL: Array(10).fill(255),
+    SKILL_CAP: Array(11).fill(255),
+    SKILL: Array(11).fill(255),
     GUNS: [
         {
             POSITION: [14.25, 3, 1, 0, -2, 0, 0.5],

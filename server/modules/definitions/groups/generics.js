@@ -56,9 +56,9 @@ Class.genericEntity = {
     UPGRADES_TIER_7: [],
     UPGRADES_TIER_8: [],
     UPGRADES_TIER_9: [],
-    SKILL: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    SKILL: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     LEVEL: 0,
-    SKILL_CAP: Array(10).fill(dfltskl),
+    SKILL_CAP: Array(11).fill(dfltskl),
     GUNS: [],
     MAX_CHILDREN: 0,
     BORDERLESS: false,
@@ -149,7 +149,7 @@ Class.genericSmasher = {
     PARENT: "genericTank",
     DANGER: 7,
     IS_SMASHER: true,
-    SKILL_CAP: [smshskl, 0, 0, 0, 0, smshskl, smshskl, smshskl, smshskl, smshskl],
+    SKILL_CAP: [smshskl, 0, 0, 0, 0, smshskl, smshskl, smshskl, smshskl, smshskl, 0],
     STAT_NAMES: statnames.smasher,
     BODY: {
         FOV: 1.05 * base.FOV,
@@ -171,6 +171,7 @@ Class.genericBoss = {
         shi: 0.7,
         rgn: 0.7,
         mob: 0,
+        mxc: 0
     }),
     LEVEL: 45,
     CONTROLLERS: ["nearestDifferentMaster", "canRepel"],

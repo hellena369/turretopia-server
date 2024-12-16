@@ -13,7 +13,7 @@ let EventEmitter = require('events'),
     init = g => events = g.events;
 const {ioTypes} = require("./controllers");
 const {Color} = require("./color");
-const {HealthType, Skill} = require("./entitySubFunctions");
+const {HealthType, Skill, skcnv} = require("./entitySubFunctions");
 
 class Gun extends EventEmitter {
     constructor(body, info) {
@@ -52,7 +52,7 @@ class Gun extends EventEmitter {
             this.bulletSkills = (info.PROPERTIES.BULLET_STATS == null || info.PROPERTIES.BULLET_STATS === "master") ? "master" : new Skill(info.PROPERTIES.BULLET_STATS);
             this.useMasterSkills = this.bulletSkills === "master";
             this.shootSettings = info.PROPERTIES.SHOOT_SETTINGS == null ? [] : JSON.parse(JSON.stringify(info.PROPERTIES.SHOOT_SETTINGS));
-            this.maxChildren = info.PROPERTIES.MAX_CHILDREN * this.childrenLimitFactor ?? false;
+            this.maxChildren = info.PROPERTIES.MAX_CHILDREN ?? false;
             this.syncsSkills = info.PROPERTIES.SYNCS_SKILLS ?? false;
             this.negativeRecoil = info.PROPERTIES.NEGATIVE_RECOIL ? -1 : 1;
             this.independentChildren = info.PROPERTIES.INDEPENDENT_CHILDREN ?? false;
@@ -417,6 +417,7 @@ class Gun extends EventEmitter {
                 this.reloadRateFactor = 1;
                 break;
             case "necro":
+                this.childrenLimitFactor = this.bulletSkills.mxc / 2;
                 break;
             case "drone":
                 out.PUSHABILITY = 1;
@@ -472,7 +473,7 @@ class Gun extends EventEmitter {
                 0,
                 0,
                 0,
-                0,
+                this.body.skill.raw[10],
             ];
         }
         return this.bulletSkills.raw;
@@ -1150,7 +1151,7 @@ class Entity extends EventEmitter {
         }
         if (set.RESET_UPGRADES || set.RESET_STATS) {
             let caps = this.skill.caps.map(x => x);
-            this.skill.setCaps(Array(10).fill(0));
+            this.skill.setCaps(Array(11).fill(0));
             this.skill.setCaps(caps);
             this.upgrades = [];
             this.isArenaCloser = false;
@@ -1205,11 +1206,10 @@ class Entity extends EventEmitter {
             this.refreshBodyAttributes();
         }
         if (set.SKILL_CAP != null && set.SKILL_CAP !== []) {
-            if (set.SKILL_CAP.length !== 10) throw "Inappropriate skill cap amount.";
+            //if (set.SKILL_CAP.length !== 11) throw "Inappropriate skill cap amount.";
             this.skill.setCaps(set.SKILL_CAP);
         }
         if (set.SKILL != null && set.SKILL !== []) {
-            //if (set.SKILL.length !== 11) throw "Inappropriate skill raws.";
             this.skill.set(set.SKILL);
             this.syncSkillsToGuns();
         }

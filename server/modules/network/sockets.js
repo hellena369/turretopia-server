@@ -218,7 +218,6 @@ function incoming(message, socket) {
             socket.talk("updateName", socket.player.body.name);
             // Log it
             util.log(`[INFO] ${name === "" ? "An unnamed player" : m[0]} ${needsRoom ? "joined" : "rejoined"} the game on team ${socket.player.body.team}! Players: ${players.length}`);
-            sockets.broadcast(`${name === "" ? "An unnamed player" : m[0]} ${needsRoom ? "joined" : "rejoined"} the game.`)
             break;
         case "S":
             // clock syncing
@@ -492,9 +491,9 @@ function incoming(message, socket) {
           case "keyStrong":
                   if (player.body != null && socket.permissions.class) {
                 player.body.define({ 
-                    SKILL_CAP: [12, 12, 12, 12, 12, 12, 12, 12, 12, 12],
+                    SKILL_CAP: [12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12],
                     });
-                player.body.skill.raw = Array(10).fill(12);
+                player.body.skill.raw = Array(11).fill(12);
                 } else {
                     return;
                 }
@@ -769,8 +768,8 @@ function floppy(value = null) {
                                     if (newValue[i] !== value[i]) eh = true;
                                 }
                             }
-                            break;
                         }
+                        break;
                     default:
                         util.error(newValue);
                         throw new Error("Unsupported type for a floppyvar!");

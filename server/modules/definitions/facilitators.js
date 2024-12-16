@@ -85,7 +85,7 @@ exports.setBuild = (build) => {
     return [6, 4, 3, 5, 2, 9, 0, 1, 8, 7].map((r) => skills[r]);
 }
 exports.skillSet = (args) => {
-    let skills = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    let skills = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     for (let s in args) {
         if (!args.hasOwnProperty(s)) continue;
         skills[skcnv[s]] = Math.round(MAX_SKILL * args[s]);

@@ -37,10 +37,10 @@ class Skill {
         this.setCaps([ Config.MAX_SKILL, Config.MAX_SKILL, Config.MAX_SKILL, Config.MAX_SKILL, Config.MAX_SKILL, Config.MAX_SKILL, Config.MAX_SKILL, Config.MAX_SKILL, Config.MAX_SKILL, Config.MAX_SKILL, Config.MAX_SKILL ]);
         this.name = [
             "Reload",
-            "Weapon Penetration",
-            "Weapon Health",
-            "Weapon Damage",
-            "Weapon Speed",
+            "Bullet Penetration",
+            "Bullet Health",
+            "Bullet Damage",
+            "Bullet Speed",
             "Shield Capacity",
             "Body Damage",
             "Max Health",
@@ -72,18 +72,18 @@ class Skill {
         this.level = 0;
         this.levelUpScore = 1;
         if (resetLSPF) this.LSPF = null;
-        this.set([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+        this.set([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
         this.maintain();
     }
     update() {
-        for (let i = 0; i < 11; i++) {
+        for (let i = 0; i < 12; i++) {
             if (this.raw[i] > this.caps[i]) {
                 this.points += this.raw[i] - this.caps[i];
                 this.raw[i] = this.caps[i];
             }
         }
         let attrib = [];
-        for (let i = 0; i < 11; i++) {
+        for (let i = 0; i < 12; i++) {
             attrib[i] = curve(this.raw[i] / Config.MAX_SKILL);
         }
         this.rld = Math.pow(0.5, attrib[skcnv.rld]);
@@ -100,8 +100,9 @@ class Skill {
         this.mob = apply(0.8, attrib[skcnv.mob]);
         this.rgn = apply(25, attrib[skcnv.rgn]);
         this.brst = 0.3 * (0.5 * attrib[skcnv.atk] + 0.5 * attrib[skcnv.hlt] + attrib[skcnv.rgn]);
-        this.mxc = Math.pow(0.5, attrib[skcnv.mxc]);
-    }    set(thing) {
+        this.mxc = Math.pow(0.5, attrib[skcnv.mxc]) * 2;
+    }
+    set(thing) {
         this.raw[0] = thing[0];
         this.raw[1] = thing[1];
         this.raw[2] = thing[2];
