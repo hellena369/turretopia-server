@@ -379,7 +379,7 @@ Class.mummifier = {
     }],
     TURRETS: [{
         POSITION: [20 * Math.SQRT1_2, 0, 0, 180, 360, 1],
-        TYPE: ["mummyHat"]
+        TYPE: ["mummyHat", {MIRROR_MASTER_ANGLE: false}]
     }]
 };
 Class.miscTestHelper2 = {
@@ -777,7 +777,7 @@ Class.switcheroo = {
                 store.switcheroo_i ??= 0;
                 store.switcheroo_i++;
                 store.switcheroo_i %= 6;
-                body.define(Class.basic.UPGRADES_TIER_1[store.switcheroo_i]);
+                body.define(Class.basic.UPGRADES_TIER_0[store.switcheroo_i]);
                 setTimeout(() => body.define("switcheroo"), 6000);
             }
         }
@@ -1119,7 +1119,7 @@ Class.whirlwind = {
     TURRETS: [
         {
             POSITION: [8, 0, 0, 0, 360, 1],
-            TYPE: "whirlwindDeco"
+            TYPE: ["whirlwindDeco", {MIRROR_MASTER_ANGLE: false}]
         }
     ],
     AI: {
@@ -1132,6 +1132,7 @@ Class.whirlwind = {
                 SHOOT_SETTINGS: combineStats([g.satellite]),
                 TYPE: ["satellite", { ANGLE: i * 60 }],
                 MAX_CHILDREN: 1,
+                STAT_CALCULATOR: "satellite",
                 AUTOFIRE: true,
                 SYNCS_SKILLS: false,
                 WAIT_TO_CYCLE: true
@@ -1206,7 +1207,8 @@ Class.tornado = {
                     SHOOT_SETTINGS: combineStats([g.satellite, g.pounder]), 
                     TYPE: ["satellite", {ANGLE: i * 90}], 
                     MAX_CHILDREN: 1,   
-                    AUTOFIRE: true,  
+                    AUTOFIRE: true,
+                    STAT_CALCULATOR: "satellite",
                     SYNCS_SKILLS: false,
                     WAIT_TO_CYCLE: true
                 }
@@ -1241,7 +1243,8 @@ Class.hurricane = {
                     SHOOT_SETTINGS: combineStats([g.satellite]), 
                     TYPE: ["satellite", {ANGLE: i * 45}], 
                     MAX_CHILDREN: 1,   
-                    AUTOFIRE: true,  
+                    AUTOFIRE: true,
+                    STAT_CALCULATOR: "satellite",
                     SYNCS_SKILLS: false,
                     WAIT_TO_CYCLE: true
                 }
@@ -1278,7 +1281,8 @@ Class.megaTornado = {
                     SHOOT_SETTINGS: combineStats([g.satellite, g.pounder, g.destroyer, {resist: 2}]),
                     TYPE: ["satellite", {ANGLE: i * 180}], 
                     MAX_CHILDREN: 1,   
-                    AUTOFIRE: true,  
+                    AUTOFIRE: true,
+                    STAT_CALCULATOR: "satellite",
                     SYNCS_SKILLS: false,
                     WAIT_TO_CYCLE: true
                 }
@@ -1317,7 +1321,8 @@ Class.tempest = {
                     SHOOT_SETTINGS: combineStats([g.satellite, g.pounder]), 
                     TYPE: ["satellite", {ANGLE: i * 120}], 
                     MAX_CHILDREN: 1,   
-                    AUTOFIRE: true,  
+                    AUTOFIRE: true,
+                    STAT_CALCULATOR: "satellite",
                     SYNCS_SKILLS: false,
                     WAIT_TO_CYCLE: true
                 }
@@ -1330,7 +1335,8 @@ Class.tempest = {
                     SHOOT_SETTINGS: combineStats([g.satellite, g.pounder]), 
                     TYPE: ["satellite", { ANGLE: i * 120, CONTROLLERS: [['orbit', {invert: true}]] }], 
                     MAX_CHILDREN: 1,   
-                    AUTOFIRE: true,  
+                    AUTOFIRE: true,
+                    STAT_CALCULATOR: "satellite",
                     SYNCS_SKILLS: false,
                     WAIT_TO_CYCLE: true
                 }
@@ -1365,7 +1371,8 @@ Class.thunderbolt = {
                     SHOOT_SETTINGS: combineStats([g.satellite, g.pounder]), 
                     TYPE: ["satellite", {ANGLE: i * 90}], 
                     MAX_CHILDREN: 1,   
-                    AUTOFIRE: true,  
+                    AUTOFIRE: true,
+                    STAT_CALCULATOR: "satellite",
                     SYNCS_SKILLS: false,
                     WAIT_TO_CYCLE: true
                 }
@@ -1402,7 +1409,8 @@ Class.typhoon = {
                     SHOOT_SETTINGS: combineStats([g.satellite]), 
                     TYPE: ["satellite", {ANGLE: i * 36}], 
                     MAX_CHILDREN: 1,   
-                    AUTOFIRE: true,  
+                    AUTOFIRE: true,
+                    STAT_CALCULATOR: "satellite",
                     SYNCS_SKILLS: false,
                     WAIT_TO_CYCLE: true
                 }
@@ -1441,7 +1449,8 @@ Class.blizzard = {
                     SHOOT_SETTINGS: combineStats([g.satellite]), 
                     TYPE: ["satellite", {ANGLE: i * 72}], 
                     MAX_CHILDREN: 1,   
-                    AUTOFIRE: true,  
+                    AUTOFIRE: true,
+                    STAT_CALCULATOR: "satellite",
                     SYNCS_SKILLS: false,
                     WAIT_TO_CYCLE: true
                 }
@@ -1454,7 +1463,8 @@ Class.blizzard = {
                     SHOOT_SETTINGS: combineStats([g.satellite]), 
                     TYPE: ["satellite", { ANGLE: i * 72, CONTROLLERS: [['orbit', {invert: true}]] }], 
                     MAX_CHILDREN: 1,   
-                    AUTOFIRE: true,  
+                    AUTOFIRE: true,
+                    STAT_CALCULATOR: "satellite",
                     SYNCS_SKILLS: false,
                     WAIT_TO_CYCLE: true
                 }
@@ -1492,6 +1502,7 @@ Class.hexaWhirl = {
                     TYPE: ["satellite", {ANGLE: i * 90}], 
                     MAX_CHILDREN: 1,
                     AUTOFIRE: true,
+                    STAT_CALCULATOR: "satellite",
                     SYNCS_SKILLS: false,
                     WAIT_TO_CYCLE: true
                 }

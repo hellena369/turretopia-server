@@ -1,8 +1,8 @@
 module.exports = {
-	basePolygonDamage: 1,
+	basePolygonDamage: 1.6,
 	basePolygonHealth: 3,
 
-	basePlayerHealth: 30,
+	basePlayerHealth: 26,
 
 	// SKILL DEFINITIONS
 	dfltskl: 9,
@@ -90,7 +90,7 @@ module.exports = {
 	base: {
 	    ACCEL: 1.6,
 	    SPEED: 5.25,
-	    HEALTH: 20,
+	    HEALTH: 40,
 	    DAMAGE: 3,
 	    RESIST: 1,
 	    PENETRATION: 1.05,

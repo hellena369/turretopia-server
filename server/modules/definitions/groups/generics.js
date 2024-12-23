@@ -294,7 +294,7 @@ Class.trap = {
     DIE_AT_RANGE: true,
     BODY: {
         HEALTH: 0.5,
-        DAMAGE: 3,
+        DAMAGE: 4,
         RANGE: 450,
         DENSITY: 4,
         RESIST: 2.5,

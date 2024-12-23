@@ -77,7 +77,7 @@ Class.dominator = {
         RESIST: 100,
         SPEED: 1.32,
         ACCELERATION: 0.8,
-        HEALTH: 590,
+        HEALTH: 1050,
         DAMAGE: 6,
         PENETRATION: 0.25,
         FOV: 0.5,

@@ -2612,7 +2612,7 @@ Class.necromancer = {
         {
             POSITION: [5.25, 9, 1.2, 8, 0, 0, 0.25],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.drone, g.sunchip, g.negro, {size: 1.5, reload: 1.25, damage: 0.81}]),
+                SHOOT_SETTINGS: combineStats([g.drone, g.sunchip, g.negro, {size: 1.5, reload: 1.25}]),
                 TYPE: "sunchip",
                 AUTOFIRE: true,
                 SYNCS_SKILLS: true,

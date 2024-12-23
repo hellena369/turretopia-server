@@ -71,10 +71,11 @@ class Gun extends EventEmitter {
             this.stack = info.PROPERTIES.STACK_GUN ?? true ;
             this.identifier = info.PROPERTIES.IDENTIFIER ?? null;
             if (info.PROPERTIES.TYPE != null) {
-                this.canShoot = true;
+                if (info.PROPERTIES.CAN_SHOOT !== null) this.canShoot = true;
                 this.label = info.PROPERTIES.LABEL ?? "";
                 this.setBulletType(info.PROPERTIES.TYPE);
             }
+            if (info.PROPERTIES.CAN_SHOOT) this.canShoot = info.PROPERTIES.CAN_SHOOT
         }
         let position = info.POSITION;
         if (Array.isArray(position)) {
@@ -115,7 +116,7 @@ class Gun extends EventEmitter {
             this.trueRecoil = this.shootSettings.recoil;
             this.facing = 0;
             this.childrenLimitFactor = 1;
-        }
+        } else return;
     }
     live() {
         if (!this.canShoot || this.body.master.invuln) return;
@@ -167,6 +168,7 @@ class Gun extends EventEmitter {
         return shootPermission;
     }
     fire() {
+        if (!this.canShoot) return;
         // Recoil
         this.lastShot.time = performance.now();
         this.lastShot.power = 3 * Math.log(Math.sqrt(this.bulletSkills.spd) + this.trueRecoil + 1) + 1;
@@ -219,6 +221,7 @@ class Gun extends EventEmitter {
         return [offsetFinalX, offsetFinalY]
     }
     createBullet(spawnX, spawnY) {
+        if (!this.canShoot) return;
         // Find inaccuracy
         let shudder = 0, spread = 0;
         if (this.shootSettings.shudder) {
@@ -419,6 +422,9 @@ class Gun extends EventEmitter {
             case "necro":
                 this.childrenLimitFactor = this.bulletSkills.mxc / 2;
                 break;
+            case "satellite":
+                this.childrenLimitFactor = 1;
+            break;
             case "drone":
                 out.PUSHABILITY = 1;
                 out.PENETRATION = Math.max(1, shoot.pen * (0.5 * (this.bulletSkills.pen - 1) + 1));
@@ -608,6 +614,7 @@ class Prop {
         this.borderless = false;
         this.drawFill = true;
         this.strokeWidth = 1;
+        this.poisoned = false;
 
         // Bind prop
         this.bond = bond;
@@ -724,6 +731,7 @@ class Entity extends EventEmitter {
         this.source = this;
         this.parent = this;
         this.tcurrency = {};
+        this.poisoned = false;
         this.control = {
             target: new Vector(0, 0),
             goal: new Vector(0, 0),
@@ -1206,10 +1214,11 @@ class Entity extends EventEmitter {
             this.refreshBodyAttributes();
         }
         if (set.SKILL_CAP != null && set.SKILL_CAP !== []) {
-            //if (set.SKILL_CAP.length !== 11) throw "Inappropriate skill cap amount.";
+            if (set.SKILL_CAP.length !== 11) throw "Inappropriate skill cap amount.";
             this.skill.setCaps(set.SKILL_CAP);
         }
         if (set.SKILL != null && set.SKILL !== []) {
+            if (set.SKILL.length !== 11) throw "Inappropriate skill amount.";
             this.skill.set(set.SKILL);
             this.syncSkillsToGuns();
         }
@@ -1700,6 +1709,7 @@ class Entity extends EventEmitter {
             guns: this.guns.map((gun) => gun.getPhotoInfo()),
             turrets: turretsAndProps.map((turret) => turret.camera(true)),
             glow: this.glow,
+            poisoned: this.poisoned,
         };
     }
     syncTurrets() {
@@ -2250,10 +2260,10 @@ class Entity extends EventEmitter {
                 killTools = [],
                 notJustFood = false;
             // If I'm a tank, call me a nameless player
-            let name = this.master.name == ""
+            let name = this.master.name === ""
                 ? this.master.type === "tank"
                     ? "an unnamed " + this.label : this.master.type === "miniboss"
-                        ? "a visiting " + this.label : this.label.substring(0, 3) == 'The'
+                        ? "a visiting " + this.label : this.label.substring(0, 3) === 'The'
                             ? this.label : util.addArticle(this.label)
                 : this.master.name + "'s " + this.label;
             // Calculate the jackpot
@@ -2275,7 +2285,7 @@ class Entity extends EventEmitter {
                 killTools.push(instance); // Keep track of what actually killed me
             }
             // Remove duplicates
-            killers = killers.filter((elem, index, self) => index == self.indexOf(elem));
+            killers = killers.filter((elem, index, self) => index === self.indexOf(elem));
             this.emit('death', { body: this, killers, killTools });
             killers.forEach((e) => e.emit('kill', { body: e, entity: this }));
             // If there's no valid killers (you were killed by food), change the message to be more passive
@@ -2301,13 +2311,13 @@ class Entity extends EventEmitter {
                 }
 
                 this.killCount.killers.push(instance.index);
-            };
+            }
             // Add the killers to our death message, also send them a message
             if (notJustFood) {
                 for (let i = 0; i < killers.length; i++) {
                     let instance = killers[i];
                     if (instance.master.type !== "food" && instance.master.type !== "crasher") {
-                        killText += instance.name == "" ? killText == "" ? "An unnamed player" : "an unnamed player" : instance.name;
+                        killText = instance.name === "" ? killText === "" ? "An unnamed player" : "an unnamed player" : instance.name;
                         killText += " and ";
                     }
                     // Only if we give messages
@@ -2351,7 +2361,7 @@ class Entity extends EventEmitter {
             }
             let killCountEntries = Object.entries(killCounts).map(([name, count], i) => name);
             for (let i = 0; i < killCountEntries.length; i++) {
-                killText += (killCounts[killCountEntries[i]] == 1) ? util.addArticle(killTools[i].label) : killCounts[killCountEntries[i]] + ' ' + killCountEntries[i] + 's';
+                killText += (killCounts[killCountEntries[i]] === 1) ? util.addArticle(killTools[i].label) : killCounts[killCountEntries[i]] + ' ' + killCountEntries[i] + 's';
                 killText += i < killCountEntries.length - 2 ? ', ' : ' and ';
             }
 

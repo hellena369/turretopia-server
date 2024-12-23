@@ -893,8 +893,6 @@ exports.makeIrdB = (type) => {
         PENETRATION: base.PENETRATION * 1.1,
         FOV: base.FOV * 1.05
     };
-    output?.turrets?.type?.guns.forEach(g => g.shootSettings ? (g.shootSettings.damage ? g.shootSettings.damage *= 1.2 : null) : null);
-    output?.turrets?.type?.guns.forEach(g => g.shootSettings ? (g.shootSettings.health ? g.shootSettings.health *= 1.2 : null) : null);
     output.GLOW = {
         RADIUS: 3,
         COLOR: "rainbow",
@@ -909,10 +907,6 @@ exports.makeIrdA = (type) => {
     let output = exports.dereference(type);
     output.LABEL = type.LABEL;
     output.COLOR = "rainbow";
-    try {
-        output.guns.forEach(g => g.shootSettings ? (g.shootSettings.damage ? g.shootSettings.damage *= 1.2 : null) : null);
-        output.guns.forEach(g => g.shootSettings ? (g.shootSettings.health ? g.shootSettings.health *= 1.2 : null) : null);
-    } catch (e) {}
     output.GLOW = {
         RADIUS: 3,
         COLOR: "rainbow",
@@ -920,14 +914,6 @@ exports.makeIrdA = (type) => {
         RECURSION: 3
     };
     output.DANGER = type.DANGER + 3;
-    try {output.MAX_CHILDREN *= 1.5} catch(e) {}
-    if (type.GUNS) {
-        for (let gun of output.GUNS) {
-            if (gun.PROPERTIES.MAX_CHILDREN) {
-                gun.PROPERTIES.MAX_CHILDREN *= 1.5;
-            }
-        }
-    }
     return output;
 }
 // Facilitators
@@ -965,3 +951,97 @@ const addMorphBarrel = [{
         ALT_FIRE: true,
     }
 }];
+
+exports.makeStatus = (type, options) => {
+    if (!options.bulletType) throw "Bullet type not defined in makeStatus facilitator!"
+    type = ensureIsClass(type)
+    let output = exports.dereference(type)
+    for (let o of options.bulletType) {
+        if (o === "pB") {
+            o = "poisonbullet"
+            options.color = "green"
+        }
+        /*if (o === "pD") {
+            o = "poisondrone"
+            options.color = "green"
+        }
+        if (o === "pS") {
+            o = "poisonswarm"
+            options.color = "green"
+        }*/
+        if (o === "sB") {
+            o = "slowbullet"
+            options.color = "teal"
+        }
+        if (o === "pcB") {
+            o = "pacifybullet"
+            options.color = "purple"
+        }
+        if (o === "iB") {
+            o = "paralyzebullet"
+            options.color = "yellow"
+        }
+        if (o === "fB") {
+            o = "firebullet"
+            options.color = "red"
+        }
+        if (o === "rB") {
+            o = "radiationbullet"
+            options.color = "lightgreen"
+        }
+        if (o === "aB") {
+            o = "acidbullet"
+            options.color = "lightgreen"
+        }
+        if (o === "lB") {
+            o = "lavabullet"
+            options.color = "orange"
+        }
+        if (o === "dB") {
+            o = "disablebullet"
+            options.color = "gray"
+        }
+        if (o === "sfB") {
+            o = "suffocatebullet"
+            options.color = "purple"
+        }
+        if (o === "frB") {
+            o = "frostbullet"
+            options.color = "cyan"
+        }
+        if (o === "blB") {
+            o = "blindbullet"
+            options.color = "black"
+        }
+        if (o === "icB") {
+            o = "icebullet"
+            options.color = "lightblue"
+        }
+        if (o === "glB") {
+            o = "gluebullet"
+            options.color = "brown"
+        }
+        if (o === "wB") {
+            o = "witherbullet"
+            options.color = "darkgray"
+        }
+        if (o === "cB") {
+            o = "cursebullet"
+            options.color = "purple"
+        }
+        if (o === "empB") {
+            o = "empbullet"
+            options.color = "blue"
+        }
+        if (o === "faB") {
+            o = "fatiguebullet"
+            options.color = "gray"
+        }
+    }
+    for (let gun of output.GUNS) {
+        gun.PROPERTIES = {
+            TYPE: options.bulletType,
+            COLOR: options.color
+        }
+    }
+}

@@ -2,7 +2,7 @@ const { base} = require('../constants.js');
 const g = require('../gunvals.js')
 const { addAura, makeAuto, makeDeco, makeTurret, makeOver, combineStats, weaponArray } = require("../facilitators.js");
 const { statnames, smshskl } = require("../constants.js");
-const {makeGuard, makeIrdA, makeIrdB, makeBird} = require("../facilitators");
+const {makeGuard, makeIrdA, makeIrdB, makeBird, dereference} = require("../facilitators");
 const {basePlayerHealth} = require("../constants");
 const {basic: my} = require("../gunvals");
 const {advancedcollide} = require("../../physics/collisionFunctions");
@@ -5339,9 +5339,9 @@ Class.seedTurret = {
         },
     ],
 }
-Class.primary = {
+Class.camp = {
     PARENT: "tank",
-    LABEL: "Primary",
+    LABEL: "Camp",
     TURRETS: [
         {
             POSITION: [9, 0, 0, 0, 0, 1],
@@ -6616,7 +6616,7 @@ Class.bombard = {
         }
     ]
 }
-const timer = (run, duration) => {
+var timer = (run, duration) => {
     let timer = setInterval(() => run(), 31.25);
     setTimeout(() => {
         clearInterval(timer);
@@ -6637,14 +6637,14 @@ const damageOnTick = (them, multiplier, duration) => {
     }
 };
 // && instance.type === "food" && instance.type === "tank" && instance.type === "miniboss" && instance.type === "crasher"
-const slowOnTick = (body, instance, multiplier, duration) => {
+var slowOnTick = (body, instance, multiplier, duration) => {
     if (!instance) return
     if (!instance.invuln && !instance.godmode && instance.team !== body.team) timer(() => {
         instance.velocity.x /= 1.05 * multiplier;
         instance.velocity.y /= 1.05 * multiplier;
     }, 1.5 * duration);
 };
-const paralyze = (them, duration) => {
+var paralyze = (them, duration) => {
     if (!them) return
     if (!them.invuln && !them.passive && !them.godmode && !them.paralyzed) {
         them.paralyzed = true;
@@ -6659,7 +6659,7 @@ const paralyze = (them, duration) => {
         }, duration * 0.5);
     }
 };
-const fire = (them, multiplier, duration) => {
+var fire = (them, multiplier, duration) => {
     if (!them) return
     if (!them.invuln && !them.passive && !them.godmode && !them.isOnFire  && them.type === "food" && them.type === "tank" && them.type === "miniboss" && them.type === "crasher") {
         them.isOnFire = true;
@@ -6673,7 +6673,7 @@ const fire = (them, multiplier, duration) => {
         }, duration);
     }
 };
-const acid = (them, multiplier, duration) => {
+var acid = (them, multiplier, duration) => {
     if (!them) return
     if (!them.invuln && !them.passive && !them.godmode && !them.acid  && them.type === "food" && them.type === "tank" && them.type === "miniboss" && them.type === "crasher") {
         them.acid = true;
@@ -6692,7 +6692,7 @@ const acid = (them, multiplier, duration) => {
         }, 2 * duration);
     }
 };
-const lava = (them, multiplier, duration) => {
+var lava = (them, multiplier, duration) => {
     if (!them) return
     if (!them.invuln && !them.passive && !them.godmode && !them.lava  && them.type === "food" && them.type === "tank" && them.type === "miniboss" && them.type === "crasher") {
         them.lava = true;
@@ -6711,7 +6711,7 @@ const lava = (them, multiplier, duration) => {
         }, duration);
     }
 };
-const pacify = (them, duration) => {
+var pacify = (them, duration) => {
     if (!them) return
     if (!them.invuln && !them.passive && !them.godmode && !them.pacify) {
         them.pacify = true;
@@ -6758,29 +6758,26 @@ const pacify = (them, duration) => {
         }, duration);
     }
 };
-const toggleGuns = (instance, barrelCanShoot) => {
+var toggleGuns = (instance, barrelCanShoot) => {
     if (instance.guns) {
         for (let i = 0; i < instance.guns.length; i++) {
             let gun = instance.guns[i];
-            if (gun.settings && gun.bulletType) {
-                gun.canShoot = barrelCanShoot
-                gun.PROPERTIES.AUTOFIRE = barrelCanShoot
+            if (gun.shootSettings) {
+                // gun.canShoot = barrelCanShoot
+                gun.codeControlOnly = !barrelCanShoot
             }
         }
     }
     if (instance.turrets) {
         for (let i = 0; i < instance.turrets.length; i++) {
             let turret = instance.turrets[i];
-            if (instance.turrets.GUNS) {
-                for (let i = 0; i < instance.turrets.GUNS.length; i++) {
-                    turret.GUNS.canShoot = barrelCanShoot
-                    turret.GUNS.PROPERTIES.AUTOFIRE = barrelCanShoot
-                }
+            if (instance.turrets.guns || instance.turrets) {
+                toggleGuns(turret, barrelCanShoot)
             }
         }
     }
 }
-const disableWeapons = (them, duration) => {
+var disableWeapons = (them, duration) => {
     if (!them) return
     if (!them.invuln && !them.passive && !them.godmode && !them.disableWeapons) {
         them.disableWeapons = true;
@@ -6795,7 +6792,7 @@ const disableWeapons = (them, duration) => {
         }, duration);
     }
 };
-const wither = (them, multiplier, duration) => {
+var wither = (them, multiplier, duration) => {
     if (!them) return
     if (!them.invuln && !them.passive && !them.godmode && !them.wither  && them.type === "food" && them.type === "tank" && them.type === "miniboss" && them.type === "crasher"
     ) {
@@ -6810,7 +6807,7 @@ const wither = (them, multiplier, duration) => {
         }, 2 * duration);
     }
 };
-const decay = (them, multiplier, duration) => {
+var decay = (them, multiplier, duration) => {
     if (!them) return
     if (!them.invuln && !them.passive && !them.godmode && !them.decay) {
         them.decay = true;
@@ -6824,7 +6821,7 @@ const decay = (them, multiplier, duration) => {
         }, 2 * duration);
     }
 };
-const radiation = (them, multiplier, duration) => {
+var radiation = (them, multiplier, duration) => {
     if (!them) return
     if (!them.invuln && !them.passive && !them.godmode && !them.radiation) {
         them.radiation = true;
@@ -6838,7 +6835,7 @@ const radiation = (them, multiplier, duration) => {
         }, 7 * duration);
     }
 };
-const vulnerable = (them, multiplier, duration) => {
+var vulnerable = (them, multiplier, duration) => {
     if (!them) return
     if (!them.invuln && !them.passive && !them.godmode && !them.vulnerable  && them.type === "food" && them.type === "tank" && them.type === "miniboss" && them.type === "crasher") {
         them.vulnerable = true
@@ -6855,7 +6852,7 @@ const vulnerable = (them, multiplier, duration) => {
         }, 2 * duration);
     }
 };
-const emp = (them, duration) => {
+var emp = (them, duration) => {
     if (!them) return
     if (!them.invuln && !them.passive && !them.godmode && !them.emp) {
         them.emp = true
@@ -6873,7 +6870,7 @@ const emp = (them, duration) => {
         }, 2 * duration);
     }
 };
-const fatigued = (them, duration) => {
+var fatigued = (them, duration) => {
     if (!them) return
     if (!them.invuln && !them.passive && !them.godmode && !them.fatigued  && them.type === "food" && them.type === "tank" && them.type === "miniboss" && them.type === "crasher") {
         them.fatigued = true
@@ -6895,7 +6892,7 @@ const fatigued = (them, duration) => {
         }, 2 * duration);
     }
 };
-const ice = (them, multiplier, duration) => {
+var ice = (them, multiplier, duration) => {
     if (!them) return
     if (!them.invuln && !them.passive && !them.godmode && !them.ice) {
         them.ice = true
@@ -6914,7 +6911,7 @@ const ice = (them, multiplier, duration) => {
         }, 2 * duration);
     }
 };
-const frostbite = (them, multiplier, duration) => {
+var frostbite = (them, multiplier, duration) => {
     if (!them) return
     if (!them.invuln && !them.passive && !them.godmode && !them.frostbite) {
         them.frostbite = true
@@ -6940,7 +6937,7 @@ const frostbite = (them, multiplier, duration) => {
     }
 };
 
-const blind = (them, multiplier, duration) => {
+var blind = (them, multiplier, duration) => {
     if (!them) return
     if (!them.invuln && !them.passive && !them.godmode && !them.blind) {
         them.blind = true
@@ -6961,7 +6958,7 @@ const blind = (them, multiplier, duration) => {
         }, 2 * duration);
     }
 };
-const curse = (them, multiplier) => {
+var curse = (them, multiplier) => {
     if (!them) return
     if (!them.invuln && !them.passive && !them.godmode && !them.curse) {
         them.curse = true
@@ -6977,7 +6974,7 @@ const curse = (them, multiplier) => {
         }, 200000);
     }
 };
-const suffocation = (them, multiplier, duration) => {
+var suffocation = (them, multiplier, duration) => {
     if (!them) return
     if (!them.invuln && !them.passive && !them.godmode && !them.suffocation) {
         them.suffocation = true;
@@ -6991,7 +6988,7 @@ const suffocation = (them, multiplier, duration) => {
         }, 2 * duration);
     }
 };
-const glue = (them, multiplier, duration) => {
+var glue = (them, multiplier, duration) => {
     if (!them) return
     if (!them.invuln && !them.passive && !them.godmode && !them.glue) {
         them.glue = true
@@ -7034,7 +7031,7 @@ Class.slowbullet = {
         }
     }]
 }
-Class.icebullet = {
+Class.paralyzebullet = {
     PARENT: "bullet",
     PROPS: [{
         POSITION: [7, 0, 0, 0, 1],
@@ -7065,21 +7062,9 @@ Class.iceGunner = {
     ]
 }
 Class.testtank = {
-    PARENT: "single",
+    PARENT: "basic",
     LABEL: "PLACEHOLDER A",
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 18,
-                WIDTH: 8
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic]),
-                TYPE: "icebullet",
-                COLOR: "blue"
-            }
-        }
-    ]
+    SHAPE: [[0,1],[0.265,0.265],[1,0.3],[0.364,-0.163],[0.6,-1],[0,-0.463],[-0.6,-1],[-0.364,-0.201],[-1,0.3],[-0.265,0.268],[0,1]],
 }
 Class.executorBullet = {
     PARENT: 'bullet',
@@ -7089,7 +7074,7 @@ Class.executorBullet = {
     }],
     ON: [
         {
-            event: "collide",
+            event: "damage",
             handler: ({ instance, other }) => {
                 if (other.team !== instance.master.master.master.team && other.master === other && other.type !== 'wall') {
                     damageOnTick(other, 2,3) // brings people down to 10 health slowly
@@ -7100,7 +7085,7 @@ Class.executorBullet = {
                     pacify(other, 3) // forces override to be on (minions/drones dont automatically attack)
                     disableWeapons(other,3) // disables all guns
                     wither(other,2,3) // slowly lowers max health
-                    decay(other,2,3) // slowly lowers shields max health
+                    decay(other,2,3) // slowly lowers shield
                     radiation(other,2,3) // slow long lasting poison that doesnt stop at ten health
                     vulnerable(other, 2,3) // people take more damage
                     curse(other,2) // permanent debuff to body stats damage, penetration and hetero
@@ -7125,34 +7110,63 @@ Class.placeholderb = {
     HAS_NO_RECOIL:true,
     GUNS: [
         {
-            POSITION: [18, 8, 1, 0, 0, 0, 1/4],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic]),
-                TYPE: "executorBullet"
-            }
-        },
-        {
-            POSITION: [18, 8, 1, 0, 0, 0, 2/4],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic]),
-                TYPE: "executorBullet",
-            }
-        },
-        {
-            POSITION: [18, 8, 1, 0, 0, 0, 3/4],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic]),
-                TYPE: "executorBullet",
-            }
-        },
-        {
-            POSITION: [18, 8, 1, 0, 0, 0, 4/4],
+            POSITION: [18, 8, 1, 0, 0, 0, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic]),
                 TYPE: "executorBullet",
                 COLOR: "rainbow"
             }
         },
+    ]
+}
+Class.placeholderC = {
+    PARENT: "genericTank",
+    LABEL: "PLACEHOLDER C",
+    GUNS: [
+        {
+            POSITION: {
+                LENGHT: 18,
+                WIDTH: 8
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic]),
+                TYPE: "poisonbullet",
+                COLOR: "green"
+            }
+        }
+    ],
+    ON: [
+        {
+            event: "fire",
+            handler: ({body}) => {
+                body.define("placeholderCteal")
+            }
+        }
+    ]
+}
+Class.placeholderCteal = {
+    PARENT: "genericTank",
+    LABEL: "PLACEHOLDER C",
+    GUNS: [
+        {
+            POSITION: {
+                LENGHT: 18,
+                WIDTH: 8
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic]),
+                TYPE: "slowbullet",
+                COLOR: "teal"
+            }
+        }
+    ],
+    ON: [
+        {
+            event: "altFire",
+            handler: ({body}) => {
+                body.define("placeholderC")
+            }
+        }
     ]
 }
 Class.poisonGunner = {
@@ -7178,7 +7192,7 @@ Class.irdbasic = makeIrdA("basic")
 Class.irddirector = makeIrdA("director")
 //b
 Class.irdtank = makeIrdB("tank")
-Class.irdprimary = makeIrdB("primary")
+Class.irdcamp = makeIrdB("camp")
 
 //Cutthroat
 
@@ -7268,9 +7282,9 @@ Class.heavy.UPGRADES_TIER_1 = ["pounder", "sniper", "builder", "artillery"]
             Class.rifle.UPGRADES_TIER_3 = ["musket", "crossbow", "armsman", "revolver"];
             Class.marksman.UPGRADES_TIER_3 = ["deadeye", "nimrod", "revolver", "fork"];
             Class.healer.UPGRADES_TIER_3 = ["medic", "ambulance", "surgeon", "paramedic"];
-Class.tank.UPGRADES_TIER_0 = ["auraTank", "smasherTank", "autoTank", "machine", "primary", "system"];
+Class.tank.UPGRADES_TIER_0 = ["auraTank", "smasherTank", "autoTank", "machine", "camp", "system"];
 Class.system.UPGRADES_TIER_1 = ["spinner", "whirlwind"];
-    Class.primary.UPGRADES_TIER_1 = ["droneShip"];
+    Class.camp.UPGRADES_TIER_1 = ["droneShip"];
         Class.droneShip.UPGRADES_TIER_2 = ["hydraShip"];
             Class.hydraShip.UPGRADES_TIER_3 = ["fleet"];
     Class.autoTank.UPGRADES_TIER_1 = ["doubleAutoTank", "megaAutoTank", "doublegAutoTank", "top",];
@@ -7305,4 +7319,4 @@ Class.system.UPGRADES_TIER_1 = ["spinner", "whirlwind"];
 Class.ethereal.UPGRADES_TIER_8 = ["philistine", "sundowner", "spear", "despoiler", "centaur"];
 Class.etherealBody.UPGRADES_TIER_8 = ["autoEth"];
 Class.autoEth.UPGRADES_TIER_8 = ["networks"];
-Class.minigun.UPGRADES_TIER_3.push("hotbed")
+Class.minigun.UPGRADES_TIER_3.push("hotbed");

@@ -215,6 +215,27 @@ Class.shadowHexagon = makeRare("hexagon", 2);
 Class.rainbowHexagon = makeRare("hexagon", 3);
 Class.transHexagon = makeRare("hexagon", 4);
 
+//TURRETOPIA
+
+
+Class.star = {
+    PARENT: "food",
+    LABEL: "Star",
+    VALUE: 20000,
+    SHAPE: [[0,1],[0.265,0.265],[1,0.3],[0.364,-0.163],[0.6,-1],[0,-0.463],[-0.6,-1],[-0.364,-0.201],[-1,0.3],[-0.265,0.268],[0,1]],
+    SIZE: 16.75,
+    COLOR: "gold",
+    BODY: {
+        DAMAGE: 1.6 * basePolygonDamage,
+        DENSITY: 6,
+        HEALTH: 20 * basePolygonHealth,
+        RESIST: 1.6,
+        PENETRATION: 1.1,
+        ACCELERATION: 0.005
+    },
+    DRAW_HEALTH: true,
+};
+
 Class.heptagon = {
     PARENT: "food",
     LABEL: "Heptagon",

@@ -197,9 +197,10 @@ function advancedcollide(my, n, doDamage, doInelastic, nIsFirmCollide = false) {
         if (!bail) {
             // Calculate base damage
             let resistDiff = (my.health.resist - n.health.resist);
+            if (resistDiff < 0.6) resistDiff += 0.1
             let damage = {
-                    _me: Config.DAMAGE_CONSTANT * my.damage * (my.penetration * 0.062) * (1 + resistDiff) * (1 + n.heteroMultiplier  * (my.settings.damageClass === n.settings.damageClass)) * ((my.settings.buffVsFood && n.settings.damageType === 1) ? 3 : 1) * my.damageMultiplier() * 2,
-                    _n:  Config.DAMAGE_CONSTANT * n.damage  * (n.penetration * 0.062) * (1 + resistDiff) * (1 + my.heteroMultiplier * (my.settings.damageClass === n.settings.damageClass)) * ((n.settings.buffVsFood && my.settings.damageType === 1) ? 3 : 1) * n.damageMultiplier() * 2,
+                    _me: Config.DAMAGE_CONSTANT * my.damage * (my.penetration * 0.053) * (1 + resistDiff) * (1 + n.heteroMultiplier  * (my.settings.damageClass === n.settings.damageClass)) * ((my.settings.buffVsFood && n.settings.damageType === 1) ? 3 : 1) * my.damageMultiplier() * 2,
+                    _n:  Config.DAMAGE_CONSTANT * n.damage  * (n.penetration * 0.053) * (1 + resistDiff) * (1 + my.heteroMultiplier * (my.settings.damageClass === n.settings.damageClass)) * ((n.settings.buffVsFood && my.settings.damageType === 1) ? 3 : 1) * n.damageMultiplier() * 2,
             };
             global.myDamage = damage._me
             // Advanced damage calculations

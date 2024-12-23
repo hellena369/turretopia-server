@@ -181,11 +181,11 @@ function incoming(message, socket) {
             // Bring to life
             socket.status.deceased = false;
             // Define the player.
-            if (players.indexOf(socket.player) != -1) {
+            if (players.indexOf(socket.player) !== -1) {
                 util.remove(players, players.indexOf(socket.player));
             }
             // Free the old view
-            if (views.indexOf(socket.view) != -1) {
+            if (views.indexOf(socket.view) !== -1) {
                 util.remove(views, views.indexOf(socket.view));
                 socket.makeView();
             }
@@ -1169,6 +1169,7 @@ function flatten(data) {
             /* 19 */ data.maxHealthN,
             /* 19 */ Math.round(65535 * data.shield),
             /* 20 */ Math.round(255 * data.alpha),
+            /* 21a */ data.poisoned,
         );
         if (data.type & 0x04) {
             output.push(

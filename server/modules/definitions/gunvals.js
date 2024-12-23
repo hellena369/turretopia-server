@@ -1,10 +1,10 @@
 module.exports = {
     // Bases
-        basic: { reload: 11, recoil: 1, shudder: 0.1, damage: 0.75, speed: 4.5, spray: 15 },
-        drone: { reload: 36, recoil: 0.25, shudder: 0.1, size: 0.6, damage: 0.75, speed: 2, spray: 0.1 },
-        trap: { reload: 23, shudder: 0.25, size: 0.6, damage: 0.65, health: 0.75, speed: 5, spray: 15, resist: 3 },
-        swarm: { reload: 18, recoil: 0.25, shudder: 0.05, size: 0.4, damage: 0.75, speed: 4, spray: 5 },
-        factory: { reload: 48, shudder: 0.1, size: 0.75, damage: 0.75, health: 0.7, speed: 3, spray: 0.1 },
+        basic: { reload: 10.5, recoil: 1.4, shudder: 0.1, damage: 0.75, speed: 4.5, spray: 15 },
+        drone: { reload: 36, recoil: 0.25, shudder: 0.1, size: 0.6, speed: 2, spray: 0.1 },
+        trap: { reload: 23, shudder: 0.25, size: 0.6, damage: 0.75, speed: 5, spray: 15, resist: 3 },
+        swarm: { reload: 19, recoil: 0.25, shudder: 0.05, size: 0.4, damage: 0.75, speed: 4, spray: 5 },
+        factory: { reload: 48, shudder: 0.1, size: 0.7, damage: 0.75, speed: 3, spray: 0.1 },
         productionist: { reload: 56, recoil: 0.25, shudder: 0.05, size: 0.7, damage: 0.75, speed: 4, range: 1.5, spray: 5 },
     
     // Spammers
@@ -60,7 +60,7 @@ module.exports = {
         battleship: { health: 1.5, damage: 2, maxSpeed: 0.85, resist: 1.1 },
         carrier: { reload: 1.25, speed: 1.3, maxSpeed: 1.2, range: 1.2 },
         bee: { reload: 1.3, size: 1.8, damage: 1.45, pen: 0.8, speed: 1.5, maxSpeed: 1.5, density: 0.25 },
-        sunchip: { reload: 4, size: 1.4, health: 1.1, damage: 1.1, pen: 0.6, density: 0.8 },
+        sunchip: { reload: 4, size: 1.4, health: 1.1, damage: 1, pen: 0.6, density: 0.8 },
         maleficitor: { reload: 0.25, size: 1.05, health: 1.15, damage: 1.15, pen: 1.15, speed: 0.8, maxSpeed: 0.8, density: 1.15 },
         summoner: { reload: 0.3, size: 1.125, health: 0.5, damage: 0.345, pen: 0.4, density: 0.8 },
         minionGun: { recoil: 0, shudder: 2, health: 0.4, damage: 0.4, pen: 1.2, range: 0.75, spray: 2 },
@@ -68,8 +68,8 @@ module.exports = {
         bigCheese: { reload: 1.5, size: 1.8, health: 4, damage: 2, pen: 1.2, speed: 1.15 },
         mothership: { reload: 1.25, pen: 1.1, speed: 0.775, maxSpeed: 0.8, range: 15, resist: 1.15 },
         satellite: { size: 0.8, reload: 3, damage: 1.875, health: 1.245 },
-        suborbit: { size: 1.2, damage: 0.7, health: 0.8 },
-        negro: { reload: 0.5, damage: 0.35 },
+        suborbit: { size: 1.2, damage: 0.65, health: 0.7 },
+        negro: { damage: 0.375 },
         swarmeer: { reload: 0.98, size: 0.9 },
         babyDrone: { reload: 1.5, size: 1.8 },
         nest: { damage: 1.6 },
@@ -98,7 +98,7 @@ module.exports = {
     
     // Traps and blocks
         setTrap: { reload: 1.1, recoil: 2, shudder: 0.1, size: 1.5, health: 1.75, pen: 1.2, speed: 1.5, maxSpeed: 2.5, range: 1.25, resist: 1.25 },
-        construct: { reload: 3, size: 0.9, maxSpeed: 1.1, damage: 1.6, health: 1.6, density: 2, resist: 3 },
+        construct: { reload: 3, size: 0.9, maxSpeed: 1.1, damage: 1.6, health: 1.6, density: 2, resist: 5 },
         boomerang: { reload: 0.8, health: 0.5, damage: 0.5, speed: 0.75, maxSpeed: 0.75, range: 4/3 },
         nestKeeper: { reload: 3, size: 0.75, health: 1.05, damage: 1.05, pen: 1.1, speed: 0.5, maxSpeed: 0.5, range: 0.5, density: 1.1 },
         hexaTrapper: { reload: 1.3, shudder: 1.25, speed: 0.8, range: 0.5 },
@@ -119,5 +119,5 @@ module.exports = {
         aura: { reload: 0.001, recoil: 0.001, shudder: 0.001, size: 6, speed: 0.001, maxSpeed: 0.001, spray: 0.001 },
         noSpread: { shudder: 0, spray: 0 },
         lessReload: { reload: 2 },
-        fog: {}
+        fog: { damage: 0.65, health: 0.65 }
     }
